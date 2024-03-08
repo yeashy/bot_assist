@@ -32,21 +32,4 @@ class Company extends Model
     {
         return $this->hasOne(CompanyDescribingInfo::class);
     }
-
-    // ACCESSORS
-    public function typeName()
-    {
-        return Attribute::make(
-            get: fn () => $this->type->name,
-            set: fn (string $value) => $this->type->update(['name' => $value])
-        );
-    }
-
-    public function primaryColor()
-    {
-        return Attribute::make(
-            get: fn () => $this->design->primary_color,
-            set: fn (string $value) => $this->design->update(['primary_color' => $value])
-        );
-    }
 }

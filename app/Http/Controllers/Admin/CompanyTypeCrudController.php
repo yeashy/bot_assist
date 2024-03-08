@@ -36,7 +36,7 @@ class CompanyTypeCrudController extends CrudController
     {
         CRUD::setModel(CompanyType::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/company-type');
-        CRUD::setEntityNameStrings('company type', 'company types');
+        CRUD::setEntityNameStrings('Тип компании', 'Типы компании');
     }
 
     /**
