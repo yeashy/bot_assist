@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Client;
 use App\Models\Company;
 use App\Models\CompanyDescribingInfo;
 use App\Models\CompanyDesignInfo;
@@ -20,6 +21,7 @@ class CompanySeeder extends Seeder
             ->count(3)
             ->has(CompanyDesignInfo::factory()->count(1), 'design')
             ->has(CompanyDescribingInfo::factory()->count(1), 'info')
+            ->has(Client::factory()->count(3), 'clients')
             ->create();
     }
 }

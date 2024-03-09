@@ -12,6 +12,8 @@ class CompanyDesignInfo extends Model
 
     protected $guarded = [];
 
+    // RELATIONS
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);

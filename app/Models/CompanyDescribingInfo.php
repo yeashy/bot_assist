@@ -10,6 +10,8 @@ class CompanyDescribingInfo extends Model
 {
     use HasFactory;
 
+    // RELATIONS
+
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);

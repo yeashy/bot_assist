@@ -14,6 +14,8 @@ class CompanyType extends Model
 
     protected $guarded = [];
 
+    // RELATIONS
+
     public function companies(): HasMany
     {
         return $this->hasMany(Company::class, 'company_type_id', 'id');

@@ -17,11 +17,11 @@ class CreateCompanyDescribingInfosTable extends Migration
         Schema::create('company_describing_infos', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('main_link')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('logo_path')->nullable();
-            $table->string('address')->nullable();
-            $table->string('email')->nullable();
+            $table->string('main_link')->nullable()->comment('Основная ссылка на сайт компании');
+            $table->string('phone_number')->nullable()->comment('Рабочий телефон компании (поддержка)');
+            $table->string('logo_path')->nullable()->comment('Путь к логотипу компании');
+            $table->string('address')->nullable()->comment('Адрес главного офиса компании');
+            $table->string('email')->nullable()->comment('Рабочая почта компании (поддержка)');
             $table->timestamps();
         });
     }

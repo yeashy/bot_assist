@@ -17,10 +17,10 @@ class CreateCompanyDesignInfosTable extends Migration
         Schema::create('company_design_infos', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Company::class)->unique()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('primary_color')->default('#FFFFFF');
-            $table->string('secondary_color')->default('#000000');
+            $table->string('primary_color')->default('#FFFFFF')->comment('Основной цвет компании');
+            $table->string('secondary_color')->default('#000000')->comment('Побочный цвет компании');
             $table->string('font')->default('Arial');
-            $table->string('font_color')->default('#000000');
+            $table->string('font_color')->default('#000000')->comment('Цвет текста компании');
             $table->timestamps();
         });
     }

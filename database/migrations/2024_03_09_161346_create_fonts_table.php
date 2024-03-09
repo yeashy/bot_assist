@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('fonts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->comment('Название шрифта');
         });
 
         Schema::table('company_design_infos', function (Blueprint $table) {

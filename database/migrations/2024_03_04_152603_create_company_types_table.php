@@ -16,8 +16,8 @@ class CreateCompanyTypesTable extends Migration
     {
         Schema::create('company_types', function (Blueprint $table) {
             $table->id();
-            $table->string('code_name');
-            $table->string('name');
+            $table->string('code_name')->comment('Кодовое имя (англ, без пробелов и спец. символов)');
+            $table->string('name')->comment('Название типа компании');
         });
 
         Schema::table('companies', function (Blueprint $table) {

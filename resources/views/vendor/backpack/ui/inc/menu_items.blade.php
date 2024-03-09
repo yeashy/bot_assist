@@ -5,3 +5,5 @@
 <x-backpack::menu-item title="Типы компаний" icon="la la-list-ul" :link="backpack_url('company-type')" />
 
 <x-backpack::menu-item title="Шрифты" icon="la la-pen" :link="backpack_url('font')" />
+
+<x-backpack::menu-item title="Клиенты" icon="la la-user" :link="backpack_url('client')" />
