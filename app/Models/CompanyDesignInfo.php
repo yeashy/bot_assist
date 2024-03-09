@@ -16,4 +16,9 @@ class CompanyDesignInfo extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function font(): BelongsTo
+    {
+        return $this->belongsTo(Font::class);
+    }
 }

@@ -16,7 +16,8 @@ class CompanyDesignInfoFactory extends Factory
         return [
             'primary_color' => $this->faker->hexColor(),
             'secondary_color' => $this->faker->hexColor(),
-            'font_color' => $this->faker->hexColor()
+            'font_color' => $this->faker->hexColor(),
+            'font_id' => $this->faker->numberBetween(1, 3)
         ];
     }
 }

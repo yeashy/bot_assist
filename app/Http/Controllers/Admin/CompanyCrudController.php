@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
+use App\Models\Font;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -117,59 +118,70 @@ class CompanyCrudController extends CrudController
         ]);
 
         CRUD::addField([
-            'name' => 'design.primary_color',
+            'name' => 'primary_color',
             'label' => 'Главный цвет',
             'type' => 'color',
             'wrapper' => ['class' => 'form-group col-md-3'],
         ]);
 
         CRUD::addField([
-            'name' => 'design.secondary_color',
+            'name' => 'secondary_color',
             'label' => 'Побочный цвет',
             'type' => 'color',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
-            'name' => 'design.font_color',
+            'name' => 'font_color',
             'label' => 'Цвет шрифта',
             'type' => 'color',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
-            'name' => 'design.font',
+            'name' => 'font',
             'label' => 'Шрифт',
-            'type' => 'text',
+            'type' => 'select',
+            'attribute' => 'name',
+            'model' => Font::class,
+            'allows_null' => false,
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
-            'name' => 'info.email',
+            'name' => 'email',
             'label' => 'Почта',
             'type' => 'email',
             'wrapper' => ['class' => 'from-group col-md-3']
         ]);
 
         CRUD::addField([
-            'name' => 'info.phone_number',
+            'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
             'wrapper' => ['class' => 'from-group col-md-3']
         ]);
 
         CRUD::addField([
-            'name' => 'info.address',
+            'name' => 'address',
             'label' => 'Главный адрес',
             'type' => 'text',
             'wrapper' => ['class' => 'from-group col-md-3']
         ]);
 
         CRUD::addField([
-            'name' => 'info.main_link',
+            'name' => 'main_link',
             'label' => 'Ссылка на сайт',
             'type' => 'url',
             'wrapper' => ['class' => 'from-group col-md-3'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'logo_path',
+            'label' => 'Логотип',
+            'type' => 'upload',
+            'withFiles' => true,
+            'wrapper' => ['class' => 'form-group col-md-6']
         ]);
 
         /**
