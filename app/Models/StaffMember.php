@@ -51,7 +51,7 @@ class StaffMember extends Model
 
     public function getDescriptionAttribute()
     {
-
+        return $this->info->description;
     }
 
     // MUTATORS

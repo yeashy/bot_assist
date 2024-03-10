@@ -16,7 +16,7 @@ class CreateCompanyDescribingInfosTable extends Migration
     {
         Schema::create('company_describing_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Company::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Company::class)->unique()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('main_link')->nullable()->comment('Основная ссылка на сайт компании');
             $table->string('phone_number')->nullable()->comment('Рабочий телефон компании (поддержка)');
             $table->string('logo_path')->nullable()->comment('Путь к логотипу компании');

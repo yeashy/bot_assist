@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('staff_member_describing_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(StaffMember::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignIdFor(StaffMember::class)->unique()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('photo_path')->nullable()->comment('Фотография сотрудника');
             $table->string('phone_number')->nullable()->comment('Номер телефона сотрудника');
             $table->date('date_of_birth')->nullable()->comment('Дата рождения сотрудника');

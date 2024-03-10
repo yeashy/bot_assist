@@ -85,32 +85,47 @@ class ClientCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ClientRequest::class);
+
         CRUD::addField([
             'name' => 'name',
             'label' => 'Имя',
             'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-4']
+            'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
             'name' => 'surname',
             'label' => 'Фамилия',
             'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-4']
+            'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
             'name' => 'patronymic',
             'label' => 'Отчество',
             'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-4']
+            'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-6']
+            'wrapper' => ['class' => 'form-group col-md-3']
+        ]);
+
+        CRUD::addField([
+            'name' => 'address',
+            'label' => 'Адрес проживания',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-3']
+        ]);
+
+        CRUD::addField([
+            'name' => 'date_of_birth',
+            'label' => 'Дата рождения',
+            'type' => 'date',
+            'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
@@ -119,7 +134,21 @@ class ClientCrudController extends CrudController
             'type' => 'select',
             'entity' => 'company',
             'attribute' => 'name',
+            'wrapper' => ['class' => 'form-group col-md-3']
+        ]);
+
+        CRUD::addField([
+            'name' => 'photo_path',
+            'label' => 'Фото',
+            'type' => 'upload',
+            'withFiles' => true,
             'wrapper' => ['class' => 'form-group col-md-6']
+        ]);
+
+        CRUD::addField([
+            'name' => 'description',
+            'label' => 'Доп. информация',
+            'type' => 'textarea'
         ]);
 
         /**

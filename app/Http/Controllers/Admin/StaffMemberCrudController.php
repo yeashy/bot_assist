@@ -116,13 +116,6 @@ class StaffMemberCrudController extends CrudController
         ]);
 
         CRUD::addField([
-            'name' => 'photo_path',
-            'label' => 'Фото',
-            'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-3']
-        ]);
-
-        CRUD::addField([
             'name' => 'company_id',
             'label' => 'Компания',
             'type' => 'select',
@@ -132,9 +125,17 @@ class StaffMemberCrudController extends CrudController
         ]);
 
         CRUD::addField([
+            'name' => 'photo_path',
+            'label' => 'Фото',
+            'type' => 'upload',
+            'withFiles' => true,
+            'wrapper' => ['class' => 'form-group col-md-6']
+        ]);
+
+        CRUD::addField([
             'name' => 'description',
             'label' => 'Доп. информация',
-            'type' => 'text'
+            'type' => 'textarea'
         ]);
 
         /**
