@@ -38,6 +38,11 @@ class Company extends Model
         return $this->hasMany(Client::class);
     }
 
+    public function staff(): HasMany
+    {
+        return $this->hasMany(StaffMember::class);
+    }
+
     // ACCESSORS
 
     public function getPrimaryColorAttribute()

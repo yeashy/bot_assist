@@ -7,3 +7,5 @@
 <x-backpack::menu-item title="Шрифты" icon="la la-pen" :link="backpack_url('font')" />
 
 <x-backpack::menu-item title="Клиенты" icon="la la-user" :link="backpack_url('client')" />
+
+<x-backpack::menu-item title="Сотрудники" icon="la la-address-card" :link="backpack_url('staff-member')" />
