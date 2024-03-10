@@ -27,8 +27,8 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        foreach (Company::all() as $company) {
-            Log::debug(print_r($company->font, true));
-        }
+        $this->output->info(\Str::slug('slug FOR testCase', '_'));
+
+
     }
 }

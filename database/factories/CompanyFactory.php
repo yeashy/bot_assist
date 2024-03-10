@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Helpers\TextTransformHelper;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyFactory extends Factory
@@ -18,7 +17,6 @@ class CompanyFactory extends Factory
 
         return [
             'name' => $name,
-            'code_name' => TextTransformHelper::toSnakeCase($name),
             'bot_token' => $this->faker->creditCardNumber(null, false, ''),
             'company_type_id' => 1
         ];
