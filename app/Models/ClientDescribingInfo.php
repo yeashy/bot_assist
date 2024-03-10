@@ -18,4 +18,9 @@ class ClientDescribingInfo extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function gender(): BelongsTo
+    {
+        return $this->belongsTo(Gender::class);
+    }
 }

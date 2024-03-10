@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ClientRequest;
 use App\Models\Client;
+use App\Models\Gender;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -125,6 +126,15 @@ class ClientCrudController extends CrudController
             'name' => 'date_of_birth',
             'label' => 'Дата рождения',
             'type' => 'date',
+            'wrapper' => ['class' => 'form-group col-md-3']
+        ]);
+
+        CRUD::addField([
+            'name' => 'gender',
+            'label' => 'Пол',
+            'type' => 'select',
+            'attribute' => 'name',
+            'model' => Gender::class,
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 

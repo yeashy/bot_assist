@@ -54,6 +54,11 @@ class StaffMember extends Model
         return $this->info->description;
     }
 
+    public function getGenderAttribute()
+    {
+        return $this->info->gender;
+    }
+
     // MUTATORS
 
     public function setFullNameAttribute(string $value): void
@@ -85,5 +90,10 @@ class StaffMember extends Model
     public function setDescriptionAttribute(string $value): void
     {
         $this->info()->update(['description' => $value]);
+    }
+
+    public function setGenderAttribute(?int $value): void
+    {
+        $this->info()->update(['gender_id' => $value]);
     }
 }

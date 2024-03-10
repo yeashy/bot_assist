@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StaffMemberRequest;
+use App\Models\Gender;
 use App\Models\StaffMember;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -112,6 +113,15 @@ class StaffMemberCrudController extends CrudController
             'name' => 'date_of_birth',
             'label' => 'Дата рождения',
             'type' => 'date',
+            'wrapper' => ['class' => 'form-group col-md-3']
+        ]);
+
+        CRUD::addField([
+            'name' => 'gender',
+            'label' => 'Пол',
+            'type' => 'select',
+            'attribute' => 'name',
+            'model' => Gender::class,
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 

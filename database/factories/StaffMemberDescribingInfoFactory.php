@@ -21,7 +21,8 @@ class StaffMemberDescribingInfoFactory extends Factory
             'photo_path' => $this->faker->imageUrl(),
             'phone_number' => $this->faker->phoneNumber(),
             'date_of_birth' => $this->faker->date(),
-            'description' => $this->faker->text()
+            'description' => $this->faker->text(),
+            'gender_id' => $this->faker->numberBetween(1, 2)
         ];
     }
 }

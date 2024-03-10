@@ -13,6 +13,8 @@ class Client extends Model
     use CrudTrait;
     use HasFactory;
 
+    protected $guarded = [];
+
     // RELATIONS
 
     public function company(): BelongsTo
@@ -52,6 +54,11 @@ class Client extends Model
         return $this->info->address;
     }
 
+    public function getGenderAttribute()
+    {
+        return $this->info->gender;
+    }
+
     // MUTATORS
 
     public function setFullNameAttribute(string $value): void
@@ -83,5 +90,10 @@ class Client extends Model
     public function setAddressAttribute(string $value): void
     {
         $this->info()->update(['address' => $value]);
+    }
+
+    public function setGenderAttribute(?int $value): void
+    {
+        $this->info()->update(['gender_id' => $value]);
     }
 }

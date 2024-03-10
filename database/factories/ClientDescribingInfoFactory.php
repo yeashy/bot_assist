@@ -21,7 +21,8 @@ class ClientDescribingInfoFactory extends Factory
             'photo_path' => $this->faker->imageUrl(),
             'date_of_birth' => $this->faker->date(),
             'address' => $this->faker->address(),
-            'description' => $this->faker->text()
+            'description' => $this->faker->text(),
+            'gender_id' => $this->faker->numberBetween(1, 2)
         ];
     }
 }

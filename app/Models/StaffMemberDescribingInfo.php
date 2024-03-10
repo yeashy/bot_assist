@@ -18,4 +18,9 @@ class StaffMemberDescribingInfo extends Model
     {
         return $this->belongsTo(StaffMember::class);
     }
+
+    public function gender(): BelongsTo
+    {
+        return $this->belongsTo(Gender::class);
+    }
 }
