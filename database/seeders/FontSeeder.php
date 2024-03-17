@@ -7,21 +7,21 @@ use Illuminate\Database\Seeder;
 
 class FontSeeder extends Seeder
 {
+    private array $names = [
+        'Arial',
+        'Verdana',
+        'Times New Roman'
+    ];
+
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Font::query()->create([
-           'name' => 'Arial'
-        ]);
-
-        Font::query()->create([
-            'name' => 'Verdana'
-        ]);
-
-        Font::query()->create([
-            'name' => 'FreeMono'
-        ]);
+        foreach ($this->names as $name) {
+            Font::query()->create([
+                'name' => $name
+            ]);
+        }
     }
 }

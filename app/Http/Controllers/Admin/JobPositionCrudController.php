@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\FontRequest;
-use App\Models\Font;
+use App\Http\Requests\JobPositionRequest;
+use App\Models\JobPosition;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -14,11 +14,11 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 /**
- * Class FontCrudController
+ * Class JobPositionCrudController
  * @package App\Http\Controllers\Admin
  * @property-read CrudPanel $crud
  */
-class FontCrudController extends CrudController
+class JobPositionCrudController extends CrudController
 {
     use ListOperation;
     use CreateOperation;
@@ -33,9 +33,9 @@ class FontCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(Font::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/font');
-        CRUD::setEntityNameStrings('Шрифт', 'Шрифты');
+        CRUD::setModel(JobPosition::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/job-position');
+        CRUD::setEntityNameStrings('Должность', 'Должности');
     }
 
     /**
@@ -72,13 +72,13 @@ class FontCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(FontRequest::class);
-
+        CRUD::setValidation(JobPositionRequest::class);
         CRUD::addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
+
         ]);
 
         /**

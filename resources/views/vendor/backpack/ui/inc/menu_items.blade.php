@@ -9,3 +9,7 @@
 <x-backpack::menu-item title="Клиенты" icon="la la-user" :link="backpack_url('client')" />
 
 <x-backpack::menu-item title="Сотрудники" icon="la la-address-card" :link="backpack_url('staff-member')" />
+
+<x-backpack::menu-item title="Услуги" icon="la la-handshake" :link="backpack_url('service')" />
+
+<x-backpack::menu-item title="Должности" icon="la la-address-book" :link="backpack_url('job-position')" />

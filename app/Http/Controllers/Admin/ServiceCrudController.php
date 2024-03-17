@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\FontRequest;
-use App\Models\Font;
+use App\Http\Requests\ServiceRequest;
+use App\Models\Service;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -11,14 +11,14 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
-use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use CRUD;
 
 /**
- * Class FontCrudController
+ * Class ServiceCrudController
  * @package App\Http\Controllers\Admin
  * @property-read CrudPanel $crud
  */
-class FontCrudController extends CrudController
+class ServiceCrudController extends CrudController
 {
     use ListOperation;
     use CreateOperation;
@@ -33,9 +33,9 @@ class FontCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(Font::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/font');
-        CRUD::setEntityNameStrings('Шрифт', 'Шрифты');
+        CRUD::setModel(Service::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/service');
+        CRUD::setEntityNameStrings('Услуга', 'Услуги');
     }
 
     /**
@@ -55,7 +55,13 @@ class FontCrudController extends CrudController
         CRUD::addColumn([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'allocated_time',
+            'label' => 'Выделяемое время',
+            'type' => 'time',
         ]);
 
         /**
@@ -72,12 +78,19 @@ class FontCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(FontRequest::class);
-
+        CRUD::setValidation(ServiceRequest::class);
         CRUD::addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-3']
+
+        ]);
+
+        CRUD::addField([
+            'name' => 'allocated_time',
+            'label' => 'Выделяемое время',
+            'type' => 'time',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 

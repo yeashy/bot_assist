@@ -8,6 +8,11 @@ use Illuminate\Database\Seeder;
 
 class GenderSeeder extends Seeder
 {
+    private array $names = [
+        'Мужчина',
+        'Женщина'
+    ];
+
     /**
      * Run the database seeds.
      */
@@ -20,5 +25,10 @@ class GenderSeeder extends Seeder
         Gender::query()->create([
             'name' => 'Женщина'
         ]);
+        foreach ($this->names as $name) {
+            Gender::query()->create([
+                'name' => $name
+            ]);
+        }
     }
 }

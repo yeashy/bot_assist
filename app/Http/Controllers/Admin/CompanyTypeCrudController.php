@@ -77,13 +77,15 @@ class CompanyTypeCrudController extends CrudController
         CRUD::addField([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
             'name' => 'code_name',
             'label' => 'Кодовое имя',
-            'type' => 'text'
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         CRUD::addField([
@@ -92,7 +94,8 @@ class CompanyTypeCrudController extends CrudController
             'type' => 'select_multiple',
             'entity' => 'companies',
             'model' => Company::class,
-            'attribute' => 'name'
+            'attribute' => 'name',
+            'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
         /**

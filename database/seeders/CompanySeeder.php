@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Client;
 use App\Models\ClientDescribingInfo;
 use App\Models\Company;
+use App\Models\CompanyAffiliate;
 use App\Models\CompanyDescribingInfo;
 use App\Models\CompanyDesignInfo;
 use App\Models\StaffMember;
@@ -24,6 +25,7 @@ class CompanySeeder extends Seeder
             ->count(3)
             ->has(CompanyDesignInfo::factory()->count(1), 'design')
             ->has(CompanyDescribingInfo::factory()->count(1), 'info')
+            ->has(CompanyAffiliate::factory()->count(2), 'affiliates')
             ->has(
                 Client::factory()
                     ->count(3)
