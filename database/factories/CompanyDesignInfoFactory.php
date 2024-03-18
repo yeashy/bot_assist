@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Font;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyDesignInfoFactory extends Factory
@@ -17,7 +18,7 @@ class CompanyDesignInfoFactory extends Factory
             'primary_color' => $this->faker->hexColor(),
             'secondary_color' => $this->faker->hexColor(),
             'font_color' => $this->faker->hexColor(),
-            'font_id' => $this->faker->numberBetween(1, 3)
+            'font_id' => Font::inRandomOrder()->first()->id
         ];
     }
 }

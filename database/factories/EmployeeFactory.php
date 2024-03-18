@@ -2,7 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\CompanyAffiliate;
 use App\Models\Employee;
+use App\Models\JobPosition;
+use App\Models\StaffMember;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +21,9 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'staff_member_id' => $this->faker->numberBetween(1, 9),
-            'job_position_id' => $this->faker->numberBetween(1, 3),
-            'company_affiliate_id' => $this->faker->numberBetween(1, 6)
+            'staff_member_id' => StaffMember::inRandomOrder()->first()->id,
+            'job_position_id' => JobPosition::inRandomOrder()->first()->id,
+            'company_affiliate_id' => CompanyAffiliate::inRandomOrder()->first()->id
         ];
     }
 }

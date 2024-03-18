@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
             CompanyTypeSeeder::class,
             CompanySeeder::class,
             UserSeeder::class,
-            EmployeeSeeder::class
+            EmployeeSeeder::class,
+            EmployeeWorkingPeriodSeeder::class,
+            ServiceAssignmentSeeder::class
         ]);
     }
 }

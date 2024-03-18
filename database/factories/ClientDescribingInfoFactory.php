@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\ClientDescribingInfo;
+use App\Models\Gender;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,7 +23,7 @@ class ClientDescribingInfoFactory extends Factory
             'date_of_birth' => $this->faker->date(),
             'address' => $this->faker->address(),
             'description' => $this->faker->text(),
-            'gender_id' => $this->faker->numberBetween(1, 2)
+            'gender_id' => Gender::inRandomOrder()->first()->id
         ];
     }
 }

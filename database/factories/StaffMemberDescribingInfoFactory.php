@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Gender;
 use App\Models\StaffMemberDescribingInfo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +23,7 @@ class StaffMemberDescribingInfoFactory extends Factory
             'phone_number' => $this->faker->phoneNumber(),
             'date_of_birth' => $this->faker->date(),
             'description' => $this->faker->text(),
-            'gender_id' => $this->faker->numberBetween(1, 2)
+            'gender_id' => Gender::inRandomOrder()->first()->id
         ];
     }
 }

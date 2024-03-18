@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\CompanyType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyFactory extends Factory
@@ -18,7 +19,7 @@ class CompanyFactory extends Factory
         return [
             'name' => $name,
             'bot_token' => $this->faker->creditCardNumber(null, false, ''),
-            'company_type_id' => 1
+            'company_type_id' => CompanyType::inRandomOrder()->first()->id
         ];
     }
 }
