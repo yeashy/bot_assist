@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             GenderSeeder::class,
-            JobPositionSeeder::class,
-            ServiceSeeder::class,
             FontSeeder::class,
             CompanyTypeSeeder::class,
             CompanySeeder::class,
+            JobPositionSeeder::class,
+            ServiceSeeder::class,
             UserSeeder::class,
             EmployeeSeeder::class,
             EmployeeWorkingPeriodSeeder::class,

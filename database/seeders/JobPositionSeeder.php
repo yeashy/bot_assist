@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Company;
 use App\Models\JobPosition;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,7 +22,8 @@ class JobPositionSeeder extends Seeder
     {
         foreach ($this->names as  $name) {
             JobPosition::query()->create([
-                'name' => $name
+                'name' => $name,
+                'company_id' => Company::inRandomOrder()->first()->id
             ]);
         }
     }

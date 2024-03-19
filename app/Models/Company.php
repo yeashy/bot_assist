@@ -48,6 +48,16 @@ class Company extends Model
         return $this->hasMany(CompanyAffiliate::class);
     }
 
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function positions(): HasMany
+    {
+        return $this->hasMany(JobPosition::class);
+    }
+
     // ACCESSORS
 
     public function getPrimaryColorAttribute()
