@@ -151,4 +151,18 @@ class Company extends Model
     {
         $this->info()->update(['logo_path' => $value]);
     }
+
+    public function setAffiliatesAttribute(array $affiliates): void
+    {
+        foreach ($affiliates as $id => $affiliate) {
+            $this->affiliates()->updateOrCreate(
+                [
+                    'id' => $id
+                ],
+                [
+                    'name' => $affiliate['name'],
+                    'address' => $affiliate['address']
+                ]);
+        }
+    }
 }

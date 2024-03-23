@@ -39,6 +39,85 @@ class CompanyCrudController extends CrudController
         CRUD::setEntityNameStrings('Компания', 'Компании');
     }
 
+    public function setupShowOperation()
+    {
+        CRUD::addColumn([
+            'name' => 'name',
+            'label' => 'Название',
+            'type' => 'text',
+            'tab' => 'Основная информация'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'code_name',
+            'label' => 'Кодовое имя',
+            'type' => 'text',
+            'tab' => 'Основная информация'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'bot_token',
+            'label' => 'Токен бота',
+            'type' => 'text',
+            'tab' => 'Основная информация'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'company_type_id',
+            'label' => 'Тип компании',
+            'type' => 'select',
+            'entity' => 'type',
+            'attribute' => 'name',
+            'tab' => 'Основная информация'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'email',
+            'label' => 'Почта',
+            'type' => 'email',
+            'tab' => 'Доп. информация'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'phone_number',
+            'label' => 'Номер телефона',
+            'type' => 'text',
+            'tab' => 'Доп. информация'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'address',
+            'label' => 'Главный адрес',
+            'type' => 'text',
+            'tab' => 'Доп. информация'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'main_link',
+            'label' => 'Ссылка на сайт',
+            'type' => 'url',
+            'tab' => 'Доп. информация'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'logo_path',
+            'label' => 'Логотип',
+            'type' => 'upload',
+            'withFiles' => true,
+            'tab' => 'Доп. информация'
+        ]);
+
+        CRUD::button('company-affiliate')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Филиалам',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info'
+            ]);
+    }
+
     /**
      * Define what happens when the List operation is loaded.
      *
@@ -60,9 +139,9 @@ class CompanyCrudController extends CrudController
         ]);
 
         CRUD::addColumn([
-            'name'      => 'type.name',
-            'label'     => 'Тип',
-            'type'      => 'text'
+            'name' => 'type.name',
+            'label' => 'Тип',
+            'type' => 'text'
         ]);
 
         CRUD::addColumn([
@@ -91,21 +170,24 @@ class CompanyCrudController extends CrudController
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6']
+            'wrapper' => ['class' => 'from-group col-md-6 mt-5'],
+            'tab' => 'Основная информация'
         ]);
 
         CRUD::addField([
             'name' => 'code_name',
             'label' => 'Кодовое имя',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6']
+            'wrapper' => ['class' => 'from-group col-md-6 mt-5'],
+            'tab' => 'Основная информация'
         ]);
 
         CRUD::addField([
             'name' => 'bot_token',
             'label' => 'Токен бота',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6']
+            'wrapper' => ['class' => 'from-group col-md-6'],
+            'tab' => 'Основная информация'
         ]);
 
         CRUD::addField([
@@ -114,28 +196,32 @@ class CompanyCrudController extends CrudController
             'type' => 'select',
             'entity' => 'type',
             'attribute' => 'name',
-            'wrapper' => ['class' => 'from-group col-md-6']
+            'wrapper' => ['class' => 'from-group col-md-6'],
+            'tab' => 'Основная информация'
         ]);
 
         CRUD::addField([
             'name' => 'primary_color',
             'label' => 'Главный цвет',
             'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3'],
+            'wrapper' => ['class' => 'form-group col-md-3 mt-5'],
+            'tab' => 'Дизайн'
         ]);
 
         CRUD::addField([
             'name' => 'secondary_color',
             'label' => 'Побочный цвет',
             'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-3 mt-5'],
+            'tab' => 'Дизайн'
         ]);
 
         CRUD::addField([
             'name' => 'font_color',
             'label' => 'Цвет шрифта',
             'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-3 mt-5'],
+            'tab' => 'Дизайн'
         ]);
 
         CRUD::addField([
@@ -145,35 +231,40 @@ class CompanyCrudController extends CrudController
             'attribute' => 'name',
             'model' => Font::class,
             'allows_null' => false,
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-3 mt-5'],
+            'tab' => 'Дизайн'
         ]);
 
         CRUD::addField([
             'name' => 'email',
             'label' => 'Почта',
             'type' => 'email',
-            'wrapper' => ['class' => 'from-group col-md-3']
+            'wrapper' => ['class' => 'from-group col-md-3 mt-5'],
+            'tab' => 'Доп. информация'
         ]);
 
         CRUD::addField([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-3']
+            'wrapper' => ['class' => 'from-group col-md-3 mt-5'],
+            'tab' => 'Доп. информация'
         ]);
 
         CRUD::addField([
             'name' => 'address',
             'label' => 'Главный адрес',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-3']
+            'wrapper' => ['class' => 'from-group col-md-3 mt-5'],
+            'tab' => 'Доп. информация'
         ]);
 
         CRUD::addField([
             'name' => 'main_link',
             'label' => 'Ссылка на сайт',
             'type' => 'url',
-            'wrapper' => ['class' => 'from-group col-md-3'],
+            'wrapper' => ['class' => 'from-group col-md-3 mt-5'],
+            'tab' => 'Доп. информация'
         ]);
 
         CRUD::addField([
@@ -181,7 +272,8 @@ class CompanyCrudController extends CrudController
             'label' => 'Логотип',
             'type' => 'upload',
             'withFiles' => true,
-            'wrapper' => ['class' => 'form-group col-md-6']
+            'wrapper' => ['class' => 'form-group col-md-6'],
+            'tab' => 'Доп. информация'
         ]);
 
         /**
