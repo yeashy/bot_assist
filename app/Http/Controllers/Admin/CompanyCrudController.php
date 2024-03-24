@@ -180,7 +180,7 @@ class CompanyCrudController extends CrudController
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6 mt-5'],
+            'wrapper' => ['class' => 'from-group col-md-6'],
             'tab' => 'Основная информация'
         ]);
 
@@ -188,7 +188,7 @@ class CompanyCrudController extends CrudController
             'name' => 'code_name',
             'label' => 'Кодовое имя',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6 mt-5'],
+            'wrapper' => ['class' => 'from-group col-md-6'],
             'tab' => 'Основная информация'
         ]);
 
@@ -214,7 +214,7 @@ class CompanyCrudController extends CrudController
             'name' => 'primary_color',
             'label' => 'Главный цвет',
             'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 mt-5'],
+            'wrapper' => ['class' => 'form-group col-md-3'],
             'tab' => 'Дизайн'
         ]);
 
@@ -222,7 +222,7 @@ class CompanyCrudController extends CrudController
             'name' => 'secondary_color',
             'label' => 'Побочный цвет',
             'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 mt-5'],
+            'wrapper' => ['class' => 'form-group col-md-3'],
             'tab' => 'Дизайн'
         ]);
 
@@ -230,7 +230,7 @@ class CompanyCrudController extends CrudController
             'name' => 'font_color',
             'label' => 'Цвет шрифта',
             'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 mt-5'],
+            'wrapper' => ['class' => 'form-group col-md-3'],
             'tab' => 'Дизайн'
         ]);
 
@@ -241,7 +241,7 @@ class CompanyCrudController extends CrudController
             'attribute' => 'name',
             'model' => Font::class,
             'allows_null' => false,
-            'wrapper' => ['class' => 'form-group col-md-3 mt-5'],
+            'wrapper' => ['class' => 'form-group col-md-3'],
             'tab' => 'Дизайн'
         ]);
 
@@ -249,7 +249,7 @@ class CompanyCrudController extends CrudController
             'name' => 'email',
             'label' => 'Почта',
             'type' => 'email',
-            'wrapper' => ['class' => 'from-group col-md-3 mt-5'],
+            'wrapper' => ['class' => 'from-group col-md-3'],
             'tab' => 'Доп. информация'
         ]);
 
@@ -257,7 +257,7 @@ class CompanyCrudController extends CrudController
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-3 mt-5'],
+            'wrapper' => ['class' => 'from-group col-md-3'],
             'tab' => 'Доп. информация'
         ]);
 
@@ -265,7 +265,7 @@ class CompanyCrudController extends CrudController
             'name' => 'address',
             'label' => 'Главный адрес',
             'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-3 mt-5'],
+            'wrapper' => ['class' => 'from-group col-md-3'],
             'tab' => 'Доп. информация'
         ]);
 
@@ -273,7 +273,7 @@ class CompanyCrudController extends CrudController
             'name' => 'main_link',
             'label' => 'Ссылка на сайт',
             'type' => 'url',
-            'wrapper' => ['class' => 'from-group col-md-3 mt-5'],
+            'wrapper' => ['class' => 'from-group col-md-3'],
             'tab' => 'Доп. информация'
         ]);
 
