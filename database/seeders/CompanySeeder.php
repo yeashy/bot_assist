@@ -19,7 +19,7 @@ class CompanySeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         Company::factory()
             ->count(3)
@@ -36,6 +36,6 @@ class CompanySeeder extends Seeder
                     ->count(3)
                     ->has(StaffMemberDescribingInfo::factory()->count(1), 'info')
                 , 'staff')
-            ->create();
+            ->createQuietly();
     }
 }

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\CompanyType;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class CompanyFactory extends Factory
 {
@@ -18,8 +19,10 @@ class CompanyFactory extends Factory
 
         return [
             'name' => $name,
+            'encoded_id' => uniqid(),
+            'code_name' => Str::slug($name, '_'),
             'bot_token' => $this->faker->creditCardNumber(null, false, ''),
-            'company_type_id' => CompanyType::inRandomOrder()->first()->id
+            'company_type_id' => CompanyType::inRandomOrder()->first()->id,
         ];
     }
 }
