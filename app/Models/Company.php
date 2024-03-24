@@ -127,27 +127,27 @@ class Company extends Model
         $this->design()->update(['font_id' => $value]);
     }
 
-    public function setEmailAttribute(string $value): void
+    public function setEmailAttribute(?string $value): void
     {
         $this->info()->update(['email' => $value]);
     }
 
-    public function setPhoneNumberAttribute(string $value): void
+    public function setPhoneNumberAttribute(?string $value): void
     {
         $this->info()->update(['phone_number' => $value]);
     }
 
-    public function setAddressAttribute(string $value): void
+    public function setAddressAttribute(?string $value): void
     {
         $this->info()->update(['address' => $value]);
     }
 
-    public function setMainLinkAttribute(string $value): void
+    public function setMainLinkAttribute(?string $value): void
     {
         $this->info()->update(['main_link' => $value]);
     }
 
-    public function setLogoPathAttribute(string $value): void
+    public function setLogoPathAttribute(?string $value): void
     {
         $this->info()->update(['logo_path' => $value]);
     }

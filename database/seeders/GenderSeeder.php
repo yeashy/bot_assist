@@ -18,13 +18,6 @@ class GenderSeeder extends Seeder
      */
     public function run(): void
     {
-        Gender::query()->create([
-            'name' => 'Мужчина'
-        ]);
-
-        Gender::query()->create([
-            'name' => 'Женщина'
-        ]);
         foreach ($this->names as $name) {
             Gender::query()->create([
                 'name' => $name

@@ -27,5 +27,6 @@ Route::group([
     Route::prefix('company')->group(function () {
         Route::crud('/', 'CompanyCrudController');
         Route::crud('/{company_id}/company-affiliate', 'CompanyAffiliateCrudController');
+        Route::crud('/{company_id}/client', 'ClientCrudController');
     });
 }); // this should be the absolute last line of this file

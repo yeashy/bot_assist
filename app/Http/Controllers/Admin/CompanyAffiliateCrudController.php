@@ -37,9 +37,9 @@ class CompanyAffiliateCrudController extends CrudController
         CRUD::setModel(CompanyAffiliate::class);
 
         $companyId = Route::current()->parameter('company_id');
+        CRUD::addClause('where', 'company_id', $companyId);
 
         CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/company-affiliate');
-        CRUD::addClause('where', 'company_id', $companyId);
         CRUD::setEntityNameStrings('Филиал', 'Филиалы');
     }
 

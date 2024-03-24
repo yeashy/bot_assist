@@ -13,6 +13,7 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Class ClientCrudController
@@ -22,7 +23,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class ClientCrudController extends CrudController
 {
     use ListOperation;
-    use CreateOperation;
+    use CreateOperation { store as traitStore; }
     use UpdateOperation;
     use DeleteOperation;
     use ShowOperation;
@@ -35,8 +36,84 @@ class ClientCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(Client::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/client');
+
+        $companyId = Route::current()->parameter('company_id');
+        CRUD::addClause('where', 'company_id', $companyId);
+
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/client');
         CRUD::setEntityNameStrings('Клиент', 'Клиенты');
+    }
+
+    protected function setupShowOperation()
+    {
+        CRUD::addColumn([
+            'name' => 'name',
+            'label' => 'Имя',
+            'type' => 'text',
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'surname',
+            'label' => 'Фамилия',
+            'type' => 'text',
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'patronymic',
+            'label' => 'Отчество',
+            'type' => 'text',
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'phone_number',
+            'label' => 'Номер телефона',
+            'type' => 'text',
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'address',
+            'label' => 'Адрес проживания',
+            'type' => 'text',
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'date_of_birth',
+            'label' => 'Дата рождения',
+            'type' => 'date',
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'company_id',
+            'label' => 'Компания',
+            'entity' => 'company',
+            'attribute' => 'name',
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'photo_path',
+            'label' => 'Фото',
+            'type' => 'upload',
+            'withFiles' => true,
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'description',
+            'label' => 'Доп. информация',
+            'type' => 'textarea'
+        ]);
+
+        $companyId = Route::current()->parameter('company_id');
+
+        CRUD::button('company')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Компании',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info',
+                'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
+            ]);
     }
 
     /**
@@ -115,6 +192,22 @@ class ClientCrudController extends CrudController
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
+        /**
+         * Fields can be defined using the fluent syntax:
+         * - CRUD::field('price')->type('number');
+         */
+    }
+
+    /**
+     * Define what happens when the Update operation is loaded.
+     *
+     * @see https://backpackforlaravel.com/docs/crud-operation-update
+     * @return void
+     */
+    protected function setupUpdateOperation()
+    {
+        $this->setupCreateOperation();
+
         CRUD::addField([
             'name' => 'address',
             'label' => 'Адрес проживания',
@@ -135,16 +228,8 @@ class ClientCrudController extends CrudController
             'type' => 'select',
             'attribute' => 'name',
             'model' => Gender::class,
-            'wrapper' => ['class' => 'form-group col-md-3']
-        ]);
-
-        CRUD::addField([
-            'name' => 'company_id',
-            'label' => 'Компания',
-            'type' => 'select',
-            'entity' => 'company',
-            'attribute' => 'name',
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-3'],
+            'allows_null' => false,
         ]);
 
         CRUD::addField([
@@ -160,21 +245,15 @@ class ClientCrudController extends CrudController
             'label' => 'Доп. информация',
             'type' => 'textarea'
         ]);
-
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
-    protected function setupUpdateOperation()
+    public function store()
     {
-        $this->setupCreateOperation();
+        $companyId = Route::current()->parameter('company_id');
+
+        $this->crud->addField(['type' => 'hidden', 'name' => 'company_id']);
+        $this->crud->getRequest()->request->add(['company_id' => $companyId]);
+
+        return $this->traitStore();
     }
 }

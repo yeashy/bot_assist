@@ -67,7 +67,7 @@ class Client extends Model
 
     // MUTATORS
 
-    public function setFullNameAttribute(string $value): void
+    public function setFullNameAttribute(?string $value): void
     {
         $fullnameSeparated = explode(' ', $value);
 
@@ -78,22 +78,22 @@ class Client extends Model
         $this->patronymic = $fullnameSeparated[2] ?? null;
     }
 
-    public function setPhotoPathAttribute(string $value): void
+    public function setPhotoPathAttribute(?string $value): void
     {
         $this->info()->update(['photo_path' => $value]);
     }
 
-    public function setDateOfBirthAttribute(string $value): void
+    public function setDateOfBirthAttribute(?string $value): void
     {
         $this->info()->update(['date_of_birth' => $value]);
     }
 
-    public function setDescriptionAttribute(string $value): void
+    public function setDescriptionAttribute(?string $value): void
     {
         $this->info()->update(['description' => $value]);
     }
 
-    public function setAddressAttribute(string $value): void
+    public function setAddressAttribute(?string $value): void
     {
         $this->info()->update(['address' => $value]);
     }

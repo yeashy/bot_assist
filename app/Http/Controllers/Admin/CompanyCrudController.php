@@ -116,6 +116,16 @@ class CompanyCrudController extends CrudController
                 'icon' => 'la la-envelope',
                 'class' => 'text-info'
             ]);
+
+        CRUD::button('client')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Клиентам',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info'
+            ]);
     }
 
     /**
