@@ -33,6 +33,11 @@ class StaffMember extends Model
         return $this->hasMany(Employee::class);
     }
 
+    public function gender(): BelongsTo
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
     // ACCESSORS
 
     public function getFullNameAttribute(): string

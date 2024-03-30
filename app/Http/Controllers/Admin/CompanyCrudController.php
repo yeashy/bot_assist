@@ -126,6 +126,36 @@ class CompanyCrudController extends CrudController
                 'icon' => 'la la-envelope',
                 'class' => 'text-info'
             ]);
+
+        CRUD::button('staff-member')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Персоналу',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info'
+            ]);
+
+        CRUD::button('service')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Услугам',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info'
+            ]);
+
+        CRUD::button('job_position')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Должностям',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info'
+            ]);
     }
 
     /**

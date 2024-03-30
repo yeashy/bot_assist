@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ServiceRequest;
-use App\Models\Service;
+use App\Http\Requests\GenderRequest;
+use App\Models\Gender;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
@@ -12,17 +12,16 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
-use Illuminate\Support\Facades\Route;
 
 /**
- * Class ServiceCrudController
+ * Class GenderCrudController
  * @package App\Http\Controllers\Admin
  * @property-read CrudPanel $crud
  */
-class ServiceCrudController extends CrudController
+class GenderCrudController extends CrudController
 {
     use ListOperation;
-    use CreateOperation { store as traitStore; }
+    use CreateOperation;
     use UpdateOperation;
     use DeleteOperation;
     use ShowOperation;
@@ -34,31 +33,14 @@ class ServiceCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(Service::class);
-
-        $companyId = Route::current()->parameter('company_id');
-        CRUD::addClause('where', 'company_id', $companyId);
-
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/service');
-        CRUD::setEntityNameStrings('Услуга', 'Услуги');
+        CRUD::setModel(Gender::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/gender');
+        CRUD::setEntityNameStrings('Пол', 'Полы');
     }
 
     protected function setupShowOperation()
     {
         $this->setupListOperation();
-
-        $companyId = Route::current()->parameter('company_id');
-
-        CRUD::button('company')
-            ->stack('line')
-            ->view('crud::buttons.see_related_button')
-            ->meta([
-                'access' => true,
-                'label' => 'Компании',
-                'icon' => 'la la-envelope',
-                'class' => 'text-info',
-                'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
-            ]);
     }
 
     /**
@@ -78,13 +60,7 @@ class ServiceCrudController extends CrudController
         CRUD::addColumn([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text',
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'allocated_time',
-            'label' => 'Выделяемое время',
-            'type' => 'time',
+            'type' => 'text'
         ]);
 
         /**
@@ -101,20 +77,17 @@ class ServiceCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ServiceRequest::class);
+        CRUD::setValidation(GenderRequest::class);
         CRUD::addField([
-            'name' => 'name',
-            'label' => 'Название',
-            'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-3']
-
+            'name' => 'id',
+            'label' => 'ID',
+            'type' => 'number'
         ]);
 
         CRUD::addField([
-            'name' => 'allocated_time',
-            'label' => 'Выделяемое время',
-            'type' => 'time',
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'name' => 'name',
+            'label' => 'Название',
+            'type' => 'text'
         ]);
 
         /**
@@ -132,15 +105,5 @@ class ServiceCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
-    }
-
-    public function store()
-    {
-        $companyId = Route::current()->parameter('company_id');
-
-        $this->crud->addField(['type' => 'hidden', 'name' => 'company_id']);
-        $this->crud->getRequest()->request->add(['company_id' => $companyId]);
-
-        return $this->traitStore();
     }
 }

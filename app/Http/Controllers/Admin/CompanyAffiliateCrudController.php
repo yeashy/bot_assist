@@ -47,6 +47,12 @@ class CompanyAffiliateCrudController extends CrudController
     {
         $this->setupListOperation();
 
+        CRUD::addColumn([
+            'name' => 'address',
+            'label' => 'Адрес',
+            'type' => 'text'
+        ]);
+
         $companyId = Route::current()->parameter('company_id');
 
         CRUD::button('company')

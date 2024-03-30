@@ -83,13 +83,6 @@ class ClientCrudController extends CrudController
         ]);
 
         CRUD::addColumn([
-            'name' => 'company_id',
-            'label' => 'Компания',
-            'entity' => 'company',
-            'attribute' => 'name',
-        ]);
-
-        CRUD::addColumn([
             'name' => 'photo_path',
             'label' => 'Фото',
             'type' => 'upload',
@@ -139,12 +132,6 @@ class ClientCrudController extends CrudController
         CRUD::addColumn([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
-            'type' => 'string'
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'company.name',
-            'label' => 'Компания',
             'type' => 'string'
         ]);
 

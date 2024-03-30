@@ -8,11 +8,6 @@
 
     <x-backpack::menu-dropdown-item title="Типы компаний" icon="la la-list-ul" :link="backpack_url('company-type')" />
 
-    <x-backpack::menu-dropdown-item title="Сотрудники" icon="la la-address-card" :link="backpack_url('staff-member')" />
 
-    <x-backpack::menu-dropdown-item title="Услуги" icon="la la-handshake" :link="backpack_url('service')" />
-
-    <x-backpack::menu-dropdown-item title="Должности" icon="la la-address-book" :link="backpack_url('job-position')" />
+    <x-backpack::menu-dropdown-item title="Полы" icon="la la-transgender" :link="backpack_url('gender')" />
 </x-backpack::menu-dropdown>
-
-

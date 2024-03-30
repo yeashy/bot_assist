@@ -12,6 +12,7 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Class JobPositionCrudController
@@ -21,7 +22,7 @@ use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 class JobPositionCrudController extends CrudController
 {
     use ListOperation;
-    use CreateOperation;
+    use CreateOperation { store as traitStore; }
     use UpdateOperation;
     use DeleteOperation;
     use ShowOperation;
@@ -34,8 +35,30 @@ class JobPositionCrudController extends CrudController
     public function setup()
     {
         CRUD::setModel(JobPosition::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/job-position');
+
+        $companyId = Route::current()->parameter('company_id');
+        CRUD::addClause('where', 'company_id', $companyId);
+
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/job_position');
         CRUD::setEntityNameStrings('Должность', 'Должности');
+    }
+
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+
+        $companyId = Route::current()->parameter('company_id');
+
+        CRUD::button('company')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Компании',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info',
+                'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
+            ]);
     }
 
     /**
@@ -96,5 +119,15 @@ class JobPositionCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+    }
+
+    public function store()
+    {
+        $companyId = Route::current()->parameter('company_id');
+
+        $this->crud->addField(['type' => 'hidden', 'name' => 'company_id']);
+        $this->crud->getRequest()->request->add(['company_id' => $companyId]);
+
+        return $this->traitStore();
     }
 }
