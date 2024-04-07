@@ -8,6 +8,7 @@
 
     <x-backpack::menu-dropdown-item title="Типы компаний" icon="la la-list-ul" :link="backpack_url('company-type')" />
 
-
     <x-backpack::menu-dropdown-item title="Полы" icon="la la-transgender" :link="backpack_url('gender')" />
 </x-backpack::menu-dropdown>
+
+<x-backpack::menu-item title="Employees" icon="la la-question" :link="backpack_url('employee')" />

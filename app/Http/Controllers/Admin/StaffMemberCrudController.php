@@ -105,6 +105,16 @@ class StaffMemberCrudController extends CrudController
                 'class' => 'text-info',
                 'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
             ]);
+
+        CRUD::button('employee')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Должностям',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info'
+            ]);
     }
 
     /**

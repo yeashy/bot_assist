@@ -23,6 +23,7 @@ Route::group([
     Route::crud('staff-member', 'StaffMemberCrudController');
     Route::crud('service', 'ServiceCrudController');
     Route::crud('job-position', 'JobPositionCrudController');
+    Route::crud('gender', 'GenderCrudController');
 
     Route::prefix('company')->group(function () {
         Route::crud('/', 'CompanyCrudController');
@@ -31,6 +32,9 @@ Route::group([
         Route::crud('/{company_id}/staff-member', 'StaffMemberCrudController');
         Route::crud('/{company_id}/service', 'ServiceCrudController');
         Route::crud('/{company_id}/job_position', 'JobPositionCrudController');
+
+        Route::prefix('{company_id}/staff-member')->group(function () {
+            Route::crud('/{person_id}/employee', 'EmployeeCrudController');
+        });
     });
-    Route::crud('gender', 'GenderCrudController');
 }); // this should be the absolute last line of this file
