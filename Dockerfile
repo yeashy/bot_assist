@@ -14,6 +14,12 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip
 
+# get install script and pass it to execute:
+RUN curl -sL https://deb.nodesource.com/setup_22.x | bash
+# and install node
+RUN apt-get install -y \
+    nodejs
+
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -30,5 +36,8 @@ RUN mkdir -p /home/$user/.composer && \
 
 # Set working directory
 WORKDIR /var/www
+
+COPY ./package*.json ./
+RUN npm install && (npm run dev&)
 
 USER $user

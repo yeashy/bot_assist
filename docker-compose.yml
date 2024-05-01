@@ -6,8 +6,8 @@ services:
                 user: mikhail
                 uid: 1000
             context: ./
-            dockerfile: dockerfile
-        image: bot_assist
+            dockerfile: Dockerfile
+        image: bot_assist-server
         container_name: bot_assist-server
         restart: unless-stopped
         working_dir: /var/www/
