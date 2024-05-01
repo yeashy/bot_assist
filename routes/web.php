@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::prefix('companies')
+    ->as('companies.')
+    ->controller(CompanyController::class)
+    ->group(function () {
+        Route::get('/{companyId}', 'index')->name('index');
+    });
