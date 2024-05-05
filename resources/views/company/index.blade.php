@@ -5,5 +5,10 @@
 @endsection
 
 @section('content')
-    <div>{{ $company->phone_number }}</div>
+    <div
+        class="min-h-full p-6 w-full"
+        style="background-color: {{ $company->secondary_color }}"
+    >
+        @include('company.components.buttons')
+    </div>
 @endsection

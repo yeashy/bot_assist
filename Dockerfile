@@ -38,6 +38,6 @@ RUN mkdir -p /home/$user/.composer && \
 WORKDIR /var/www
 
 COPY ./package*.json ./
-RUN npm install && (npm run dev&)
+RUN npm install
 
 USER $user

@@ -7,8 +7,11 @@ services:
                 uid: 1000
             context: ./
             dockerfile: Dockerfile
-        image: bot_assist-server
-        container_name: bot_assist-server
+        image: bot_assist-app
+        ports:
+            - "9000:9000"
+            - "5173:5173"
+        container_name: bot_assist-app
         restart: unless-stopped
         working_dir: /var/www/
         volumes:
