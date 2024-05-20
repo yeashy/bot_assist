@@ -1,9 +1,10 @@
 <header
-    class="text-center text-3xl bg-slate-500 font-bold text-white flex p-2"
-    style="background-color: {{ $company->primary_color }}"
+    class="flex p-2 items-center justify-center"
+    style="background-color: {{ $company->secondary_color }}"
 >
+{{--    <img src="{{ $company->logo_path }}" alt="" class="h-14">--}}
     <div
-        class="items-center flex justify-center w-full"
+        class="items-center flex justify-center w-full text-center text-3xl font-bold"
         style="color: {{ $company->font_color }}"
     >
         {{ $company->name }}
