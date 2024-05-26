@@ -7,7 +7,7 @@
         color: {{ $company->text_color }};
     }
 
-    .border_company {
+    .border-company {
         border-color: {{ $company->border_color }};
     }
 
@@ -18,7 +18,7 @@
 
     .btn-shadow-company {
         box-shadow: inset 0 -200px 50px -130px {{ $company->button_background_color }}, 0px 0px 10px 0px rgba(0,0,0,0.3);
-        color: {{ $company->text_color }};
+        color: {{ $company->button_text_color }};
     }
 
     .btn-company {
