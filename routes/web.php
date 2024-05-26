@@ -19,5 +19,6 @@ Route::prefix('companies')
     ->as('companies.')
     ->controller(CompanyController::class)
     ->group(function () {
-        Route::get('/{companyId}', 'index')->name('index');
+        Route::get('/{id}', 'index')->name('index');
+        Route::get('/{id}/services', 'services')->name('index');
     });

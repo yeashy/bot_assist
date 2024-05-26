@@ -15,9 +15,16 @@ class CompanyDesignInfoFactory extends Factory
     public function definition(): array
     {
         return [
-            'primary_color' => $this->faker->hexColor(),
-            'secondary_color' => $this->faker->hexColor(),
-            'font_color' => $this->faker->hexColor(),
+            'background_color' => $this->faker->hexColor(),
+            'text_color' => $this->faker->hexColor(),
+            'border_color' => $this->faker->hexColor(),
+            'block_background_color' => $this->faker->hexColor(),
+            'button_background_color' => $this->faker->hexColor(),
+            'main_background_color' => $this->faker->hexColor(),
+            'additional_background_color' => $this->faker->hexColor(),
+            'button_text_color' => $this->faker->hexColor(),
+            'main_text_color' => $this->faker->hexColor(),
+            'additional_text_color' => $this->faker->hexColor(),
             'font_id' => Font::inRandomOrder()->first()->id
         ];
     }

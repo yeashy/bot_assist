@@ -1,4 +1,4 @@
-<div class="w-2/4 flex flex-col items-center justify-center border-gray-200 border-l">
+<div class="w-2/4 flex flex-col items-center justify-center border-company border-l">
     <div class="font-bold text-3xl">
         22 мая
     </div>

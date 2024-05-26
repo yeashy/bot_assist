@@ -60,19 +60,54 @@ class Company extends Model
 
     // ACCESSORS
 
-    public function getPrimaryColorAttribute()
+    public function getBackgroundColorAttribute(): string
     {
-        return $this->design->primary_color;
+        return $this->design->background_color;
     }
 
-    public function getSecondaryColorAttribute()
+    public function getTextColorAttribute(): string
     {
-        return $this->design->secondary_color;
+        return $this->design->text_color;
     }
 
-    public function getFontColorAttribute()
+    public function getBorderColorAttribute(): string
     {
-        return $this->design->font_color;
+        return $this->design->border_color;
+    }
+
+    public function getBlockBackgroundColorAttribute(): string
+    {
+        return $this->design->block_background_color;
+    }
+
+    public function getButtonBackgroundColorAttribute(): string
+    {
+        return $this->design->button_background_color;
+    }
+
+    public function getMainBackgroundColorAttribute(): string
+    {
+        return $this->design->main_background_color;
+    }
+
+    public function getAdditionalBackgroundColorAttribute(): string
+    {
+        return $this->design->additional_background_color;
+    }
+
+    public function getButtonTextColorAttribute(): string
+    {
+        return $this->design->button_text_color;
+    }
+
+    public function getMainTextColorAttribute(): string
+    {
+        return $this->design->main_text_color;
+    }
+
+    public function getAdditionalTextColorAttribute(): string
+    {
+        return $this->design->additional_text_color;
     }
 
     public function getFontAttribute()
@@ -107,19 +142,54 @@ class Company extends Model
 
     // MUTATORS
 
-    public function setPrimaryColorAttribute(string $value): void
+    public function setBackgroundColorAttribute(): string
     {
-        $this->design()->update(['primary_color' => $value]);
+        return $this->design()->update(['background_color']);
     }
 
-    public function setSecondaryColorAttribute(string $value): void
+    public function setTextColorAttribute(): string
     {
-        $this->design()->update(['secondary_color' => $value]);
+        return $this->design()->update(['text_color']);
     }
 
-    public function setFontColorAttribute(string $value): void
+    public function setBorderColorAttribute(): string
     {
-        $this->design()->update(['font_color' => $value]);
+        return $this->design()->update(['border_color']);
+    }
+
+    public function setBlockBackgroundColorAttribute(): string
+    {
+        return $this->design()->update(['block_background_color']);
+    }
+
+    public function setButtonBackgroundColorAttribute(): string
+    {
+        return $this->design()->update(['button_background_color']);
+    }
+
+    public function setMainBackgroundColorAttribute(): string
+    {
+        return $this->design()->update(['main_background_color']);
+    }
+
+    public function setAdditionalBackgroundColorAttribute(): string
+    {
+        return $this->design()->update(['additional_background_color']);
+    }
+
+    public function setButtonTextColorAttribute(): string
+    {
+        return $this->design()->update(['button_text_color']);
+    }
+
+    public function setMainTextColorAttribute(): string
+    {
+        return $this->design()->update(['main_text_color']);
+    }
+
+    public function setAdditionalTextColorAttribute(): string
+    {
+        return $this->design()->update(['additional_text_color']);
     }
 
     public function setFontAttribute(int $value): void
