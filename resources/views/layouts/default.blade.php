@@ -12,7 +12,10 @@
     </div>
     @include('components.main.footer')
 </div>
+
+@include('components.main.loading-overlay')
 @yield('end_scripts')
+@include('components.main.func.end_scripts')
 @yield('end_includes')
 </body>
 </html>

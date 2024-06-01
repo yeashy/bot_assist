@@ -249,8 +249,8 @@ class CompanyCrudController extends CrudController
         ]);
 
         CRUD::addField([
-            'name' => 'block_background_color',
-            'label' => 'Цвет фона блоков',
+            'name' => 'text_color',
+            'label' => 'Цвет основного текста',
             'type' => 'color',
             'wrapper' => ['class' => 'form-group col-md-3 col-6'],
             'tab' => 'Дизайн'
@@ -259,30 +259,6 @@ class CompanyCrudController extends CrudController
         CRUD::addField([
             'name' => 'button_background_color',
             'label' => 'Цвет фона кнопок',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-2 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'main_background_color',
-            'label' => 'Цвет фона глав.',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-2 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'additional_background_color',
-            'label' => 'Цвет фона доп.',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-2 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'text_color',
-            'label' => 'Цвет основного текста',
             'type' => 'color',
             'wrapper' => ['class' => 'form-group col-md-3 col-6'],
             'tab' => 'Дизайн'
@@ -297,6 +273,14 @@ class CompanyCrudController extends CrudController
         ]);
 
         CRUD::addField([
+            'name' => 'main_background_color',
+            'label' => 'Цвет фона глав.',
+            'type' => 'color',
+            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
+            'tab' => 'Дизайн'
+        ]);
+
+        CRUD::addField([
             'name' => 'main_text_color',
             'label' => 'Цвет текста глав.',
             'type' => 'color',
@@ -305,8 +289,24 @@ class CompanyCrudController extends CrudController
         ]);
 
         CRUD::addField([
+            'name' => 'additional_background_color',
+            'label' => 'Цвет фона доп.',
+            'type' => 'color',
+            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
+            'tab' => 'Дизайн'
+        ]);
+
+        CRUD::addField([
             'name' => 'additional_text_color',
             'label' => 'Цвет текста доп.',
+            'type' => 'color',
+            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
+            'tab' => 'Дизайн'
+        ]);
+
+        CRUD::addField([
+            'name' => 'block_background_color',
+            'label' => 'Цвет фона блоков',
             'type' => 'color',
             'wrapper' => ['class' => 'form-group col-md-3 col-6'],
             'tab' => 'Дизайн'
