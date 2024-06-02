@@ -19,6 +19,14 @@ Route::prefix('companies')
     ->as('companies.')
     ->controller(CompanyController::class)
     ->group(function () {
-        Route::get('/{id}', 'index')->name('index');
-        Route::get('/{id}/services', 'services')->name('services');
+
+        Route::prefix('{companyId}')->group(function () {
+            Route::get('/', 'index')->name('index');
+
+            Route::prefix('positions')->group(function () {
+                Route::get('/', 'positions')->name('positions');
+                Route::get('/{positionId}', 'positions')->name('positions');
+                Route::get('/{positionId}/services', 'services')->name('services');
+            });
+        });
     });
