@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobPositionController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,10 +25,24 @@ Route::prefix('companies')
         Route::prefix('{companyId}')->group(function () {
             Route::get('/', 'index')->name('index');
 
-            Route::prefix('positions')->group(function () {
-                Route::get('/', 'positions')->name('positions');
-                Route::get('/{positionId}', 'positions')->name('positions');
-                Route::get('/{positionId}/services', 'services')->name('services');
+            Route::prefix('positions')
+                ->controller(JobPositionController::class)
+                ->group(function () {
+                Route::get('/', 'list')->name('positions');
+
+                Route::prefix('{positionId}')->group(function () {
+                    Route::get('/', 'index')->name('position');
+
+                    Route::prefix('services')
+                        ->controller(ServiceController::class)
+                        ->group(function () {
+                        Route::get('/', 'list')->name('services');
+
+                        Route::prefix('{serviceId}')->group(function () {
+                            Route::get('/', 'index')->name('service');
+                        });
+                    });
+                });
             });
         });
     });

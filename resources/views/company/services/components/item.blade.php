@@ -1,5 +1,6 @@
 <a
     class="rounded-2xl p-2 flex h-24 mb-4 block-company"
+    href="services/{{ $service->id }}"
 >
     <div class="h-full w-1/4 overflow-hidden rounded-2xl mr-2">
         <img class="w-full h-full object-cover" src="{{ Storage::disk('images')->url('test.jpg') }}" alt="">

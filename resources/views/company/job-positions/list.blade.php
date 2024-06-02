@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Специальности компании "{{ $company->name }}"
+    Специальности | "{{ $company->name }}"
 @endsection
 
 @section('content')
