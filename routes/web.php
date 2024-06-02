@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
@@ -25,24 +26,35 @@ Route::prefix('companies')
         Route::prefix('{companyId}')->group(function () {
             Route::get('/', 'index')->name('index');
 
+            Route::prefix('employees')
+                ->controller(EmployeeController::class)
+                ->group(function () {
+                    Route::get('/', 'list')->name('list');
+
+                    Route::prefix('{employeeId}')->group(function () {
+                        Route::get('/', 'index')->name('index');
+                        Route::get('/info', 'info')->name('info');
+                    });
+                });
+
             Route::prefix('positions')
                 ->controller(JobPositionController::class)
                 ->group(function () {
-                Route::get('/', 'list')->name('positions');
+                    Route::get('/', 'list')->name('list');
 
-                Route::prefix('{positionId}')->group(function () {
-                    Route::get('/', 'index')->name('position');
+                    Route::prefix('{positionId}')->group(function () {
+                        Route::get('/', 'index')->name('index');
 
-                    Route::prefix('services')
-                        ->controller(ServiceController::class)
-                        ->group(function () {
-                        Route::get('/', 'list')->name('services');
+                        Route::prefix('services')
+                            ->controller(ServiceController::class)
+                            ->group(function () {
+                                Route::get('/', 'list')->name('list');
 
-                        Route::prefix('{serviceId}')->group(function () {
-                            Route::get('/', 'index')->name('service');
-                        });
+                                Route::prefix('{serviceId}')->group(function () {
+                                    Route::get('/', 'index')->name('index');
+                                });
+                            });
                     });
                 });
-            });
         });
     });
