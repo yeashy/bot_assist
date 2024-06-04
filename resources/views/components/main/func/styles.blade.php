@@ -21,8 +21,26 @@
     }
 
     .btn-shadow-company {
-        box-shadow: inset 0 -200px 50px -130px {{ $company->button_background_color }}, 0px 0px 10px 0px rgba(0,0,0,0.3);
+        box-shadow:
+            inset 0 -200px 50px -130px {{ $company->button_background_color }},
+            0px 0px 10px 0px rgba(0,0,0,0.3);
         color: {{ $company->button_text_color }};
+    }
+
+    .btn-shadow-company:focus {
+        box-shadow:
+            inset 0 -200px 50px -130px {{ $company->button_background_color }},
+            0px 0px 10px 0px rgba(0,0,0,0.3),
+            inset 0px 0px 10px 5px rgba(0,0,0,0.75);
+        transition: .08s;
+    }
+
+    input:checked + .btn-shadow-company {
+        box-shadow:
+            inset 0 -200px 50px -130px {{ $company->button_background_color }},
+            0px 0px 10px 0px rgba(0,0,0,0.3),
+            inset 0px 0px 10px 5px rgba(0,0,0,0.75);
+        transition: .08s;
     }
 
     .btn-company {

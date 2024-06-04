@@ -1,13 +1,13 @@
 <{{ $tag ?? 'a'}}
-    class="bg-white bg-cover aspect-square rounded-2xl p-2 items-end flex btn-shadow-company {{ $class ?? '' }}"
+    class="bg-white bg-cover aspect-square rounded-2xl p-2 items-end flex btn-shadow-company @foreach($classes ?? [] as $class){{ $class }}@endforeach"
     style="background-image: url({{ Storage::disk('images')->url('test.jpg') }});"
+
+    @foreach($attributes ?? [] as $attribute => $value)
+        {{ $attribute }}="{{ $value }}"
+    @endforeach
 
     @if(!empty($href))
         href="{{ $href }}"
-    @endif
-
-    @if(!empty($id))
-        id="{{ $id }}"
     @endif
 
     @foreach($dataset ?? [] as $name => $value)

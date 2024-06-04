@@ -1,15 +1,40 @@
 <div class="flex max-w-screen w-screen overflow-x-auto gap-6 p-2 px-6 relative -left-6 aspect-[5/2]">
+    <input
+        type="radio"
+        name="employee_id"
+        value="any"
+        id="employee_any"
+        class="hidden"
+        checked
+    >
     @include('components.shadow-button', [
             'text' => 'Любой специалист',
-            'tag' => 'button',
-            'class' => 'hide_info'
+            'tag' => 'label',
+            'classes' => [
+                'hide_info'
+            ],
+            'attributes' => [
+                'for' => 'employee_any'
+            ]
         ])
 
     @foreach($employees as $employee)
+        <input
+            type="radio"
+            name="employee_id"
+            value="{{ $employee->id }}"
+            id="employee_{{ $employee->id }}"
+            class="hidden"
+        >
         @include('components.shadow-button', [
             'text' => $employee->full_name,
-            'tag' => 'button',
-            'class' => 'employee_button',
+            'tag' => 'label',
+            'classes' => [
+                'employee_button'
+            ],
+            'attributes' => [
+                'for' => 'employee_' . $employee->id,
+            ],
             'dataset' => [
                 'id' => $employee->id
             ]
