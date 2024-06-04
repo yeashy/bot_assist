@@ -18,8 +18,16 @@
     </div>
 @endsection
 
+@section('modals')
+    @include('components.modals.employee-info-modal')
+@endsection
+
 @section('end_scripts')
     <script>
+        const employeeInfoForm = document.getElementById('employee_info_form');
+
+        addEventListeners(employeeInfoForm);
+
         document.querySelectorAll('.employee_button').forEach((button) => {
             button.onclick = (e) => {
                 showEmployee(button.dataset.id);
@@ -33,8 +41,20 @@
         }
 
         function setEmployeeInfoData(employeeId) {
-            document.getElementById('employee_info_form').action =
-                '/companies/{{ $company->id }}/employees/' + employeeId + '/info';
+            employeeInfoForm.action = '/companies/{{ $company->id }}/employees/' + employeeId + '/info';
+        }
+
+        function addEventListeners(form) {
+            form.addEventListener('requested', (e) => {
+
+            });
+
+            form.addEventListener('submitted', (e) => {
+                const data = e.detail.data;
+                const text = data;
+
+                document.querySelector('#employee-info-modal #modal-body').innerHTML = text;
+            })
         }
     </script>
 @endsection

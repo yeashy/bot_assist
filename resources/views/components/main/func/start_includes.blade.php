@@ -10,3 +10,5 @@
     rel="stylesheet"
     href="{{ Storage::disk('assets')->url('fontawesome/css/all.css') }}"
 >
+
+@vite('resources/js/app.js')

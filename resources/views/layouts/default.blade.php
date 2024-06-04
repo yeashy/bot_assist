@@ -6,11 +6,15 @@
     @include('components.main.header')
     <div
         id="content"
-        class="grow w-screen p-6 pb-2 bg-company"
+        class="grow w-screen p-6 pb-2 bg-company text-company"
     >
         @yield('content')
     </div>
     @include('components.main.footer')
+</div>
+
+<div id="modals">
+    @yield('modals')
 </div>
 
 @include('components.main.loading-overlay')
