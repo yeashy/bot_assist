@@ -1,4 +1,10 @@
 <div class="flex max-w-screen w-screen overflow-x-auto gap-6 p-2 px-6 relative -left-6 aspect-[5/2]">
+    @include('components.shadow-button', [
+            'text' => 'Любой специалист',
+            'tag' => 'button',
+            'class' => 'hide_info'
+        ])
+
     @foreach($employees as $employee)
         @include('components.shadow-button', [
             'text' => $employee->full_name,

@@ -12,7 +12,7 @@
         <div id="employee_schedule" class="hidden">
 
         </div>
-        <div id="employee_info" class="hidden">
+        <div id="employee_info">
             @include('company.services.components.info')
         </div>
     </div>
@@ -25,8 +25,13 @@
 @section('end_scripts')
     <script>
         const employeeInfoForm = document.getElementById('employee_info_form');
-
         addEventListeners(employeeInfoForm);
+
+        document.querySelectorAll('.hide_info').forEach((button) => {
+            button.onclick = (e) => {
+                hideEmployee();
+            }
+        });
 
         document.querySelectorAll('.employee_button').forEach((button) => {
             button.onclick = (e) => {
@@ -34,8 +39,13 @@
             }
         });
 
+        function hideEmployee() {
+            employeeInfoForm.classList.add('hidden');
+            employeeInfoForm.action = '';
+        }
+
         function showEmployee(id) {
-            document.getElementById('employee_info').classList.remove('hidden');
+            employeeInfoForm.classList.remove('hidden');
 
             setEmployeeInfoData(id);
         }
@@ -45,10 +55,6 @@
         }
 
         function addEventListeners(form) {
-            form.addEventListener('requested', (e) => {
-
-            });
-
             form.addEventListener('submitted', (e) => {
                 const data = e.detail.data;
                 const text = data;

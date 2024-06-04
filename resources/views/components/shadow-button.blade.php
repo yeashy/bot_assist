@@ -6,6 +6,10 @@
         href="{{ $href }}"
     @endif
 
+    @if(!empty($id))
+        id="{{ $id }}"
+    @endif
+
     @foreach($dataset ?? [] as $name => $value)
         data-{{ $name }}="{{ $value }}"
     @endforeach
