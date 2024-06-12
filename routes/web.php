@@ -34,6 +34,7 @@ Route::prefix('companies')
                     Route::prefix('{employeeId}')->group(function () {
                         Route::get('/', 'index')->name('index');
                         Route::get('/info', 'info')->name('info');
+                        Route::get('/schedule', 'schedule')->name('schedule');
                     });
                 });
 

@@ -9,10 +9,10 @@
         <div class="mb-4">
             @include('company.services.components.employee-slider')
         </div>
-        <div id="employee_schedule" class="hidden">
-
+        <div>
+            @include('company.services.components.schedule')
         </div>
-        <div id="employee_info">
+        <div>
             @include('company.services.components.info')
         </div>
     </div>
@@ -30,22 +30,40 @@
         document.querySelectorAll('.hide_info').forEach((button) => {
             button.onclick = (e) => {
                 hideEmployee();
-            }
+
+                button.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'center'
+                });
+
+            };
         });
 
         document.querySelectorAll('.employee_button').forEach((button) => {
             button.onclick = (e) => {
                 showEmployee(button.dataset.id);
-            }
+
+                button.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center',
+                    inline: 'center'
+                });
+            };
         });
 
         function hideEmployee() {
             employeeInfoForm.classList.add('hidden');
             employeeInfoForm.action = '';
+            document.getElementById('schedule').innerHTML = '';
         }
 
         function showEmployee(id) {
             employeeInfoForm.classList.remove('hidden');
+            axios.get('/companies/{{ $company->id }}/employees/' + id + '/schedule')
+                .then((response) => {
+                    document.getElementById('schedule').innerHTML = response.data;
+                });
 
             setEmployeeInfoData(id);
         }
@@ -56,11 +74,8 @@
 
         function addEventListeners(form) {
             form.addEventListener('submitted', (e) => {
-                const data = e.detail.data;
-                const text = data;
-
-                document.querySelector('#employee-info-modal #modal-body').innerHTML = text;
-            })
+                document.querySelector('#employee-info-modal #modal-body').innerHTML = e.detail.data;
+            });
         }
     </script>
 @endsection

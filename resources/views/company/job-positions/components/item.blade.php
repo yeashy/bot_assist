@@ -5,7 +5,7 @@
     <div class="h-full w-1/4 overflow-hidden rounded-2xl mr-2">
         <img class="w-full h-full object-cover" src="{{ Storage::disk('images')->url('test.jpg') }}" alt="">
     </div>
-    <div class="mr-auto flex flex-col justify-center text-xl">
+    <div class="mr-auto flex flex-col justify-center text-xl w-1/2 text-ellipsis overflow-hidden">
             {{ $position->name }}
     </div>
     <div class="p-4 w-1/4 h-full">

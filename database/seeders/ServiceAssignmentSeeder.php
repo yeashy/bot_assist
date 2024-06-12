@@ -15,7 +15,7 @@ class ServiceAssignmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $workingPeriods = EmployeeWorkingPeriod::inRandomOrder()->limit(500)->get();
+        $workingPeriods = EmployeeWorkingPeriod::inRandomOrder()->limit(5000)->get();
 
         foreach ($workingPeriods as $workingPeriod) {
             $workingPeriod->assignment()->create([

@@ -37,7 +37,8 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www/app
 
-COPY ./package*.json ./
+COPY ./ .
 RUN npm install
+RUN npm run build
 
 USER $user

@@ -13,6 +13,10 @@ class EmployeeWorkingPeriod extends Model
 
     protected $guarded = [];
 
+    protected $appends = [
+        'is_free'
+    ];
+
     // RELATIONS
 
     public function employee(): BelongsTo
@@ -23,5 +27,12 @@ class EmployeeWorkingPeriod extends Model
     public function assignment(): HasOne
     {
         return $this->hasOne(ServiceAssignment::class);
+    }
+
+    // ACCESSORS
+
+    public function getIsFreeAttribute(): bool
+    {
+        return !$this->assignment;
     }
 }

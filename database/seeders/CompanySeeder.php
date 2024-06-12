@@ -33,7 +33,7 @@ class CompanySeeder extends Seeder
                 , 'clients')
             ->has(
                 StaffMember::factory()
-                    ->count(3)
+                    ->count(10)
                     ->has(StaffMemberDescribingInfo::factory()->count(1), 'info')
                 , 'staff')
             ->createQuietly();

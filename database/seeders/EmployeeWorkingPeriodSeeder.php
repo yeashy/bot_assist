@@ -18,7 +18,7 @@ class EmployeeWorkingPeriodSeeder extends Seeder
 
         foreach ($employees as $employee) {
             $startDate = CarbonImmutable::now()->startOfDay();
-            $endDate = CarbonImmutable::now()->addDays(7)->startOfDay();
+            $endDate = CarbonImmutable::now()->addDays(90)->startOfDay();
 
             while ($endDate->day !== $startDate->day) {
                 $startTime = $startDate->addHours(8);
