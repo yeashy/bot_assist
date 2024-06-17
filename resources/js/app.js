@@ -1,3 +1,3 @@
 import './bootstrap';
-import './form.js';
+import './forms.js';
 import './modals.js';

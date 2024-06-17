@@ -1,10 +1,12 @@
-document.querySelectorAll('.modal-toggle').forEach((toggle) => {
-    toggle.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-toggle')) {
+        const toggle = e.target;
+
         const modal = document.getElementById(toggle.dataset.modal);
 
         modal.classList.toggle('hidden');
         modal.dispatchEvent(toggled());
-    });
+    }
 });
 
 document.querySelectorAll('.modal-close').forEach((toggle) => {
