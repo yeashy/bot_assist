@@ -30,11 +30,11 @@ Route::prefix('companies')
                 ->controller(EmployeeController::class)
                 ->group(function () {
                     Route::get('/', 'list')->name('list');
+                    Route::get('/schedule', 'schedule')->name('schedule');
 
                     Route::prefix('{employeeId}')->group(function () {
                         Route::get('/', 'index')->name('index');
                         Route::get('/info', 'info')->name('info');
-                        Route::get('/schedule', 'schedule')->name('schedule');
                     });
                 });
 

@@ -5,16 +5,19 @@
         value="any"
         id="employee_any"
         class="hidden"
-        checked
     >
     @include('components.shadow-button', [
             'text' => 'Любой специалист',
             'tag' => 'label',
             'classes' => [
-                'hide_info'
+                'hide_info',
+                'all_employees'
             ],
             'attributes' => [
                 'for' => 'employee_any'
+            ],
+            'dataset' => [
+                'id' => implode(',', $employees->pluck('id')->toArray())
             ]
         ])
 

@@ -7,11 +7,7 @@
 @endsection
 
 @section('modal-body')
-    <div class="h-full w-full">
-        <div class="flex items-center justify-center mt-[25vh]">
-            <i class="fa-solid fa-heart-pulse fa-4x heartbeat text-btn-bg-company"></i>
-        </div>
-    </div>
+    @include('components.loading-animation')
 @endsection
 
 @section('modal_scripts')
