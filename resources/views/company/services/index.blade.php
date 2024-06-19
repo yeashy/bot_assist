@@ -105,19 +105,23 @@
 
             employeeScheduleForms.forEach((form) => {
                 form.addEventListener('requested', (e) => {
-                    form.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'center',
-                        inline: 'center'
-                    });
+                    if (form.dataset.full) {
+                        hideData();
+                    } else {
+                        form.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'center',
+                            inline: 'center'
+                        });
 
-                    buttons.forEach((button) => {
-                        button.classList.remove('active');
-                    });
+                        buttons.forEach((button) => {
+                            button.classList.remove('active');
+                        });
 
-                    form.querySelector('[type=submit]').classList.add('active');
+                        form.querySelector('[type=submit]').classList.add('active');
 
-                    periods.innerHTML = `@include('components.loading-animation')`;
+                        periods.innerHTML = `@include('components.loading-animation')`;
+                    }
                 });
 
                 form.addEventListener('submitted', (e) => {

@@ -16,36 +16,40 @@ class EmployeeScheduleService
     private string $date;
     private int $companyId;
 
+    private CarbonImmutable $activeDate;
+
     public function __construct(Request $request, int $companyId)
     {
         $this->date = $request->get('date', now()->toDateString());
         $this->employeeIds = explode(',', $request->get('employee_ids', []));
         $this->companyId = $companyId;
+
+        $this->setActiveDate();
     }
 
     public function execute()
     {
-        $periods = $this->getPeriods($this->date);
+        $periods = $this->getPeriods();
 
-        $dateCarbon = CarbonImmutable::parse($this->date);
+        $year = $this->getYear();
 
-        $year = $this->getYear($dateCarbon);
+        $month = $this->getMonth();
+        $months = $this->getOtherMonths();
 
-        $month = $this->getMonth($dateCarbon);
-
-        $days = $this->getDays($dateCarbon);
+        $days = $this->getDays();
 
         return view('company.services.components.employee-schedule')->with([
             'company' => Company::query()->findOrFail($this->companyId),
             'year' => $year,
             'month' => $month,
+            'months' => $months,
             'days' => $days,
             'periods' => $periods,
             'employeeIds' => $this->employeeIds,
         ]);
     }
 
-    private function getPeriods(string $date): Collection
+    private function getPeriods(): Collection
     {
         $groupedPeriods = EmployeeWorkingPeriod::query()
             ->select([
@@ -55,7 +59,7 @@ class EmployeeScheduleService
                 'date'
             ])
             ->whereIn('employee_id', $this->employeeIds)
-            ->where('date', $date)
+            ->where('date', $this->activeDate)
             ->get()
             ->groupBy('start_time');
 
@@ -72,30 +76,62 @@ class EmployeeScheduleService
                 'start_time' => $startTime,
                 'employee_ids' => implode(',', $employeeIds),
                 'is_available' => $isAvailable,
-                'date' => $date,
+                'date' => $this->activeDate,
             ]);
         }
 
         return $result;
     }
 
-    private function getYear(CarbonImmutable $date): int
+    private function setActiveDate(): void
     {
-        return $date->year;
+        $date = CarbonImmutable::parse($this->date);
+
+        $this->activeDate = $date->endOfDay()->lessThan(now()) ? CarbonImmutable::now() : $date;
     }
 
-    private function getMonth(CarbonImmutable $date): object
+    private function getYear(): int
+    {
+        return $this->activeDate->year;
+    }
+
+    private function getOtherMonths(): object
+    {
+        $previousMonth = $this->activeDate->subMonth()->startOfMonth();
+        $nextMonth = $this->activeDate->addMonth()->startOfMonth();
+
+        $previous = [
+            'disabled' => true,
+            'date' => $previousMonth->format('Y-m-d'),
+        ];
+
+        $next = [
+            'disabled' => false,
+            'date' => $nextMonth->format('Y-m-d'),
+        ];
+
+        if ($previousMonth->endOfMonth()->greaterThan(now())) {
+            $previous['disabled'] = false;
+        }
+
+        return (object)[
+            'previous' => (object)$previous,
+            'next' => (object)$next,
+        ];
+    }
+
+    private function getMonth(): object
     {
         return (object)[
-            'name' => $date->monthName,
-            'number' => $date->month,
+            'name' => $this->activeDate->monthName,
+            'number' => $this->activeDate->month,
         ];
 
     }
 
-    private function getDays(CarbonImmutable $date): array
+    private function getDays(): array
     {
-        $daysPeriod = CarbonPeriod::between($date->startOfMonth(), $date->endOfMonth());
+        $daysPeriod = CarbonPeriod::between($this->activeDate->startOfMonth(), $this->activeDate->endOfMonth());
         $days = [];
 
         foreach ($daysPeriod as $day) {
@@ -104,7 +140,7 @@ class EmployeeScheduleService
                 'date' => $day->toDateString(),
                 'number' => $day->day,
                 'is_available' => $this->isDayAvailable($day),
-                'is_current' => !$day->diffInDays($date)
+                'is_current' => $day->startOfDay()->equalTo($this->activeDate->startOfDay())
             ];
         }
 

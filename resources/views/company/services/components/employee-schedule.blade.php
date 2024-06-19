@@ -4,13 +4,28 @@
 
         <!-- Переключение месяца -->
         <div class="flex justify-between items-center mb-2">
-            <button class="additional-block-company px-3 py-2 rounded">
-                <i class="fa fa-arrow-left"></i>
-            </button>
+            @if(!$months->previous->disabled)
+                <form action="/companies/{{ $company->id }}/employees/schedule" id="employee_schedule_form" data-full="1">
+                    <input type="hidden" name="date" value="{{ $months->previous->date }}">
+                    <input type="hidden" name="employee_ids" value="{{ implode(',', $employeeIds) }}">
+                    <button class="additional-block-company px-3 py-2 rounded">
+                        <i class="fa fa-arrow-left"></i>
+                    </button>
+                </form>
+            @else
+                <button class="additional-block-company px-3 py-2 rounded opacity-50" disabled>
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            @endif
+
             <h2 class="text-lg font-bold capitalize">{{ $month->name }} {{ $year }}</h2>
-            <button class="additional-block-company px-3 py-2 rounded">
-                <i class="fa fa-arrow-right"></i>
-            </button>
+            <form action="/companies/{{ $company->id }}/employees/schedule" id="employee_schedule_form" data-full="1">
+                <input type="hidden" name="date" value="{{ $months->next->date }}">
+                <input type="hidden" name="employee_ids" value="{{ implode(',', $employeeIds) }}">
+                <button class="additional-block-company px-3 py-2 rounded">
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </form>
         </div>
 
         <div class="mb-2 box-shadow-inner-basic rounded">
