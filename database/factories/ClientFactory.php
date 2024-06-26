@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ class ClientFactory extends Factory
             'surname' => $this->faker->lastName(),
             'patronymic' => $this->faker->firstName(),
             'phone_number' => $this->faker->phoneNumber(),
+            'user_id' => User::query()->first()->id
         ];
     }
 }
