@@ -3,10 +3,12 @@
 namespace App\Services\Http\Employee;
 
 use App\Models\Company;
+use App\Models\Employee;
 use App\Models\EmployeeWorkingPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
@@ -38,6 +40,8 @@ class EmployeeScheduleService
 
         $days = $this->getDays();
 
+        $employee = $this->getEmployee();
+
         return view('company.services.components.employee-schedule')->with([
             'company' => Company::query()->findOrFail($this->companyId),
             'year' => $year,
@@ -46,11 +50,15 @@ class EmployeeScheduleService
             'days' => $days,
             'periods' => $periods,
             'employeeIds' => $this->employeeIds,
+            'employee' => $employee
         ]);
     }
 
-    private function getPeriods(): Collection
+    private function getPeriods(Carbon|CarbonImmutable|null $date = null): Collection
     {
+        if (!$date) $date = $this->activeDate;
+        $date = $date->toDateString();
+
         $groupedPeriods = EmployeeWorkingPeriod::query()
             ->select([
                 'id',
@@ -59,7 +67,7 @@ class EmployeeScheduleService
                 'date'
             ])
             ->whereIn('employee_id', $this->employeeIds)
-            ->where('date', $this->activeDate)
+            ->where('date', $date)
             ->get()
             ->groupBy('start_time');
 
@@ -73,10 +81,10 @@ class EmployeeScheduleService
             $isAvailable = (bool)count($employeeIds);
 
             $result->push((object)[
-                'start_time' => $startTime,
+                'start_time' => Carbon::parse($startTime)->format('H:i'),
                 'employee_ids' => implode(',', $employeeIds),
                 'is_available' => $isAvailable,
-                'date' => $this->activeDate,
+                'date' => $date,
             ]);
         }
 
@@ -88,6 +96,14 @@ class EmployeeScheduleService
         $date = CarbonImmutable::parse($this->date);
 
         $this->activeDate = $date->endOfDay()->lessThan(now()) ? CarbonImmutable::now() : $date;
+    }
+
+    private function getEmployee(): ?Model
+    {
+        return count($this->employeeIds) === 1 ? Employee::query()
+            ->with(['affiliate', 'person'])
+            ->find($this->employeeIds[0])
+            : null;
     }
 
     private function getYear(): int
@@ -106,7 +122,7 @@ class EmployeeScheduleService
         ];
 
         $next = [
-            'disabled' => false,
+            'disabled' => $this->isNextMonthDisabled($nextMonth),
             'date' => $nextMonth->format('Y-m-d'),
         ];
 
@@ -151,9 +167,17 @@ class EmployeeScheduleService
     {
         if (now()->greaterThan($day->toImmutable()->endOfDay())) return false;
 
-        return $this->getPeriods($day->toDateString())
+        return $this->getPeriods($day)
             ->filter(function ($period) {
                 return $period->is_available;
             })->isNotEmpty();
+    }
+
+    private function isNextMonthDisabled(Carbon|CarbonImmutable $nextMonth): bool
+    {
+        return !EmployeeWorkingPeriod::query()
+            ->whereIn('employee_id', $this->employeeIds)
+            ->where('date', '>=', $nextMonth->toDateTimeString())
+            ->exists();
     }
 }

@@ -32,6 +32,25 @@
         color: {{ $company->button_text_color }};
     }
 
+    .input-company {
+        background-color: {{ $company->additional_background_color }};
+        color: {{ $company->additional_text_color }};
+    }
+
+    .select-company {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='{{ urlencode($company->additional_text_color) }}' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>");
+        background-repeat: no-repeat, repeat;
+        background-position: right .7em top 50%, 0 0;
+        background-size: .65em auto, 100%;
+    }
+
+    .select-company:focus {
+        outline: none;
+    }
+
     .main-block-company {
         background-color: {{ $company->main_background_color }};
         color: {{ $company->main_text_color }};

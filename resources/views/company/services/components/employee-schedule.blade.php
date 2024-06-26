@@ -19,13 +19,19 @@
             @endif
 
             <h2 class="text-lg font-bold capitalize">{{ $month->name }} {{ $year }}</h2>
-            <form action="/companies/{{ $company->id }}/employees/schedule" id="employee_schedule_form" data-full="1">
-                <input type="hidden" name="date" value="{{ $months->next->date }}">
-                <input type="hidden" name="employee_ids" value="{{ implode(',', $employeeIds) }}">
-                <button class="additional-block-company px-3 py-2 rounded">
-                    <i class="fa fa-arrow-right"></i>
-                </button>
-            </form>
+            @if(!$months->next->disabled)
+                <form action="/companies/{{ $company->id }}/employees/schedule" id="employee_schedule_form" data-full="1">
+                    <input type="hidden" name="date" value="{{ $months->next->date }}">
+                    <input type="hidden" name="employee_ids" value="{{ implode(',', $employeeIds) }}">
+                    <button class="additional-block-company px-3 py-2 rounded">
+                       <i class="fa fa-arrow-right"></i>
+                    </button>
+                </form>
+            @else
+                    <button class="additional-block-company px-3 py-2 rounded opacity-50" disabled>
+                        <i class="fa fa-arrow-right"></i>
+                    </button>
+            @endif
         </div>
 
         <div class="mb-2 box-shadow-inner-basic rounded">
@@ -58,11 +64,23 @@
         <div class="px-2 rounded box-shadow-inner-basic periods h-[35vh]">
             <div class="grid grid-cols-4 gap-2 gap-y-0 h-full text-center overflow-y-auto pb-2">
                 @foreach($periods as $period)
-                    <div class="py-2 mt-2 @if($period->is_available) additional-block-company @else bg-none @endif rounded">
-                        {{ Carbon::parse($period->start_time)->format('H:i') }}
-                    </div>
+                    <button
+                        data-date="{{ Carbon::parse($period->date)->format('d.m.Y') }}"
+                        data-time="{{ $period->start_time }}"
+                        data-employee-ids="{{ implode(',', $employeeIds) }}"
+                        @if(!empty($employee))
+                            data-person-name="{{ $employee->person->full_name }}"
+                            data-address="{{ $employee->affiliate->address }}"
+                        @endif
+                        class="assign_to_service py-2 mt-2 additional-block-company @if($period->is_available) modal-toggle @else opacity-50 @endif rounded"
+                        data-modal="assignment-to-service-modal"
+                        onclick="assignToService(this)"
+                    >
+                        {{ $period->start_time}}
+                    </button>
                 @endforeach
             </div>
         </div>
     </div>
 </div>
+

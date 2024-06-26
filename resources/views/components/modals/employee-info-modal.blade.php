@@ -4,20 +4,15 @@
 
 @section('modal-title')
     Информация о специалисте
-@endsection
+@overwrite
 
 @section('modal-body')
     @include('components.loading-animation')
-@endsection
+@overwrite
 
 @section('modal_scripts')
     <script>
-        const loading =
-            '<div class="h-full w-full"> ' +
-            '   <div class="flex items-center justify-center mt-[25vh]"> ' +
-            '       <i class="fa-solid fa-heart-pulse fa-4x heartbeat text-btn-bg-company"></i> ' +
-            '   </div> ' +
-            '</div>';
+        const loading = `@include('components.loading-animation')`
 
         const modal = document.getElementById('{{ $id }}');
 
@@ -27,6 +22,6 @@
 
         modal.addEventListener('closed', (e) => {
             modal.querySelector('#modal-body').innerHTML = '';
-        })
+        });
     </script>
-@endsection
+@overwrite
