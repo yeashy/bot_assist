@@ -14,6 +14,13 @@ use Illuminate\Database\Seeder;
 
 class CompanySeeder extends Seeder
 {
+    private array $testCompany = [
+        'name' => 'Test Company',
+        'code_name' => 'test_company',
+        'bot_token' => '7311110449:AAG2N1qKDG6JLe002VMTmDS3gXvxinDuU8g',
+        'company_type_id' => 1
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -21,6 +28,8 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
+        Company::query()->create($this->testCompany);
+
         Company::factory()
             ->count(3)
             ->has(CompanyDesignInfo::factory()->count(1), 'design')

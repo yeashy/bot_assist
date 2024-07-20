@@ -8,6 +8,9 @@ services:
             context: ./
             dockerfile: Dockerfile
         image: bot_assist-app
+        depends_on:
+            db:
+                condition: service_started
         ports:
             - "9000:9000"
             - "5173:5173"
@@ -18,7 +21,6 @@ services:
             - ./:/var/www/app
         networks:
             - bot_assist
-
     db:
         image: mysql:5.7
         container_name: bot_assist-db
@@ -42,12 +44,15 @@ services:
         container_name: bot_assist-nginx
         restart: unless-stopped
         ports:
-            - 8000:80
+            - "8000:80"
         volumes:
             - ./:/var/www/app
             - ./docker-compose/nginx:/etc/nginx/conf.d
         networks:
             - bot_assist
+        depends_on:
+            bot_assist:
+                condition: service_started
 
 networks:
   bot_assist:

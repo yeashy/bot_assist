@@ -21,7 +21,7 @@ class CompanyFactory extends Factory
             'name' => $name,
             'encoded_id' => uniqid(),
             'code_name' => Str::slug($name, '_'),
-            'bot_token' => $this->faker->creditCardNumber(null, false, ''),
+            'bot_token' => 0,
             'company_type_id' => CompanyType::inRandomOrder()->first()->id,
         ];
     }

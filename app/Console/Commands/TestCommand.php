@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Company;
+use App\Services\API\Telegram\TelegramService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
@@ -27,8 +28,6 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $this->output->info(\Str::slug('slug FOR testCase', '_'));
-
 
     }
 }
