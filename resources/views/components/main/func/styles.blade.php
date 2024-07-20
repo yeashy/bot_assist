@@ -61,6 +61,10 @@
         color: {{ $company->additional_text_color }};
     }
 
+    .additional-text-company {
+        color: {{ $company->additional_text_color }};
+    }
+
     .btn-shadow-company:focus {
         box-shadow:
             inset 0 -200px 50px -130px {{ $company->button_background_color }},

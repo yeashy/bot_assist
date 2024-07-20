@@ -28,6 +28,7 @@ Route::prefix('companies')
 
             Route::prefix('employees')
                 ->controller(EmployeeController::class)
+                ->as('employees.')
                 ->group(function () {
                     Route::get('/', 'list')->name('list');
                     Route::get('/schedule', 'schedule')->name('schedule');
@@ -40,6 +41,7 @@ Route::prefix('companies')
 
             Route::prefix('positions')
                 ->controller(JobPositionController::class)
+                ->as('positions.')
                 ->group(function () {
                     Route::get('/', 'list')->name('list');
 

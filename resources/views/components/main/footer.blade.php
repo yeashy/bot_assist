@@ -1,13 +1,13 @@
-<footer
-    class="flex justify-end px-4 py-1 bg-company text-company"
+<div
+    class="flex justify-between py-1 border-t border-company bg-company w-full"
 >
-    <div
-        class="text-sm opacity-50"
-    >
-        Developed by
-        <a
-            href="https://google.com"
-            class="underline"
-        >NAMB</a>
-    </div>
+    @include('components.main.footer.footer-tab', ['text' => 'Дубликация футера для отступа', 'icon' => 'angle-double-up', 'path' => '', 'name' => 'index'])
+</div>
+
+<footer
+    class="flex justify-between py-1 fixed bottom-0 border-t border-company bg-company w-full z-[100] box-shadow-basic"
+>
+    @include('components.main.footer.footer-tab', ['text' => 'Главная', 'icon' => 'home', 'path' => '', 'name' => 'index'])
+    @include('components.main.footer.footer-tab', ['text' => 'Записаться', 'icon' => 'pen', 'path' => 'positions', 'name' => 'positions'])
+    @include('components.main.footer.footer-tab', ['text' => 'Моя карточка', 'icon' => 'user', 'path' => 'profile', 'name' => 'profile'])
 </footer>

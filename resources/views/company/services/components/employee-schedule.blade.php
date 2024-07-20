@@ -51,7 +51,7 @@
                         </form>
                     @else
                         <div
-                            class="flex flex-col items-center px-4 pt-1 min-w-max"
+                            class="flex flex-col items-center px-4 pt-1 min-w-max additional-block-company opacity-50"
                         >
                             <span class="text-sm capitalize">{{ $day->name }}</span>
                             <span class="text-lg font-bold">{{ $day->number }}</span>

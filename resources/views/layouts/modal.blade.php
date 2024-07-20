@@ -2,7 +2,7 @@
     id="{{ $id }}"
     tabindex="-1"
     aria-hidden="true"
-    class="hidden fixed top-0 left-0 z-1000 w-screen h-screen bg-black bg-opacity-60"
+    class="hidden fixed top-0 left-0 z-[1000] w-screen h-screen bg-black bg-opacity-60"
 >
     <div class="flex items-center w-full relative p-4 h-full">
         <div class="flex flex-col text-company bg-company rounded-2xl w-full h-3/4 overflow-y-auto">

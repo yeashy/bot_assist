@@ -5,8 +5,8 @@
 <div id="app" class="flex flex-col h-screen">
     @include('components.main.header')
     <div
-        id="content"
-        class="grow w-screen p-6 pb-2 bg-company text-company"
+            id="content"
+            class="grow w-screen p-6 pb-2 bg-company text-company"
     >
         @yield('content')
     </div>
