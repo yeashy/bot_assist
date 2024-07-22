@@ -1,0 +1,59 @@
+version: "3.7"
+services:
+  bot_assist:
+    build:
+      args:
+        user: mikhail
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: bot_assist-app
+    depends_on:
+      db:
+        condition: service_started
+    ports:
+      - "9000:9000"
+      - "5173:5173"
+    container_name: bot_assist-app
+    restart: unless-stopped
+    working_dir: /var/www/app
+    volumes:
+      - ./:/var/www/app
+    networks:
+      - bot_assist
+  db:
+    image: mysql:5.7
+    container_name: bot_assist-db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - bot_assist
+
+  nginx:
+    image: nginx:1.17-alpine
+    container_name: bot_assist-nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/app
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    networks:
+      - bot_assist
+    depends_on:
+      bot_assist:
+        condition: service_started
+
+networks:
+  bot_assist:
+    driver: bridge
