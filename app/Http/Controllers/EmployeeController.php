@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Employee\ScheduleRequest;
 use App\Models\Employee;
 use App\Services\Http\Employee\EmployeeScheduleService;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class EmployeeController extends Controller
 {
-    public function info(int $companyId, int $employeeId)
+    public function info(int $companyId, int $employeeId): View
     {
         $employee = Employee::query()->with('person.info')->findOrFail($employeeId);
 
@@ -16,7 +17,7 @@ class EmployeeController extends Controller
             ->with('employee', $employee);
     }
 
-    public function schedule(Request $request, int $companyId)
+    public function schedule(ScheduleRequest $request, int $companyId): View
     {
         $service = new EmployeeScheduleService($request, $companyId);
         return $service->execute();

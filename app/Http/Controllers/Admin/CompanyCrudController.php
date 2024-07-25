@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\Admin\CompanyRequest;
 use App\Models\Company;
 use App\Models\Font;
 use Backpack\CRUD\app\Http\Controllers\CrudController;

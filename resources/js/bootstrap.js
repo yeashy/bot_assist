@@ -8,6 +8,13 @@ import axios from 'axios';
 window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+const params = new URLSearchParams(window.location.search);
+
+const isAuth = params.get('auth');
+
+if (isAuth) {
+    sendAuthRequest();
+}
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

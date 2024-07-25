@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StaffMemberRequest;
+use App\Http\Requests\Admin\StaffMemberRequest;
 use App\Models\Gender;
 use App\Models\StaffMember;
 use Backpack\CRUD\app\Http\Controllers\CrudController;

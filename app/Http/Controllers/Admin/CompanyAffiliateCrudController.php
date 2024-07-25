@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CompanyAffiliateRequest;
+use App\Http\Requests\Admin\CompanyAffiliateRequest;
 use App\Models\CompanyAffiliate;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Telegram\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\JobPositionController;
@@ -25,6 +26,13 @@ Route::prefix('companies')
 
         Route::prefix('{companyId}')->group(function () {
             Route::get('/', 'index')->name('index');
+
+            Route::prefix('auth')
+                ->as('auth.')
+                ->controller(AuthController::class)
+                ->group(function () {
+                    Route::post('/', 'auth')->name('index');
+                });
 
             Route::prefix('employees')
                 ->controller(EmployeeController::class)
