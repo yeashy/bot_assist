@@ -73,7 +73,7 @@ return [
     // ------
 
     // Developer or company name. Shown in footer.
-    'developer_name' => 'Mikhail Butakov',
+    'developer_name' => 'NAMB',
 
     // Developer website. Link in footer. Type false if you want to hide it.
     'developer_link' => 'https://t.me/yeashy',
