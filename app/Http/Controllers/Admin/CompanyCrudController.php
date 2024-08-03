@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\CompanyRequest;
+use App\Http\Requests\Admin\Company\CompanyCreateRequest;
+use App\Http\Requests\Admin\Company\CompanyUpdateRequest;
 use App\Models\Company;
 use App\Models\Font;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -204,7 +205,7 @@ class CompanyCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(CompanyRequest::class);
+        CRUD::setValidation(CompanyCreateRequest::class);
 
         CRUD::addField([
             'name' => 'name',
@@ -238,6 +239,63 @@ class CompanyCrudController extends CrudController
             'attribute' => 'name',
             'wrapper' => ['class' => 'from-group col-md-6'],
             'tab' => 'Основная информация'
+        ]);
+
+        /**
+         * Fields can be defined using the fluent syntax:
+         * - CRUD::field('price')->type('number');
+         */
+    }
+
+    /**
+     * Define what happens when the Update operation is loaded.
+     *
+     * @see https://backpackforlaravel.com/docs/crud-operation-update
+     * @return void
+     */
+    protected function setupUpdateOperation()
+    {
+        CRUD::setValidation(CompanyUpdateRequest::class);
+
+        CRUD::addField([
+            'name' => 'email',
+            'label' => 'Почта',
+            'type' => 'email',
+            'wrapper' => ['class' => 'from-group col-md-3'],
+            'tab' => 'Информация'
+        ]);
+
+        CRUD::addField([
+            'name' => 'phone_number',
+            'label' => 'Номер телефона',
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-3'],
+            'tab' => 'Информация'
+        ]);
+
+        CRUD::addField([
+            'name' => 'address',
+            'label' => 'Главный адрес',
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-3'],
+            'tab' => 'Информация'
+        ]);
+
+        CRUD::addField([
+            'name' => 'main_link',
+            'label' => 'Ссылка на сайт',
+            'type' => 'url',
+            'wrapper' => ['class' => 'from-group col-md-3'],
+            'tab' => 'Информация'
+        ]);
+
+        CRUD::addField([
+            'name' => 'logo_path',
+            'label' => 'Логотип',
+            'type' => 'upload',
+            'withFiles' => true,
+            'wrapper' => ['class' => 'form-group col-md-6'],
+            'tab' => 'Информация'
         ]);
 
         CRUD::addField([
@@ -330,62 +388,5 @@ class CompanyCrudController extends CrudController
             'wrapper' => ['class' => 'form-group col-md-3'],
             'tab' => 'Дизайн'
         ]);
-
-        CRUD::addField([
-            'name' => 'email',
-            'label' => 'Почта',
-            'type' => 'email',
-            'wrapper' => ['class' => 'from-group col-md-3'],
-            'tab' => 'Доп. информация'
-        ]);
-
-        CRUD::addField([
-            'name' => 'phone_number',
-            'label' => 'Номер телефона',
-            'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-3'],
-            'tab' => 'Доп. информация'
-        ]);
-
-        CRUD::addField([
-            'name' => 'address',
-            'label' => 'Главный адрес',
-            'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-3'],
-            'tab' => 'Доп. информация'
-        ]);
-
-        CRUD::addField([
-            'name' => 'main_link',
-            'label' => 'Ссылка на сайт',
-            'type' => 'url',
-            'wrapper' => ['class' => 'from-group col-md-3'],
-            'tab' => 'Доп. информация'
-        ]);
-
-        CRUD::addField([
-            'name' => 'logo_path',
-            'label' => 'Логотип',
-            'type' => 'upload',
-            'withFiles' => true,
-            'wrapper' => ['class' => 'form-group col-md-6'],
-            'tab' => 'Доп. информация'
-        ]);
-
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
-    }
-
-    /**
-     * Define what happens when the Update operation is loaded.
-     *
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
-    protected function setupUpdateOperation()
-    {
-        $this->setupCreateOperation();
     }
 }

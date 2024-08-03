@@ -10,6 +10,7 @@ class AuthController extends Controller
 {
     public function auth(Request $request, int $companyId)
     {
+        Log::debug('TRYING TO AUTH');
         Log::debug(print_r($request->all(), true));
 
         return response()->json([
