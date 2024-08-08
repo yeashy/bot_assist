@@ -25,7 +25,12 @@ class JobPosition extends Model
 
     public function services(): BelongsToMany
     {
-        return $this->belongsToMany(Service::class, 'job_position_service');
+        return $this->belongsToMany(
+            Service::class,
+            'job_position_service',
+            'job_position_id',
+            'service_id'
+        );
     }
 
     public function employees(): HasMany

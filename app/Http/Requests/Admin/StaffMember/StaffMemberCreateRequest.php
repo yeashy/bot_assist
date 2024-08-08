@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\StaffMember;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class JobPositionRequest extends FormRequest
+class StaffMemberCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         // only allow updates if the user is logged in
         return backpack_auth()->check();
@@ -22,10 +22,21 @@ class JobPositionRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'name' => [
+                'required',
+                'string'
+            ],
+            'surname' => [
+                'required',
+                'string'
+            ],
+            'patronymic' => [
+                'nullable',
+                'string'
+            ]
         ];
     }
 
@@ -34,7 +45,7 @@ class JobPositionRequest extends FormRequest
      *
      * @return array
      */
-    public function attributes()
+    public function attributes(): array
     {
         return [
             //
@@ -46,7 +57,7 @@ class JobPositionRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             //

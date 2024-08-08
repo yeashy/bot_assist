@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ClientRequest;
+use App\Http\Requests\Admin\Client\ClientCreateRequest;
+use App\Http\Requests\Admin\Client\ClientUpdateRequest;
 use App\Models\Client;
 use App\Models\Gender;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -83,13 +84,6 @@ class ClientCrudController extends CrudController
         ]);
 
         CRUD::addColumn([
-            'name' => 'photo_path',
-            'label' => 'Фото',
-            'type' => 'upload',
-            'withFiles' => true,
-        ]);
-
-        CRUD::addColumn([
             'name' => 'description',
             'label' => 'Доп. информация',
             'type' => 'textarea'
@@ -149,18 +143,24 @@ class ClientCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ClientRequest::class);
+        CRUD::setValidation(ClientCreateRequest::class);
 
-        CRUD::addField([
-            'name' => 'name',
-            'label' => 'Имя',
-            'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-3']
+        CRUD::removeSaveActions([
+            'save_and_back',
+            'save_and_new',
+            'save_and_preview'
         ]);
 
         CRUD::addField([
             'name' => 'surname',
             'label' => 'Фамилия',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-3']
+        ]);
+
+        CRUD::addField([
+            'name' => 'name',
+            'label' => 'Имя',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
@@ -173,7 +173,7 @@ class ClientCrudController extends CrudController
         ]);
 
         CRUD::addField([
-            'name' => 'phone_number',
+            'name' => 'user_phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
@@ -193,7 +193,35 @@ class ClientCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(ClientUpdateRequest::class);
+
+        CRUD::addField([
+            'name' => 'surname',
+            'label' => 'Фамилия',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-4']
+        ]);
+
+        CRUD::addField([
+            'name' => 'name',
+            'label' => 'Имя',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-4']
+        ]);
+
+        CRUD::addField([
+            'name' => 'patronymic',
+            'label' => 'Отчество',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-4']
+        ]);
+
+        CRUD::addField([
+            'name' => 'phone_number',
+            'label' => 'Номер телефона',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-3']
+        ]);
 
         CRUD::addField([
             'name' => 'address',
@@ -217,14 +245,6 @@ class ClientCrudController extends CrudController
             'model' => Gender::class,
             'wrapper' => ['class' => 'form-group col-md-3'],
             'allows_null' => false,
-        ]);
-
-        CRUD::addField([
-            'name' => 'photo_path',
-            'label' => 'Фото',
-            'type' => 'upload',
-            'withFiles' => true,
-            'wrapper' => ['class' => 'form-group col-md-6']
         ]);
 
         CRUD::addField([

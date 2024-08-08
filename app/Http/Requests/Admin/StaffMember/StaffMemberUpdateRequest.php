@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\Company;
+namespace App\Http\Requests\Admin\StaffMember;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyUpdateRequest extends FormRequest
+class StaffMemberUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,24 +23,25 @@ class CompanyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => [
-                'required',
-                'email'
-            ],
             'phone_number' => [
-                'required',
-                'string'
+                'nullable',
+                'numeric'
             ],
-            'address' => [
-                'required',
-                'string'
+            'date_of_birth' => [
+                'nullable',
+                'date_format:Y-m-d'
             ],
-            'main_link' => [
+            'gender' => [
                 'required',
-                'url'
+                'exists:genders,id'
             ],
-            'logo_path' => [
-                'required',
+            'description' => [
+                'nullable',
+                'string',
+                'between:5,5000'
+            ],
+            'photo_path' => [
+                'nullable',
                 'mimes:jpg,jpeg,png,webp,svg'
             ]
         ];

@@ -39,11 +39,27 @@ class EmployeeCrudController extends CrudController
         CRUD::setModel(Employee::class);
 
         $personId = Route::current()->parameter('person_id');
-        CRUD::addClause('where', 'staff_member_id', $personId);
+        $companyAffiliateId = Route::current()->parameter('company_affiliate_id');
+
+        $parentRelation = 'staff-member';
+
+        if ($personId) {
+            CRUD::addClause('where', 'staff_member_id', $personId);
+        } elseif ($companyAffiliateId) {
+            CRUD::addClause('where', 'company_affiliate_id', $companyAffiliateId);
+            $parentRelation = 'company-affiliate';
+        }
 
         $companyId = Route::current()->parameter('company_id');
 
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/staff-member/' . $personId . '/employee');
+        CRUD::setRoute(
+            config('backpack.base.route_prefix')
+            . '/company/' . $companyId
+            . '/' . $parentRelation . '/'
+            . ($personId ?? $companyAffiliateId)
+            . '/employee'
+        );
+
         CRUD::setEntityNameStrings('Работник', 'Работники');
     }
 

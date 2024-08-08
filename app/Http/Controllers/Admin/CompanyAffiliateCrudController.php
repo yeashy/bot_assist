@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CompanyAffiliateRequest;
+use App\Http\Requests\Admin\CompanyAffiliate\CompanyAffiliateCreateRequest;
+use App\Http\Requests\Admin\CompanyAffiliate\CompanyAffiliateUpdateRequest;
 use App\Models\CompanyAffiliate;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -65,6 +66,16 @@ class CompanyAffiliateCrudController extends CrudController
                 'class' => 'text-info',
                 'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
             ]);
+
+        CRUD::button('employee')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Должностям',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info'
+            ]);
     }
 
     /**
@@ -101,7 +112,7 @@ class CompanyAffiliateCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(CompanyAffiliateRequest::class);
+        CRUD::setValidation(CompanyAffiliateCreateRequest::class);
 
         CRUD::addField([
             'name' => 'name',
@@ -129,7 +140,19 @@ class CompanyAffiliateCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(CompanyAffiliateUpdateRequest::class);
+
+        CRUD::addField([
+            'name' => 'name',
+            'label' => 'Название',
+            'type' => 'text'
+        ]);
+
+        CRUD::addField([
+            'name' => 'address',
+            'label' => 'Адрес',
+            'type' => 'text'
+        ]);
     }
 
     public function store()

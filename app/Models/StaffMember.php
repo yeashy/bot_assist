@@ -33,10 +33,10 @@ class StaffMember extends Model
         return $this->hasMany(Employee::class);
     }
 
-    public function gender(): BelongsTo
-    {
-        return $this->belongsTo(Gender::class);
-    }
+//    public function gender()
+//    {
+//        return $this->hasOneThrough(Gender::class, StaffMemberDescribingInfo::class);
+//    }
 
     // ACCESSORS
 
@@ -83,22 +83,22 @@ class StaffMember extends Model
         $this->patronymic = $fullnameSeparated[2] ?? null;
     }
 
-    public function setPhoneNumberAttribute(string $value): void
+    public function setPhoneNumberAttribute(?string $value): void
     {
         $this->info()->update(['phone_number' => $value]);
     }
 
-    public function setPhotoPathAttribute(string $value): void
+    public function setPhotoPathAttribute(?string $value): void
     {
         $this->info()->update(['photo_path' => $value]);
     }
 
-    public function setDateOfBirthAttribute(string $value): void
+    public function setDateOfBirthAttribute(?string $value): void
     {
         $this->info()->update(['date_of_birth' => $value]);
     }
 
-    public function setDescriptionAttribute(string $value): void
+    public function setDescriptionAttribute(?string $value): void
     {
         $this->info()->update(['description' => $value]);
     }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ServiceRequest;
+use App\Http\Requests\Admin\Service\ServiceRequest;
+use App\Models\JobPosition;
 use App\Models\Service;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -22,7 +23,9 @@ use Illuminate\Support\Facades\Route;
 class ServiceCrudController extends CrudController
 {
     use ListOperation;
-    use CreateOperation { store as traitStore; }
+    use CreateOperation {
+        store as traitStore;
+    }
     use UpdateOperation;
     use DeleteOperation;
     use ShowOperation;
@@ -37,15 +40,39 @@ class ServiceCrudController extends CrudController
         CRUD::setModel(Service::class);
 
         $companyId = Route::current()->parameter('company_id');
+        $jobPositionId = Route::current()->parameter('job_position_id');
+
         CRUD::addClause('where', 'company_id', $companyId);
 
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/service');
+        if (!empty($jobPositionId)) {
+            CRUD::addClause('whereHas', 'positions', function ($query) use ($jobPositionId) {
+                $query->where('id', (int)$jobPositionId);
+            });
+        }
+
+        CRUD::setRoute(
+            config('backpack.base.route_prefix')
+            . '/company/'
+            . $companyId
+            . ($jobPositionId ? '/job_position/' . $jobPositionId : '')
+            . '/service'
+        );
+
         CRUD::setEntityNameStrings('Услуга', 'Услуги');
     }
 
     protected function setupShowOperation()
     {
         $this->setupListOperation();
+
+        CRUD::addColumn([
+            'name' => 'positions',
+            'label' => 'Должности',
+            'type' => 'select_multiple',
+            'entity' => 'positions',
+            'attribute' => 'name',
+            'model' => JobPosition::class
+        ]);
 
         $companyId = Route::current()->parameter('company_id');
 
@@ -58,6 +85,23 @@ class ServiceCrudController extends CrudController
                 'icon' => 'la la-envelope',
                 'class' => 'text-info',
                 'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
+            ]);
+
+        CRUD::button('job_position')
+            ->stack('line')
+            ->view('crud::buttons.see_related_button')
+            ->meta([
+                'access' => true,
+                'label' => 'Должностям',
+                'icon' => 'la la-envelope',
+                'class' => 'text-info',
+                'url' => '/'
+                    . config('backpack.base.route_prefix')
+                    . '/company/'
+                    . $companyId
+                    . '/service/'
+                    . Route::current()->parameter('id')
+                    . '/job_position'
             ]);
     }
 
@@ -102,11 +146,12 @@ class ServiceCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ServiceRequest::class);
+
         CRUD::addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-6']
 
         ]);
 
@@ -114,7 +159,16 @@ class ServiceCrudController extends CrudController
             'name' => 'allocated_time',
             'label' => 'Выделяемое время',
             'type' => 'time',
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-6']
+        ]);
+
+        CRUD::addField([
+            'name' => 'positions',
+            'label' => 'Должности',
+            'type' => 'select_multiple',
+            'model' => JobPosition::class,
+            'attribute' => 'name',
+            'pivot' => true
         ]);
 
         /**

@@ -33,6 +33,11 @@ class Client extends Model
         return $this->hasMany(ServiceAssignment::class);
     }
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     // ACCESSORS
 
     public function getFullNameAttribute(): string
@@ -45,7 +50,7 @@ class Client extends Model
         return $this->info->photo_path;
     }
 
-    public function getDateOfBirthAttribute()
+    public function getDateOfBirthAttribute(): string
     {
         return $this->info->date_of_birth;
     }
@@ -63,6 +68,11 @@ class Client extends Model
     public function getGenderAttribute()
     {
         return $this->info->gender;
+    }
+
+    public function getPhoneNumberAttribute()
+    {
+        return $this->user->phone_number;
     }
 
     // MUTATORS
@@ -101,5 +111,10 @@ class Client extends Model
     public function setGenderAttribute(?int $value): void
     {
         $this->info()->update(['gender_id' => $value]);
+    }
+
+    public function setPhoneNumberAttribute(?string $value): void
+    {
+        $this->user()->update(['phone_number' => $value]);
     }
 }

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\StaffMemberRequest;
+use App\Http\Requests\Admin\StaffMember\StaffMemberCreateRequest;
+use App\Http\Requests\Admin\StaffMember\StaffMemberUpdateRequest;
 use App\Models\Gender;
 use App\Models\StaffMember;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
@@ -79,12 +80,9 @@ class StaffMemberCrudController extends CrudController
         ]);
 
         CRUD::addColumn([
-            'name' => 'gender',
+            'name' => 'gender.name',
             'label' => 'Пол',
-            'type' => 'select',
-            'attribute' => 'name',
-            'model' => Gender::class,
-            'entity' => 'gender'
+            'type' => 'string',
         ]);
 
         CRUD::addColumn([
@@ -151,7 +149,13 @@ class StaffMemberCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(StaffMemberRequest::class);
+        CRUD::setValidation(StaffMemberCreateRequest::class);
+
+        CRUD::removeSaveActions([
+            'save_and_back',
+            'save_and_new',
+            'save_and_preview'
+        ]);
 
         CRUD::addField([
             'name' => 'name',
@@ -188,20 +192,41 @@ class StaffMemberCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        $this->setupCreateOperation();
+        CRUD::setValidation(StaffMemberUpdateRequest::class);
+
+        CRUD::addField([
+            'name' => 'name',
+            'label' => 'Имя',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-4']
+        ]);
+
+        CRUD::addField([
+            'name' => 'surname',
+            'label' => 'Фамилия',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-4']
+        ]);
+
+        CRUD::addField([
+            'name' => 'patronymic',
+            'label' => 'Отчество',
+            'type' => 'text',
+            'wrapper' => ['class' => 'form-group col-md-4']
+        ]);
 
         CRUD::addField([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
         CRUD::addField([
             'name' => 'date_of_birth',
             'label' => 'Дата рождения',
             'type' => 'date',
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
         CRUD::addField([
@@ -210,7 +235,8 @@ class StaffMemberCrudController extends CrudController
             'type' => 'select',
             'attribute' => 'name',
             'model' => Gender::class,
-            'wrapper' => ['class' => 'form-group col-md-3']
+            'wrapper' => ['class' => 'form-group col-md-4'],
+            'allows_null' => false,
         ]);
 
         CRUD::addField([

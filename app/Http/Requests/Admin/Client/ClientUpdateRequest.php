@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Admin\Company;
+namespace App\Http\Requests\Admin\Client;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyUpdateRequest extends FormRequest
+class ClientUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,25 +23,26 @@ class CompanyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => [
-                'required',
-                'email'
+            'address' => [
+                'nullable',
+                'string'
+            ],
+            'date_of_birth' => [
+                'nullable',
+                'date_format:Y-m-d'
             ],
             'phone_number' => [
-                'required',
-                'string'
+                'nullable',
+                'numeric'
             ],
-            'address' => [
+            'gender' => [
                 'required',
-                'string'
+                'exists:genders,id'
             ],
-            'main_link' => [
-                'required',
-                'url'
-            ],
-            'logo_path' => [
-                'required',
-                'mimes:jpg,jpeg,png,webp,svg'
+            'description' => [
+                'nullable',
+                'string',
+                'between:5,5000'
             ]
         ];
     }

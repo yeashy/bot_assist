@@ -3,19 +3,24 @@
 namespace App\Observers;
 
 use App\Models\Company;
+use App\Services\Models\Events\CompanyEventService;
 use Str;
 
 class CompanyObserver
 {
     public function creating(Company $company): void
     {
-        $company->encoded_id = uniqid();
-        $company->code_name = Str::slug($company->name, '_');
+        $service = new CompanyEventService($company);
+
+        $service->setEncodedId();
+        $service->setCodeName();
     }
 
     public function created(Company $company): void
     {
-        $company->info()->create();
-        $company->design()->create();
+        $service = new CompanyEventService($company);
+
+        $service->createInfo();
+        $service->createDesign();
     }
 }
