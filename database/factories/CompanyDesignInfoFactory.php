@@ -25,7 +25,6 @@ class CompanyDesignInfoFactory extends Factory
             'button_text_color' => $this->faker->hexColor(),
             'main_text_color' => $this->faker->hexColor(),
             'additional_text_color' => $this->faker->hexColor(),
-            'font_id' => Font::inRandomOrder()->first()->id
         ];
     }
 }

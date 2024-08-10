@@ -9,7 +9,6 @@ use Illuminate\Database\Seeder;
 class CompanyDesignInfoSeeder extends Seeder
 {
     private array $testCompanyDesignInfo = [
-        'font_id' => 1,
         'background_color' => '#ffffff',
         'text_color' => '#000000',
         'border_color' => '#5f71f7',
