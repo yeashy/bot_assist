@@ -37,11 +37,12 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www/app
 
-COPY ./ .
-RUN npm install
-RUN npm run build
+#COPY ./ .
 
-COPY start.sh /usr/local/bin/start.sh
+COPY ../../start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
+
+ARG APP_ENV
+ENV APP_ENV=${APP_ENV}
 
 CMD ["/usr/local/bin/start.sh"]

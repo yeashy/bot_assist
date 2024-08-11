@@ -1,12 +1,15 @@
 version: "3.7"
 services:
     bot_assist:
+        env_file:
+            - .env.${APP_ENV}
         build:
             args:
                 user: mikhail
                 uid: 1000
+                APP_ENV: ${APP_ENV}
             context: ./
-            dockerfile: Dockerfile
+            dockerfile: docker-compose/dockerfiles/laravel.Dockerfile
         image: bot_assist-app
         depends_on:
             db:
@@ -44,7 +47,8 @@ services:
         container_name: bot_assist-nginx
         restart: unless-stopped
         ports:
-            - "8000:80"
+            - "80:80"
+            - "443:443"
         volumes:
             - ./:/var/www/app
             - ./docker-compose/nginx:/etc/nginx/conf.d
