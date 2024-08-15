@@ -1,15 +1,18 @@
 #!/bin/bash
 
-#cat ".env.${APP_ENV}" > .env
-
 chmod -R 777 ./storage
+chmod -R 777 ./public
 
 composer i
+
+rm -rf public/hot
 
 npm install
 npm run build
 
 php artisan api:telegram:set-webhooks
-npm run dev &
+if [ ${APP_ENV} = 'local' ]; then
+    npm run dev
+fi &
 
 php-fpm

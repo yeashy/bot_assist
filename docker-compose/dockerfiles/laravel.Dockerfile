@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2-fpm as base
 
 # Arguments defined in docker-compose.yml
 ARG user
@@ -44,5 +44,11 @@ RUN chmod +x /usr/local/bin/start.sh
 
 ARG APP_ENV
 ENV APP_ENV=${APP_ENV}
+
+FROM base AS local-target
+
+CMD ["/usr/local/bin/start.sh"]
+
+FROM base AS development-target
 
 CMD ["/usr/local/bin/start.sh"]

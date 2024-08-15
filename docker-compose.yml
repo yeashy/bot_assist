@@ -10,6 +10,7 @@ services:
                 APP_ENV: ${APP_ENV}
             context: ./
             dockerfile: docker-compose/dockerfiles/laravel.Dockerfile
+            target: ${APP_ENV?}-target
         image: bot_assist-app
         depends_on:
             db:
@@ -28,17 +29,14 @@ services:
         image: mysql:5.7
         container_name: bot_assist-db
         restart: unless-stopped
+        env_file:
+            - .env.${APP_ENV}
         ports:
             - "3306:3306"
         environment:
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_USER: ${DB_USERNAME}
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         volumes:
-            - /etc/letsencrypt/live/nambapp.ru/:/etc/letsencrypt/live/nambapp.ru/
             - ./docker-compose/mysql:/docker-entrypoint-initdb.d
         networks:
             - bot_assist

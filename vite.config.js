@@ -8,13 +8,11 @@ export default defineConfig(({ command, mode }) => {
 
     return {
         server: {
+            host: true,
             hmr: {
                 host: process.env.VITE_ASSET_HOST
             },
-            https: process.env.VITE_APP_ENV !== 'local' ? {
-                cert: fs.readFileSync(process.env.VITE_CERT_PATH),
-                key: fs.readFileSync(process.env.VITE_KEY_PATH)
-            } : false
+            https: process.env.VITE_APP_ENV !== 'local'
         },
         plugins: [
             laravel({
