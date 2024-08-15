@@ -52,13 +52,18 @@ services:
             - "443:443"
         volumes:
             - ./:/var/www/app
-            - ./docker-compose/nginx:/etc/nginx/conf.d
+            - ./docker-compose/nginx:/etc/nginx/configs
             - /etc/letsencrypt/:/etc/letsencrypt/
         networks:
             - bot_assist
         depends_on:
             bot_assist:
                 condition: service_started
+        command: >
+            /bin/sh -c "
+            ln -sf /etc/nginx/configs/bot_assist.${APP_ENV}.conf /etc/nginx/conf.d/default.conf;
+            nginx -g 'daemon off;'
+            "
 
 networks:
   bot_assist:
