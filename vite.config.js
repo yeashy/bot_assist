@@ -11,11 +11,7 @@ export default defineConfig(({ command, mode }) => {
             hmr: {
                 host: process.env.VITE_ASSET_HOST
             },
-            // https: process.env.VITE_APP_ENV !== 'local' ? {
-            //     key: fs.readFileSync(process.env.VITE_PRIVKEY_PATH),
-            //     cert: fs.readFileSync(process.env.VITE_CERT_PATH),
-            // } : false,
-            https: false
+            https: process.env.VITE_APP_ENV !== 'local'
         },
         plugins: [
             laravel({
