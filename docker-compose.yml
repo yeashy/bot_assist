@@ -38,6 +38,7 @@ services:
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
         volumes:
+            - /etc/letsencrypt/live/nambapp.ru/:/etc/letsencrypt/live/nambapp.ru/
             - ./docker-compose/mysql:/docker-entrypoint-initdb.d
         networks:
             - bot_assist
@@ -52,6 +53,7 @@ services:
         volumes:
             - ./:/var/www/app
             - ./docker-compose/nginx:/etc/nginx/conf.d
+            - /etc/letsencrypt/:/etc/letsencrypt/
         networks:
             - bot_assist
         depends_on:
