@@ -38,10 +38,6 @@ class CompanyUpdateRequest extends FormRequest
             'main_link' => [
                 'required',
                 'url'
-            ],
-            'logo_path' => [
-                'required',
-                'mimes:jpg,jpeg,png,webp,svg'
             ]
         ];
     }
