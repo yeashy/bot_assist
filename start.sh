@@ -1,7 +1,7 @@
 #!/bin/bash
 
 composer i
-chmod -R 777 ./storage/logs
+chmod -R 777 ./storage
 
 rm -rf public/hot
 
