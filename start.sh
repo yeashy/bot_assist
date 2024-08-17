@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#chmod -R 777 ./storage
-#chmod -R 777 ./public
-
 composer i
+chown ${USER}:${USER} -R ./storage/logs
 
 rm -rf public/hot
 

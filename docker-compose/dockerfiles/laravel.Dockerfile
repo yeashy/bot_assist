@@ -42,6 +42,7 @@ RUN chmod +x /usr/local/bin/start.sh
 
 ARG APP_ENV
 ENV APP_ENV=${APP_ENV}
+ENV USER=$user
 
 FROM base AS local-target
 
