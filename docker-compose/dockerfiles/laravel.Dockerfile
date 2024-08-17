@@ -37,12 +37,11 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www/app
 
-COPY ../../start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
-
 ARG APP_ENV
 ENV APP_ENV=${APP_ENV}
-ENV USER=$user
+
+COPY ../../start-${APP_ENV}.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
 
 FROM base AS local-target
 
@@ -51,7 +50,3 @@ CMD ["/usr/local/bin/start.sh"]
 FROM base AS development-target
 
 CMD ["/usr/local/bin/start.sh"]
-
-COPY ../../antimalware.sh /usr/local/bin/antimalware.sh
-
-CMD ["/usr/local/bun/antimalware.sh"]
