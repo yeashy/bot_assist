@@ -16,8 +16,8 @@ services:
             db:
                 condition: service_started
         ports:
-            - "9000:9000"
-            - "5173:5173"
+            - "127.0.0.1:9000:9000"
+            - "127.0.0.1:5173:5173"
         container_name: bot_assist-app
         restart: unless-stopped
         working_dir: /var/www/app
@@ -32,7 +32,7 @@ services:
         env_file:
             - .env.${APP_ENV}
         ports:
-            - "3306:3306"
+            - "127.0.0.1:3306:3306"
         environment:
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
