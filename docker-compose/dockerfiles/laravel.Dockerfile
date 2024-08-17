@@ -37,8 +37,6 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www/app
 
-#COPY ./ .
-
 COPY ../../start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 

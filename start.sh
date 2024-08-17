@@ -1,7 +1,7 @@
 #!/bin/bash
 
-chmod -R 777 ./storage
-chmod -R 777 ./public
+#chmod -R 777 ./storage
+#chmod -R 777 ./public
 
 composer i
 
