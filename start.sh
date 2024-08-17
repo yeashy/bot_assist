@@ -1,7 +1,7 @@
 #!/bin/bash
 
 composer i
-chown ${USER}:${USER} -R ./storage/logs
+chmod -R 777 ./storage/logs
 
 rm -rf public/hot
 
