@@ -16,4 +16,14 @@ class CompanyController extends Controller
             'company' => $company
         ]);
     }
+
+    public function info(int $id): View
+    {
+        $company = Company::query()->findOrFail($id);
+
+        return view('company.info.index')->with([
+            'company' => $company,
+            'affiliates' => $company->affiliates,
+        ]);
+    }
 }

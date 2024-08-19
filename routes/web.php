@@ -25,6 +25,7 @@ Route::prefix('companies')
 
         Route::prefix('{companyId}')->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('/info', 'info')->name('info');
 
             Route::prefix('employees')
                 ->controller(EmployeeController::class)

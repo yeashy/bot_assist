@@ -2,8 +2,10 @@
     const loadingOverlay = document.getElementById('loading');
 
     document.querySelectorAll('a').forEach((element) => {
-        element.addEventListener('click', (e) => {
-            loadingOverlay.classList.remove('hidden');
-        })
+        if (!element.classList.contains('no-loading')) {
+            element.addEventListener('click', (e) => {
+                loadingOverlay.classList.remove('hidden');
+            })
+        }
     })
 </script>

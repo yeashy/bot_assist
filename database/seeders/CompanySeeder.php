@@ -34,7 +34,7 @@ class CompanySeeder extends Seeder
             ->count(3)
             ->has(CompanyDesignInfo::factory()->count(1), 'design')
             ->has(CompanyDescribingInfo::factory()->count(1), 'info')
-            ->has(CompanyAffiliate::factory()->count(2), 'affiliates')
+            ->has(CompanyAffiliate::factory()->count(5), 'affiliates')
             ->has(
                 Client::factory()
                     ->count(3)

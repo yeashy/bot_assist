@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Client;
 use App\Models\Company;
+use App\Models\CompanyAffiliate;
 use App\Models\StaffMember;
 use App\Observers\ClientObserver;
+use App\Observers\CompanyAffiliateObserver;
 use App\Observers\CompanyObserver;
 use App\Observers\StaffMemberObserver;
 use Illuminate\Auth\Events\Registered;
@@ -34,6 +36,7 @@ class EventServiceProvider extends ServiceProvider
         Company::observe(CompanyObserver::class);
         Client::observe(ClientObserver::class);
         StaffMember::observe(StaffMemberObserver::class);
+        CompanyAffiliate::observe(CompanyAffiliateObserver::class);
     }
 
     /**

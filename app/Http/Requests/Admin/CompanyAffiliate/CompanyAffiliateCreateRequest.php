@@ -33,6 +33,18 @@ class CompanyAffiliateCreateRequest extends FormRequest
             'address' => [
                 'required',
                 'string'
+            ],
+            'coordinates' => [
+                'nullable',
+                'string'
+            ],
+            'phone_number' => [
+                'nullable',
+                'string'
+            ],
+            'is_main' => [
+                'nullable',
+                'boolean'
             ]
         ];
     }

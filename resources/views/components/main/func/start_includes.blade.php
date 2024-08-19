@@ -11,4 +11,6 @@
     href="{{ Storage::disk('assets')->url('fontawesome/css/all.css') }}"
 >
 
+<script src="https://api-maps.yandex.ru/v3/?apikey=bbdd0acb-9159-4c2f-90bf-2c68f573364d&lang=ru_RU"></script>
+
 @vite('resources/js/app.js')

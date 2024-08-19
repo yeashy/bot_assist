@@ -54,6 +54,18 @@ class CompanyAffiliateCrudController extends CrudController
             'type' => 'text'
         ]);
 
+        CRUD::addColumn([
+            'name' => 'coordinates',
+            'label' => 'Координаты',
+            'type' => 'text'
+        ]);
+
+        CRUD::addColumn([
+            'name' => 'is_main',
+            'label' => 'Главное здание',
+            'type' => 'boolean'
+        ]);
+
         $companyId = Route::current()->parameter('company_id');
 
         CRUD::button('company')
@@ -98,6 +110,12 @@ class CompanyAffiliateCrudController extends CrudController
             'type' => 'text'
         ]);
 
+        CRUD::addColumn([
+            'name' => 'phone_number',
+            'label' => 'Телефон',
+            'type' => 'text'
+        ]);
+
         /**
          * Columns can be defined using the fluent syntax:
          * - CRUD::column('price')->type('number');
@@ -117,13 +135,35 @@ class CompanyAffiliateCrudController extends CrudController
         CRUD::addField([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-6'],
         ]);
 
         CRUD::addField([
             'name' => 'address',
             'label' => 'Адрес',
-            'type' => 'text'
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'coordinates',
+            'label' => 'Координаты',
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'phone_number',
+            'label' => 'Телефон',
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'is_main',
+            'label' => 'Главное здание',
+            'type' => 'boolean'
         ]);
 
         /**
@@ -145,13 +185,35 @@ class CompanyAffiliateCrudController extends CrudController
         CRUD::addField([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-6'],
         ]);
 
         CRUD::addField([
             'name' => 'address',
             'label' => 'Адрес',
-            'type' => 'text'
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'coordinates',
+            'label' => 'Координаты',
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'phone_number',
+            'label' => 'Телефон',
+            'type' => 'text',
+            'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'is_main',
+            'label' => 'Главное здание',
+            'type' => 'boolean'
         ]);
     }
 

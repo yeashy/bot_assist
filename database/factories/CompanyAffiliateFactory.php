@@ -19,7 +19,11 @@ class CompanyAffiliateFactory extends Factory
     {
         return [
             'name' => $this->faker->words(asText: true),
-            'address' => $this->faker->address()
+            'address' => $this->faker->address(),
+            'latitude' => $this->faker->randomFloat(8, -90, 90),
+            'longitude' => $this->faker->randomFloat(8, -180, 180),
+            'is_main' => $this->faker->boolean(),
+            'phone_number' => $this->faker->phoneNumber(),
         ];
     }
 }
