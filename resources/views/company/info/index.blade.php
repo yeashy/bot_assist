@@ -8,7 +8,7 @@
     <div>
         @include('company.info.contacts')
     </div>
-    <div>
+    <div class="mb-4">
         @include('company.info.map')
     </div>
     <div>

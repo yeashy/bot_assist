@@ -1,24 +1,24 @@
 @include('components.page-title', ['text' => 'Наши контакты'])
 
-<div>
-    <div class="mb-2">
-        <a href="tel:{{ $company->phone_number }}" class="no-loading">
-            <i class="fa-solid fa-phone"></i> {{ $company->phone_number }}
-        </a>
-         - Наш телефон
-    </div>
-    <div class="mb-2">
-        <a href="{{ $company->main_link }}" target="_blank" class="no-loading">
-            <i class="fa-solid fa-globe"></i> <span class="underline">{{ $company->main_link }}</span>
-        </a>
-         - Наш сайт
-    </div>
-    <div class="mb-2">
-        <a href="mailto:{{ $company->email }}" class="no-loading">
-            <i class="fa-solid fa-envelope"></i> {{ $company->email }}
-        </a>
-         - Наша почта
-    </div>
+<div class="flex justify-between mb-6">
+    @include('company.info.contacts.contact-btn',
+        [
+            'icon' => 'fa-phone',
+            'href' => 'tel:' . $company->phone_number,
+            'text' => 'Телефон'
+        ])
+    @include('company.info.contacts.contact-btn',
+        [
+            'icon' => 'fa-globe',
+            'href' => $company->main_link, 'blank' => true,
+            'text' => 'Сайт'
+        ])
+    @include('company.info.contacts.contact-btn',
+        [
+            'icon' => 'fa-envelope',
+            'href' => 'mailto:' . $company->email,
+            'text' => 'Почта'
+        ])
 </div>
 
 
