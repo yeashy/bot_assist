@@ -10,6 +10,7 @@
     >
         @yield('content')
     </div>
+    @include('components.main.signature')
     @include('components.main.footer')
 </div>
 

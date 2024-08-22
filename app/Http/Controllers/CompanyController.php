@@ -19,11 +19,12 @@ class CompanyController extends Controller
 
     public function info(int $id): View
     {
-        $company = Company::query()->findOrFail($id);
+        $company = Company::query()
+            ->findOrFail($id);
 
         return view('company.info.index')->with([
             'company' => $company,
-            'affiliates' => $company->affiliates,
+            'affiliates' => $company->affiliates()->orderBy('is_main')->get(),
         ]);
     }
 }

@@ -11,7 +11,4 @@
     <div class="mb-4">
         @include('company.info.map')
     </div>
-    <div>
-        @include('company.info.affiliates')
-    </div>
 @endsection
