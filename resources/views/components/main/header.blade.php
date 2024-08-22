@@ -6,7 +6,7 @@
     >
         {{ $company->name }}
     </div>
-    <div class="absolute right-6 flex items-center h-full pt-2">
+    <div class="absolute right-6 flex items-center h-full pt-1">
         <a href="/companies/{{ $company->id }}/info">
             <i class="la la-info-circle la-lg"></i>
         </a>
