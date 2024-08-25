@@ -455,7 +455,7 @@ class InitialEntitiesSeeder extends Seeder
 
         foreach ($this->employees as $employee) {
             $employee = Employee::query()->find($employee['id']);
-            
+
             $startDate = CarbonImmutable::now()->startOfDay();
             $endDate = CarbonImmutable::now()->addDays(90)->startOfDay();
 
