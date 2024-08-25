@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             ServiceSeeder::class,
             EmployeeSeeder::class,
             EmployeeWorkingPeriodSeeder::class,
-            ServiceAssignmentSeeder::class
+            ServiceAssignmentSeeder::class,
+            InitialEntitiesSeeder::class
         ]);
     }
 }
