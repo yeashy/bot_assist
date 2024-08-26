@@ -54,7 +54,10 @@ class CompanyCreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            //
+            'name' => 'Название',
+            'code_name' => 'Кодовое имя',
+            'bot_token' => 'Токен бота',
+            'company_type' => 'Тип компании'
         ];
     }
 

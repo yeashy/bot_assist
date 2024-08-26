@@ -41,4 +41,14 @@ class CompanyUpdateRequest extends FormRequest
             ]
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'email' => 'Почта',
+            'phone_number' => 'Номер телефона',
+            'address' => 'Главный адрес',
+            'main_link' => 'Ссылка на сайт'
+        ];
+    }
 }

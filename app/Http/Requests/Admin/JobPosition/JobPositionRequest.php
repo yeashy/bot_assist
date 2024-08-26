@@ -48,7 +48,9 @@ class JobPositionRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            //
+            'name' => 'Название',
+            'services' => 'Услуги',
+            'services.*' => 'Услуга'
         ];
     }
 

@@ -23,6 +23,21 @@ class ClientUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => [
+                'required',
+                'string',
+                'between:1,255',
+            ],
+            'surname' => [
+                'required',
+                'string',
+                'between:1,255',
+            ],
+            'patronymic' => [
+                'nullable',
+                'string',
+                'between:1,255',
+            ],
             'address' => [
                 'nullable',
                 'string'
@@ -44,6 +59,20 @@ class ClientUpdateRequest extends FormRequest
                 'string',
                 'between:5,5000'
             ]
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
+            'patronymic' => 'Отчество',
+            'address' => 'Адрес проживания',
+            'date_of_birth' => 'Дата рождения',
+            'phone_number' => 'Номер телефона',
+            'gender' => 'Пол',
+            'description' => 'Доп. информация'
         ];
     }
 }

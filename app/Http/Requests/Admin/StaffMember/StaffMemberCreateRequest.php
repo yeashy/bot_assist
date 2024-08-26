@@ -48,7 +48,9 @@ class StaffMemberCreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            //
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
+            'patronymic' => 'Отчество'
         ];
     }
 

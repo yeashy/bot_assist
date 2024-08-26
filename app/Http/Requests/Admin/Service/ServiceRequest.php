@@ -53,7 +53,10 @@ class ServiceRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            //
+            'name' => 'Название',
+            'allocated_time' => 'Выделяемое время',
+            'positions' => 'Должности',
+            'positions.*' => 'Должность'
         ];
     }
 

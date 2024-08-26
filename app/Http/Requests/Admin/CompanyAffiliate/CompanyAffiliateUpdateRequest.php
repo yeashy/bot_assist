@@ -53,6 +53,16 @@ class CompanyAffiliateUpdateRequest extends FormRequest
         ];
     }
 
+    public function attributes(): array
+    {
+        return [
+            'name' => 'Название',
+            'phone_number' => 'Номер телефона',
+            'address' => 'Адрес',
+            'is_main' => 'Главный адрес'
+        ];
+    }
+
     public function messages(): array
     {
         return [

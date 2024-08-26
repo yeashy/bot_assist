@@ -23,6 +23,18 @@ class StaffMemberUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'name' => [
+                'required',
+                'string'
+            ],
+            'surname' => [
+                'required',
+                'string'
+            ],
+            'patronymic' => [
+                'nullable',
+                'string'
+            ],
             'phone_number' => [
                 'nullable',
                 'numeric'
@@ -44,6 +56,20 @@ class StaffMemberUpdateRequest extends FormRequest
                 'nullable',
                 'mimes:jpg,jpeg,png,webp,svg'
             ]
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
+            'patronymic' => 'Отчество',
+            'phone_number' => 'Номер телефона',
+            'date_of_birth' => 'Дата рождения',
+            'gender' => 'Пол',
+            'description' => 'Доп. информация',
+            'photo_path' => 'Фото'
         ];
     }
 }

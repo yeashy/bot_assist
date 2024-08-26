@@ -56,7 +56,10 @@ class ClientCreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            //
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
+            'patronymic' => 'Отчество',
+            'user_phone_number' => 'Номер телефона'
         ];
     }
 
