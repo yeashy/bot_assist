@@ -7,6 +7,7 @@
     @yield('start_includes')
     @include('components.main.func.start_includes')
     @yield('start_scripts')
+    @include('components.main.func.start_scripts')
     @yield('styles')
     @include('components.main.func.styles')
     <title>@yield('title')</title>

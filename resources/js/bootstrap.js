@@ -9,6 +9,22 @@ window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+let urlFragment = window.location.hash.substring(1);
+
+urlFragment = decodeURIComponent(urlFragment);
+
+// Разбиваем строку на пары ключ-значение
+let params = Object.fromEntries(new URLSearchParams(urlFragment));
+
+// Извлекаем значение параметра hash
+const hash = params.hash;
+const user = params.user;
+console.log(params);
+
+if (hash) {
+    sendAuthRequest(params);
+}
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
