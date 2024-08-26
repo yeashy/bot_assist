@@ -32,9 +32,15 @@ class CompanyAffiliateUpdateRequest extends FormRequest
                 'required',
                 'string'
             ],
-            'coordinates' => [
+            'latitude' => [
+                'required',
+                'numeric',
+                'between:-90,90'
+            ],
+            'longitude' => [
                 'nullable',
-                'string'
+                'numeric',
+                'between:-180,180'
             ],
             'phone_number' => [
                 'nullable',
@@ -43,6 +49,15 @@ class CompanyAffiliateUpdateRequest extends FormRequest
             'is_main' => [
                 'nullable',
                 'boolean'
+            ]
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'latitude' => [
+                'required' => 'Для адреса нужно выбрать элемент из списка'
             ]
         ];
     }

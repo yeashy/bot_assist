@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\Telegram\WebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,10 @@ Route::prefix('telegram')
     ->group(function () {
         Route::post('/{token}/webhook', [WebhookController::class, 'handle'])->name('webhook');
 });
+
+Route::prefix('address')
+    ->as('address.')
+    ->namespace('App\Http\Controllers\API')
+    ->group(function () {
+        Route::get('/suggest/{address}', [AddressController::class, 'suggest'])->name('suggest');
+    });

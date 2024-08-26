@@ -24,7 +24,7 @@ class CompanyController extends Controller
 
         return view('company.info.index')->with([
             'company' => $company,
-            'affiliates' => $company->affiliates()->orderBy('is_main')->get(),
+            'affiliates' => $company->affiliates()->orderByDesc('is_main')->get(),
         ]);
     }
 }

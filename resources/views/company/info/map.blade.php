@@ -4,7 +4,7 @@
     <div id="map" class="w-full h-60 rounded-2xl overflow-hidden z-10 relative shadow-md border-t border-l border-r border-company">
 
     </div>
-    <div class="h-56 pt-9 pb-3 overflow-y-auto rounded-2xl border-l border-r border-b mt-[-30px] border-company">
+    <div class="h-64 pt-9 pb-3 overflow-y-auto rounded-2xl border-l border-r border-b mt-[-30px] border-company">
         <ul>
             @foreach($affiliates as $affiliate)
                 <li class="flex flex-col p-3 pb-0 affiliate-element" id="affiliate-{{ $affiliate->id }}">
@@ -51,6 +51,9 @@
         await ymaps3.ready;
 
         document.ymaps = ymaps3;
+        document.ymaps.controls = await ymaps3.import('@yandex/ymaps3-controls@0.0.1');
+
+        console.log(document.ymaps);
 
         document.map = new document.ymaps.YMap(
             document.getElementById('map'),
@@ -61,6 +64,11 @@
                 }
             }
         );
+
+        const controls = new document.ymaps.YMapControls({position: 'top left', orientation: 'vertical'});
+        controls.addChild(new document.ymaps.controls.YMapGeolocationControl());
+        controls.addChild(new document.ymaps.controls.YMapZoomControl());
+        document.map.addChild(controls);
 
         document.map.addChild(new document.ymaps.YMapDefaultSchemeLayer());
         document.map.addChild(new document.ymaps.YMapDefaultFeaturesLayer({zIndex: 1800}));
@@ -90,6 +98,7 @@
 
     function scrollToAffiliate(id) {
         const affiliateElement = document.querySelector(`.affiliate-element#` + id);
+        affiliateElement.querySelector('.affiliate-toggle').click();
 
         affiliateElement.scrollIntoView({
             block: "center",

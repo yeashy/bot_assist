@@ -140,24 +140,29 @@ class CompanyAffiliateCrudController extends CrudController
         ]);
 
         CRUD::addField([
-            'name' => 'address',
-            'label' => 'Адрес',
-            'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6'],
-        ]);
-
-        CRUD::addField([
-            'name' => 'coordinates',
-            'label' => 'Координаты',
-            'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6'],
-        ]);
-
-        CRUD::addField([
             'name' => 'phone_number',
             'label' => 'Телефон',
             'type' => 'text',
             'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'address',
+            'label' => 'Адрес',
+            'type' => 'address-input',
+            'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'latitude',
+            'label' => 'Широта',
+            'type' => 'hidden',
+        ]);
+
+        CRUD::addField([
+            'name' => 'longitude',
+            'label' => 'Долгота',
+            'type' => 'hidden',
         ]);
 
         CRUD::addField([
@@ -190,24 +195,29 @@ class CompanyAffiliateCrudController extends CrudController
         ]);
 
         CRUD::addField([
-            'name' => 'address',
-            'label' => 'Адрес',
-            'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6'],
-        ]);
-
-        CRUD::addField([
-            'name' => 'coordinates',
-            'label' => 'Координаты',
-            'type' => 'text',
-            'wrapper' => ['class' => 'from-group col-md-6'],
-        ]);
-
-        CRUD::addField([
             'name' => 'phone_number',
             'label' => 'Телефон',
             'type' => 'text',
             'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'address',
+            'label' => 'Адрес',
+            'type' => 'address-input',
+            'wrapper' => ['class' => 'from-group col-md-6'],
+        ]);
+
+        CRUD::addField([
+            'name' => 'latitude',
+            'label' => 'Широта',
+            'type' => 'hidden',
+        ]);
+
+        CRUD::addField([
+            'name' => 'longitude',
+            'label' => 'Долгота',
+            'type' => 'hidden',
         ]);
 
         CRUD::addField([
