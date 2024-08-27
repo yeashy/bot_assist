@@ -5,6 +5,7 @@ namespace App\Services\Http\API\Telegram\Auth;
 use App\Models\Company;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 readonly class AuthService
 {
