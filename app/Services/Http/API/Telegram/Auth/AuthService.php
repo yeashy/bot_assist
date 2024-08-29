@@ -3,9 +3,13 @@
 namespace App\Services\Http\API\Telegram\Auth;
 
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Response;
 
 readonly class AuthService
 {
@@ -23,11 +27,31 @@ readonly class AuthService
 
         $realHash = $this->getHashFromData($checkString, $this->companyId);
 
-        Log::debug($checkString . PHP_EOL . $realHash . PHP_EOL . hash_equals($checkHash, $realHash));
+        if (hash_equals($checkHash, $realHash)) {
+            $telegramUser = json_decode($this->request->get('user'));
 
-        return response()->json([
-            'message' => hash_equals($checkHash, $realHash) ? 'success' : 'error',
-        ]);
+            $user = User::query()->firstOrCreate([
+                'external_id' => $telegramUser->id
+            ], [
+                'name' => $telegramUser->username
+            ]);
+
+            $this->loginUser($user);
+
+            $response = [
+                'message' => 'success'
+            ];
+
+            $statusCode = Response::HTTP_OK;
+        } else {
+            $response = [
+                'message' => 'error'
+            ];
+
+            $statusCode = Response::HTTP_UNAUTHORIZED;
+        }
+
+        return response()->json($response, $statusCode);
     }
 
     private function getHashFromData(string $checkString, int $companyId): string
@@ -55,5 +79,10 @@ readonly class AuthService
         }
 
         return rtrim($check_string, "\n");
+    }
+
+    private function loginUser(User $user): void
+    {
+        Auth::login($user);
     }
 }

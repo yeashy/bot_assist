@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,15 +26,8 @@ Route::prefix('companies')
     ->group(function () {
 
         Route::prefix('{companyId}')->group(function () {
-            Route::get('/', 'index')->name('index');
+            Route::get('/', 'index')->name('main');
             Route::get('/info', 'info')->name('info');
-
-            Route::prefix('auth')
-                ->as('auth.')
-                ->controller(AuthController::class)
-                ->group(function () {
-                    Route::post('/', 'auth')->name('index');
-                });
 
             Route::prefix('employees')
                 ->controller(EmployeeController::class)
@@ -67,6 +61,23 @@ Route::prefix('companies')
                                 });
                             });
                     });
+                });
+
+            Route::prefix('user')
+                ->as('user.')
+                ->group(function () {
+                    Route::controller(UserController::class)->group(function () {
+                        Route::get('/', 'index')->name('index');
+
+                        Route::get('me', 'me')->name('me')->middleware('auth.logged');
+                    });
+                });
+
+            Route::prefix('auth')
+                ->as('auth.')
+                ->controller(AuthController::class)
+                ->group(function () {
+                    Route::post('/', 'auth')->name('index');
                 });
         });
     });

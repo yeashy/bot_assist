@@ -18,8 +18,6 @@ let params = Object.fromEntries(new URLSearchParams(urlFragment));
 
 // Извлекаем значение параметра hash
 const hash = params.hash;
-const user = params.user;
-console.log(params);
 
 if (hash) {
     sendAuthRequest(params);
