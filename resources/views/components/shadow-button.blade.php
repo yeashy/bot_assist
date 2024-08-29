@@ -1,5 +1,5 @@
 <{{ $tag ?? 'a'}}
-    class="bg-white bg-cover aspect-square rounded-2xl p-2 items-end flex btn-shadow-company @foreach($classes ?? [] as $class){{ $class }} @endforeach"
+    class="bg-white bg-cover aspect-square rounded-2xl p-2 items-end flex btn-shadow-company {{ $classes ?? '' }}"
     style="background-image: url({{ Storage::disk('images')->url('test.jpg') }});"
 
     @foreach($attributes ?? [] as $attribute => $value)

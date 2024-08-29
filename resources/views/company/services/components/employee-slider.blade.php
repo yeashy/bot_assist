@@ -9,10 +9,7 @@
     @include('components.shadow-button', [
             'text' => 'Любой специалист',
             'tag' => 'label',
-            'classes' => [
-                'hide_info',
-                'all_employees'
-            ],
+            'class' => 'hide_info all_employees',
             'attributes' => [
                 'for' => 'employee_any'
             ],
@@ -32,9 +29,7 @@
         @include('components.shadow-button', [
             'text' => $employee->full_name,
             'tag' => 'label',
-            'classes' => [
-                'employee_button'
-            ],
+            'class' => 'employee_button',
             'attributes' => [
                 'for' => 'employee_' . $employee->id,
             ],

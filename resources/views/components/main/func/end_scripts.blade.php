@@ -5,7 +5,7 @@
         if (!element.classList.contains('no-loading')) {
             element.addEventListener('click', (e) => {
                 loadingOverlay.classList.remove('hidden');
-            })
+            });
         }
     })
 </script>

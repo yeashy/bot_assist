@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Telegram\AuthController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\JobPositionController;
@@ -71,6 +72,13 @@ Route::prefix('companies')
 
                         Route::get('me', 'me')->name('me')->middleware('auth.logged');
                     });
+                });
+
+            Route::prefix('clients')
+                ->as('clients.')
+                ->controller(ClientController::class)
+                ->group(function () {
+                    Route::post('register', 'register')->name('register');
                 });
 
             Route::prefix('auth')

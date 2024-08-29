@@ -1,4 +1,4 @@
-@include('components.page-title', ['text' => 'Наши адреса', 'className' => 'mt-2'])
+@include('components.page-title', ['text' => 'Наши адреса', 'class' => 'mt-2'])
 
 <div>
     <ul>

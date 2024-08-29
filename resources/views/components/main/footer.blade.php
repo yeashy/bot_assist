@@ -5,7 +5,7 @@
 </div>
 
 <footer
-    class="flex justify-between py-1 fixed bottom-0 border-t border-company bg-company w-full z-[100] box-shadow-basic"
+    class="flex justify-between py-1 fixed bottom-0 border-t border-company bg-company w-full z-[100] box-shadow-basic text-company"
 >
     @include('components.main.footer.footer-tab', ['text' => 'Главная', 'icon' => 'home', 'path' => '', 'name' => ['main', 'info']])
     @include('components.main.footer.footer-tab', ['text' => 'Записаться', 'icon' => 'pen', 'path' => 'positions', 'name' => 'positions'])

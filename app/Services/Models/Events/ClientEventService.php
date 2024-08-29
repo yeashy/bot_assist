@@ -11,16 +11,21 @@ readonly class ClientEventService
         private Client $client
     ) {}
 
-    public function createUserWithPhoneNumberAndAttach(): void
+    public function attachUserViaPhoneNumber(): void
     {
-        $user = new User();
-        $user->name = $this->client->full_name;
-        $user->phone_number = $this->client->user_phone_number;
-        $user->save();
-        $user->refresh();
+        if (!empty($this->client->user_phone_number)) {
+            $user = User::query()->firstOrCreate([
+                'phone_number' => $this->client->user_phone_number
+            ], [
+                'name' => $this->client->full_name,
+            ]);
 
-        $this->client->user_id = $user->id;
-        unset($this->client->user_phone_number);
+            $user->save();
+            $user->refresh();
+
+            $this->client->user_id = $user->id;
+            unset($this->client->user_phone_number);
+        }
     }
 
     public function createInfo(): void

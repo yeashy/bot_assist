@@ -11,7 +11,7 @@ class ClientObserver
     {
         $service = new ClientEventService($client);
 
-        $service->createUserWithPhoneNumberAndAttach();
+        $service->attachUserViaPhoneNumber();
     }
 
     public function created(Client $client): void
