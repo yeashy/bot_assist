@@ -34,7 +34,7 @@
         function addRegistrationFormReloadListener(user) {
             const form = document.getElementById('registration-form');
 
-            if (user.phone_number !== null) {
+            if (user.phone_number_pretty !== null) {
                 const phoneNumberInput = form.querySelector('[name=phone_number]');
 
                 phoneNumberInput.type = 'hidden';
