@@ -3,7 +3,7 @@
     href="services/{{ $service->id }}"
 >
     <div class="h-full w-1/4 overflow-hidden rounded-2xl mr-2">
-        <img class="w-full h-full object-cover" src="{{ Storage::disk('images')->url('test.jpg') }}" alt="">
+        <img class="w-full h-full object-cover" src="{{ Storage::disk('images')->url('default/test.jpg') }}" alt="">
     </div>
     <div class="mr-auto flex flex-col justify-center w-1/2 px-2">
         <div class="font-bold text-ellipsis overflow-hidden w-full h-1/2 leading-snug">

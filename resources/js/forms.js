@@ -20,7 +20,7 @@ document.addEventListener('submit', function (e) {
 
     form.dispatchEvent(requested());
 
-    axios.request({
+    window.axios.request({
         method: form.method,
         url: form.action,
         params: json

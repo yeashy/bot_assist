@@ -64,7 +64,7 @@ readonly class AuthService
     {
         unset($data['hash']);
 
-        $query_id = str_replace('query_id=', '', $data['tgWebAppData']);
+        $query_id = $data['query_id'];
         $auth_date = $data['auth_date'];
         $user = urldecode($data['user']);
 

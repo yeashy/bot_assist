@@ -40,7 +40,8 @@ class RegisterRequest extends FormRequest
             ],
             'phone_number' => [
                 'required',
-                'string'
+                'string',
+                'regex:/^\+?7[\s\-()]*\d{3}[\s\-()]*\d{3}[\s\-()]*\d{2}[\s\-()]*\d{2}$/u'
             ]
         ];
     }

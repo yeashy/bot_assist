@@ -6,8 +6,8 @@
 
 @section('start_scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            axios.get('/companies/{{ $company->id }}/user/me', {
+        document.addEventListener('AxiosLoaded', () => {
+            window.axios.get('/companies/{{ $company->id }}/user/me', {
                 params: {
                     company_id: parseInt('{{ $company->id }}')
                 }
@@ -21,20 +21,40 @@
                         registration.classList.remove('hidden');
                         userData.remove();
 
-                        addRegistrationFormReloadListener();
+                        addRegistrationFormReloadListener(user);
                     } else {
                         userData.classList.remove('hidden');
                         registration.remove();
+
+                        fillUserData(user);
                     }
                 })
         });
 
-        function addRegistrationFormReloadListener() {
+        function addRegistrationFormReloadListener(user) {
             const form = document.getElementById('registration-form');
+
+            if (user.phone_number !== null) {
+                const phoneNumberInput = form.querySelector('[name=phone_number]');
+
+                phoneNumberInput.type = 'hidden';
+                phoneNumberInput.value = user.phone_number_pretty;
+            }
 
             form.addEventListener('submitted', (e) => {
                 window.location.reload();
             });
+        }
+
+        function fillUserData(user) {
+            const avatarElement = document.getElementById('user-avatar');
+            const nameElement = document.getElementById('user-name');
+
+            nameElement.innerText = user.client.name;
+
+            if (user.client.info.photo_path !== null) {
+                avatarElement.src = user.client.info.photo_path;
+            }
         }
     </script>
 @endsection
@@ -44,11 +64,7 @@
         @include('components.forms.registration-form')
     </div>
 
-    <div id="registered" class="flex hidden">
-        @include('components.page-title', ['text' => 'Данные клиента тут'])
-
-        <div class="rounded-full overflow-hidden">
-            <img src="" alt="">
-        </div>
+    <div id="registered" class="hidden w-full">
+        @include('user.user-data')
     </div>
 @endsection

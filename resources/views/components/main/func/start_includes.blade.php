@@ -12,5 +12,6 @@
 >
 
 <script src="https://api-maps.yandex.ru/v3/?apikey=bbdd0acb-9159-4c2f-90bf-2c68f573364d&lang=ru_RU"></script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 @vite('resources/js/app.js')

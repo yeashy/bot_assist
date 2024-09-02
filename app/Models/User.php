@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Helpers\PhoneNumberHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -24,6 +24,10 @@ class User extends Authenticatable
         'email',
         'password',
         'external_id'
+    ];
+
+    protected $appends = [
+        'phone_number_pretty'
     ];
 
     /**
@@ -55,5 +59,16 @@ class User extends Authenticatable
     public function client(int $companyId): Model|HasMany|Client|null
     {
         return $this->clientEntities()->firstWhere('company_id', $companyId);
+    }
+
+    /* === ACCESSORS & MUTATORS === */
+
+    public function getPhoneNumberPrettyAttribute(): ?string
+    {
+        if (!empty($this->phone_number)) {
+            return PhoneNumberHelper::getPrettyFromStandard($this->phone_number);
+        }
+
+        return null;
     }
 }

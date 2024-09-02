@@ -37,6 +37,14 @@
         color: {{ $company->additional_text_color }};
     }
 
+    .input-company:disabled {
+        opacity: 0.3;
+    }
+
+    .form-group:has(> .input-company[type=hidden]) {
+        display: none;
+    }
+
     .select-company {
         -moz-appearance: none;
         -webkit-appearance: none;

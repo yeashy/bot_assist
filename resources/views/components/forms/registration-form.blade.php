@@ -4,15 +4,15 @@
             'method' => 'POST',
             'title' => 'Зарегистрируйтесь',
             'inputs' => [
-                'name' => [
-                    'label' => 'Имя',
-                    'type' => 'text',
-                    'placeholder' => 'Иван'
-                ],
                 'surname' => [
                     'label' => 'Фамилия',
                     'type' => 'text',
                     'placeholder' => 'Иванов'
+                ],
+                'name' => [
+                    'label' => 'Имя',
+                    'type' => 'text',
+                    'placeholder' => 'Иван'
                 ],
                 'patronymic' => [
                     'label' => 'Отчество',
@@ -22,7 +22,8 @@
                 'phone_number' => [
                     'label' => 'Номер телефона',
                     'type' => 'text',
-                    'placeholder' => '+7 (999)-999-99-99'
+                    'placeholder' => '+7 (999)-999-99-99',
+                    'class' => 'phone-number'
                 ]
             ],
             'submitBtn' => [

@@ -118,7 +118,7 @@
 
         function suggestAddress(value) {
             if (value.length > 2) {
-                axios.get('/api/address/suggest/' + value)
+                window.axios.get('/api/address/suggest/' + value)
                     .then((response) => {
                         const suggestions = response.data.suggestions;
                         suggestionsContainer.innerHTML = '';

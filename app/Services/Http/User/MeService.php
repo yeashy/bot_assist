@@ -25,6 +25,10 @@ readonly class MeService
 
         $response['user']['client'] = $client?->toArray();
 
+        if ($client) {
+            $response['user']['client']['info'] = $client->info->toArray();
+        }
+
         return response()->json($response);
     }
 }

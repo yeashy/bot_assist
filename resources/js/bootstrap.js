@@ -5,23 +5,14 @@
  */
 
 import axios from 'axios';
-window.axios = axios;
+window.axios = axios.create({});
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-let urlFragment = window.location.hash.substring(1);
-
-urlFragment = decodeURIComponent(urlFragment);
-
-// Разбиваем строку на пары ключ-значение
-let params = Object.fromEntries(new URLSearchParams(urlFragment));
-
-// Извлекаем значение параметра hash
-const hash = params.hash;
-
-if (hash) {
-    sendAuthRequest(params);
-}
+// telegramAuth()
+//     .then((response) => {
+//         console.log(response);
+//     });
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

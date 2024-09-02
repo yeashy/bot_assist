@@ -65,7 +65,7 @@
         }
 
         function showSchedule(ids, withInfo = false) {
-            axios.get('/companies/{{ $company->id }}/employees/schedule', {
+            window.axios.get('/companies/{{ $company->id }}/employees/schedule', {
                 params: {
                     'employee_ids': ids
                 }
