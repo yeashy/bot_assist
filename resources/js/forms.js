@@ -21,7 +21,7 @@ document.addEventListener('submit', function (e) {
     form.dispatchEvent(requested());
 
     window.axios.request({
-        method: form.method,
+        method: form.dataset.method ?? form.method,
         url: form.action,
         params: json
     })

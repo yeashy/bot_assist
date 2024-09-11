@@ -2,6 +2,7 @@
     id="{{ $id }}"
     action="{{ $action }}"
     method="{{ $method }}"
+    data-method="{{ $method }}"
     class="{{ $class ?? '' }}"
 >
 

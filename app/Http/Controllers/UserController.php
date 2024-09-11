@@ -20,6 +20,15 @@ class UserController extends Controller
             ]);
     }
 
+    public function edit(Request $request, int $companyId): View
+    {
+        $company = Company::query()->findOrFail($companyId);
+
+        return view('user.edit')->with([
+            'company' => $company
+        ]);
+    }
+
     public function me(MeRequest $request): JsonResponse
     {
         $service = new MeService($request);

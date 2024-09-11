@@ -69,6 +69,7 @@ Route::prefix('companies')
                 ->group(function () {
                     Route::controller(UserController::class)->group(function () {
                         Route::get('/', 'index')->name('index');
+                        Route::get('/edit', 'edit')->name('edit');
 
                         Route::get('me', 'me')->name('me')->middleware('auth.logged');
                     });
@@ -79,6 +80,8 @@ Route::prefix('companies')
                 ->controller(ClientController::class)
                 ->group(function () {
                     Route::post('register', 'register')->name('register');
+
+                    Route::put('update', 'update')->name('update');
                 });
 
             Route::prefix('auth')

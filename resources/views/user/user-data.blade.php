@@ -14,7 +14,7 @@
             Михаил
         </div>
         <div class="additional-text-company">
-            <a href="">Настройки ></a>
+            <a href="{{ Request::url() }}/edit">Настройки <i class="las la-angle-right la-xs"></i></a>
         </div>
     </div>
 </div>
