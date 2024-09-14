@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 readonly class AuthService
@@ -82,5 +83,7 @@ readonly class AuthService
     private function loginUser(User $user): void
     {
         Auth::login($user);
+
+        Log::info('User is logged. ' . Auth::user()?->id . ' | ' . microtime(true));
     }
 }
