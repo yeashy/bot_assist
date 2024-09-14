@@ -27,15 +27,16 @@ readonly class AuthService
         $realHash = $this->getHashFromData($checkString, $this->companyId);
 
         if (hash_equals($checkHash, $realHash)) {
-            $telegramUser = json_decode($this->request->get('user'));
+            $telegramUser = json_decode($this->request->get('user'), true);
+            $user = new \App\Services\API\Telegram\Models\User($telegramUser);
 
-            $user = User::query()->firstOrCreate([
-                'external_id' => $telegramUser->id
+            $userModel = User::query()->firstOrCreate([
+                'external_id' => $user->id
             ], [
-                'name' => $telegramUser->username ?? null
+                'name' => $user->username ?? null,
             ]);
 
-            $this->loginUser($user);
+            $this->loginUser($userModel);
 
             $response = [
                 'message' => 'success'

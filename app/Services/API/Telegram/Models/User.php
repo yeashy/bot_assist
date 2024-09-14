@@ -18,7 +18,7 @@ class User implements Arrayable
         $this->id = $data->id;
         $this->firstName = !empty($data->first_name) ? $data->first_name : null;
         $this->lastName = !empty($data->last_name) ? $data->last_name : null;
-        $this->username = !empty($data->username) ? $data->username : null;
+        $this->username = !empty($data->username) ? $data->username : $this->firstName . ' ' . $this->lastName;
     }
 
     public function toArray(): array
