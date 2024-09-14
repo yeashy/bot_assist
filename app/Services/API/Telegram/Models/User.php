@@ -9,7 +9,7 @@ class User implements Arrayable
     public int $id;
     public ?string $firstName;
     public ?string $lastName;
-    public string $username;
+    public ?string $username;
 
     public function __construct(array $data)
     {
@@ -18,7 +18,7 @@ class User implements Arrayable
         $this->id = $data->id;
         $this->firstName = !empty($data->first_name) ? $data->first_name : null;
         $this->lastName = !empty($data->last_name) ? $data->last_name : null;
-        $this->username = $data->username;
+        $this->username = !empty($data->username) ? $data->username : null;
     }
 
     public function toArray(): array

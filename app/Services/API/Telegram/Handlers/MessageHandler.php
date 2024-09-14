@@ -19,7 +19,7 @@ class MessageHandler extends UpdateHandler
             if (!$user) {
                 $user = new User();
                 $user->external_id = $this->message->user->id;
-                $user->name = $this->message->user->username;
+                $user->name = $this->message->user->username ?? null;
                 $user->phone_number = $this->message->contact->phoneNumber;
                 $user->save();
 
