@@ -32,7 +32,7 @@ readonly class AuthService
             $user = User::query()->firstOrCreate([
                 'external_id' => $telegramUser->id
             ], [
-                'name' => $telegramUser->username
+                'name' => $telegramUser->username ?? null
             ]);
 
             $this->loginUser($user);
