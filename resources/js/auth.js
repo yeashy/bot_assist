@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                     try {
                         await telegramAuth();
 
-                        await delay(200);
+                        await delay(700);
 
                         return await window.axios(originalRequest);
                     } catch (e) {
