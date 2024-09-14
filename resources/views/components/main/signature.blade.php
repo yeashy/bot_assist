@@ -1,5 +1,5 @@
 <footer
-    class="flex justify-end px-4 py-1 bg-company text-company"
+    class="flex justify-end px-4 py-1 bg-company text-company-primary"
 >
     <div
         class="text-sm opacity-50"

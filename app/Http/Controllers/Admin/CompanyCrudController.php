@@ -32,14 +32,14 @@ class CompanyCrudController extends CrudController
      *
      * @return void
      */
-    public function setup()
+    public function setup(): void
     {
         CRUD::setModel(Company::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/company');
         CRUD::setEntityNameStrings('Компания', 'Компании');
     }
 
-    public function setupShowOperation()
+    public function setupShowOperation(): void
     {
         CRUD::addColumn([
             'name' => 'name',
@@ -164,7 +164,7 @@ class CompanyCrudController extends CrudController
      * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
      * @return void
      */
-    protected function setupListOperation()
+    protected function setupListOperation(): void
     {
         CRUD::addColumn([
             'name' => 'id',
@@ -202,7 +202,7 @@ class CompanyCrudController extends CrudController
      * @see https://backpackforlaravel.com/docs/crud-operation-create
      * @return void
      */
-    protected function setupCreateOperation()
+    protected function setupCreateOperation(): void
     {
         CRUD::setValidation(CompanyCreateRequest::class);
 
@@ -252,7 +252,7 @@ class CompanyCrudController extends CrudController
      * @see https://backpackforlaravel.com/docs/crud-operation-update
      * @return void
      */
-    protected function setupUpdateOperation()
+    protected function setupUpdateOperation(): void
     {
         CRUD::setValidation(CompanyUpdateRequest::class);
 
@@ -298,80 +298,32 @@ class CompanyCrudController extends CrudController
         ]);
 
         CRUD::addField([
+            'name' => 'primary_color',
+            'label' => 'Основной цвет',
+            'type' => 'color',
+            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
+            'tab' => 'Дизайн'
+        ]);
+
+        CRUD::addField([
+            'name' => 'secondary_color',
+            'label' => 'Вторичный цвет',
+            'type' => 'color',
+            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
+            'tab' => 'Дизайн'
+        ]);
+
+        CRUD::addField([
+            'name' => 'accent_color',
+            'label' => 'Цвет акцента',
+            'type' => 'color',
+            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
+            'tab' => 'Дизайн'
+        ]);
+
+        CRUD::addField([
             'name' => 'background_color',
-            'label' => 'Цвет основного фона',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'text_color',
-            'label' => 'Цвет основного текста',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'button_background_color',
-            'label' => 'Цвет фона кнопок',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'button_text_color',
-            'label' => 'Цвет текста кнопок',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'main_background_color',
-            'label' => 'Цвет фона глав.',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'main_text_color',
-            'label' => 'Цвет текста глав.',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'additional_background_color',
-            'label' => 'Цвет фона доп.',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'additional_text_color',
-            'label' => 'Цвет текста доп.',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'block_background_color',
-            'label' => 'Цвет фона блоков',
-            'type' => 'color',
-            'wrapper' => ['class' => 'form-group col-md-3 col-6'],
-            'tab' => 'Дизайн'
-        ]);
-
-        CRUD::addField([
-            'name' => 'border_color',
-            'label' => 'Цвет основных границ',
+            'label' => 'Цвет фона',
             'type' => 'color',
             'wrapper' => ['class' => 'form-group col-md-3 col-6'],
             'tab' => 'Дизайн'

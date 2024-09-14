@@ -1,6 +1,6 @@
 {{--@include('components.page-title', ['text' => 'Данные клиента тут'])--}}
 
-<div class="flex p-2 block-company box-shadow-basic rounded-2xl w-full">
+<div class="flex p-2 block-company shadow-company rounded-2xl w-full">
     <div class="h-16 w-16 rounded-full overflow-hidden">
         <img
             id="user-avatar"
@@ -13,7 +13,7 @@
         <div id="user-name" class="font-bold">
             Михаил
         </div>
-        <div class="additional-text-company">
+        <div class="text-company-primary">
             <a href="{{ Request::url() }}/edit">Настройки <i class="las la-angle-right la-xs"></i></a>
         </div>
     </div>

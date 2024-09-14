@@ -20,7 +20,7 @@
             <input
                 name="{{ $name }}"
                 type="{{ !empty($input['type']) ? $input['type'] : 'text' }}"
-                class="rounded border input-company border-company w-full p-2 bg-company mb-1 {{ !empty($input['class']) ? $input['class'] : '' }}"
+                class="rounded border input-company w-full p-2 bg-company mb-1 {{ !empty($input['class']) ? $input['class'] : '' }}"
                 value="{{ !empty($input['value']) ? $input['value'] : '' }}"
                 placeholder="{{ !empty($input['placeholder']) ? $input['placeholder'] : '' }}"
                 @if(!empty($input['disabled'])) disabled @endif

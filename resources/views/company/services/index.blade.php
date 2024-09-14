@@ -146,8 +146,6 @@
             const date = document.getElementById('assignment-date');
             const time = document.getElementById('assignment-time');
 
-            console.log(data);
-
             if (data.employeeIds.length > 1) {
                 name.innerHTML = `@include('components.select', [
                     'name' => 'person_name',

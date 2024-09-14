@@ -6,7 +6,7 @@
     @include('components.main.header')
     <div
             id="content"
-            class="grow w-screen p-6 pb-2 bg-company text-company"
+            class="grow w-screen p-6 pb-2 bg-company text-company-primary"
     >
         @yield('content')
     </div>

@@ -1,7 +1,7 @@
 @include('components.page-title', ['text' => 'Мы на карте'])
 
 <div>
-    <div id="map" class="w-full h-60 rounded-2xl overflow-hidden z-10 relative shadow-md border-t border-l border-r border-company">
+    <div id="map" class="w-full h-60 rounded-2xl overflow-hidden z-10 relative shadow-company border-t border-l border-r border-company bg-company">
 
     </div>
     <div class="h-64 pt-9 pb-3 overflow-y-auto rounded-2xl border-l border-r border-b mt-[-30px] border-company">

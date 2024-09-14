@@ -60,54 +60,24 @@ class Company extends Model
 
     // ACCESSORS
 
+    public function getPrimaryColorAttribute(): string
+    {
+        return $this->design->primary_color;
+    }
+
+    public function getSecondaryColorAttribute(): string
+    {
+        return $this->design->secondary_color;
+    }
+
+    public function getAccentColorAttribute(): string
+    {
+        return $this->design->accent_color;
+    }
+
     public function getBackgroundColorAttribute(): string
     {
         return $this->design->background_color;
-    }
-
-    public function getTextColorAttribute(): string
-    {
-        return $this->design->text_color;
-    }
-
-    public function getBorderColorAttribute(): string
-    {
-        return $this->design->border_color;
-    }
-
-    public function getBlockBackgroundColorAttribute(): string
-    {
-        return $this->design->block_background_color;
-    }
-
-    public function getButtonBackgroundColorAttribute(): string
-    {
-        return $this->design->button_background_color;
-    }
-
-    public function getMainBackgroundColorAttribute(): string
-    {
-        return $this->design->main_background_color;
-    }
-
-    public function getAdditionalBackgroundColorAttribute(): string
-    {
-        return $this->design->additional_background_color;
-    }
-
-    public function getButtonTextColorAttribute(): string
-    {
-        return $this->design->button_text_color;
-    }
-
-    public function getMainTextColorAttribute(): string
-    {
-        return $this->design->main_text_color;
-    }
-
-    public function getAdditionalTextColorAttribute(): string
-    {
-        return $this->design->additional_text_color;
     }
 
     public function getEmailAttribute()
@@ -137,54 +107,24 @@ class Company extends Model
 
     // MUTATORS
 
+    public function setPrimaryColorAttribute(?string $value): string
+    {
+        return $this->design()->update(['primary_color' => $value]);
+    }
+
+    public function setSecondaryColorAttribute(?string $value): string
+    {
+        return $this->design()->update(['secondary_color' => $value]);
+    }
+
+    public function setAccentColorAttribute(?string $value): string
+    {
+        return $this->design()->update(['accent_color' => $value]);
+    }
+
     public function setBackgroundColorAttribute(?string $value): string
     {
         return $this->design()->update(['background_color' => $value]);
-    }
-
-    public function setTextColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['text_color' => $value]);
-    }
-
-    public function setBorderColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['border_color' => $value]);
-    }
-
-    public function setBlockBackgroundColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['block_background_color' => $value]);
-    }
-
-    public function setButtonBackgroundColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['button_background_color' => $value]);
-    }
-
-    public function setMainBackgroundColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['main_background_color' => $value]);
-    }
-
-    public function setAdditionalBackgroundColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['additional_background_color' => $value]);
-    }
-
-    public function setButtonTextColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['button_text_color' => $value]);
-    }
-
-    public function setMainTextColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['main_text_color' => $value]);
-    }
-
-    public function setAdditionalTextColorAttribute(?string $value): string
-    {
-        return $this->design()->update(['additional_text_color' => $value]);
     }
 
     public function setEmailAttribute(?string $value): void

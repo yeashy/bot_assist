@@ -1,44 +1,77 @@
 <style>
+    .bg-company-primary {
+        background-color: {{ $company->primary_color }};
+    }
+
+    .bg-company-secondary {
+        background-color: {{ $company->secondary_color }};
+    }
+
+    .bg-company-accent {
+        background-color: {{ $company->accent_color }};
+    }
+
     .bg-company {
         background-color: {{ $company->background_color }};
     }
 
-    .text-company {
-        color: {{ $company->text_color }};
+    .text-company-primary {
+        color: {{ $company->primary_color }};
     }
 
-    .text-btn-bg-company {
-        color: {{ $company->button_background_color }};
+    .text-company-secondary {
+        color: {{ $company->secondary_color }};
     }
 
-    .border-company {
-        border-color: {{ $company->border_color }};
-    }
-
-    .block-company {
-        background-color: {{ $company->block_background_color }};
-        color: {{ $company->text_color }};
-    }
-
-    .btn-shadow-company {
-        box-shadow:
-            inset 0 -200px 50px -130px {{ $company->button_background_color }},
-            0px 0px 10px 0px rgba(0,0,0,0.3);
-        color: {{ $company->button_text_color }};
+    .text-company-accent {
+        color: {{ $company->accent_color }};
     }
 
     .btn-company {
-        background-color: {{ $company->button_background_color }};
-        color: {{ $company->button_text_color }};
+        color: {{ $company->secondary_color }};
+        background-color: {{ $company->accent_color }};
+    }
+
+    .btn-company-secondary {
+        color: {{ $company->accent_color }};
+        background-color: {{ $company->secondary_color }};
+    }
+
+    .border-company {
+        border-color: {{ $company->primary_color }};
+    }
+
+    .shadow-company {
+        box-shadow: 0 0 30px 0 {{ $company->primary_color }}4d;
+    }
+
+    .shadow-company-small {
+        box-shadow: 0 0 3px 0 {{ $company->primary_color }}4d;
+    }
+
+    .shadow-company-inner {
+        box-shadow: inset 0 0 4px 0 {{ $company->primary_color }}4d;
+    }
+
+    .block-company {
+        background-color: {{ $company->secondary_color }};
+        color: {{ $company->primary_color }};
+    }
+
+    .block-company-secondary {
+        background-color: {{ $company->primary_color }};
+        color: {{ $company->secondary_color }};
     }
 
     .input-company {
-        background-color: {{ $company->additional_background_color }};
-        color: {{ $company->additional_text_color }};
+        background-color: {{ $company->secondary_color }};
+        color: {{ $company->primary_color }};
+        box-shadow: inset 0 0 4px 0 {{ $company->primary_color }}4d;
     }
 
     .input-company:disabled {
-        opacity: 0.3;
+        box-shadow: none;
+        opacity: 0.5;
     }
 
     .form-group:has(> .input-company[type=hidden]) {
@@ -59,47 +92,27 @@
         outline: none;
     }
 
-    .main-block-company {
-        background-color: {{ $company->main_background_color }};
-        color: {{ $company->main_text_color }};
-    }
-
-    .additional-block-company {
-        background-color: {{ $company->additional_background_color }};
-        color: {{ $company->additional_text_color }};
-    }
-
-    .additional-text-company {
-        color: {{ $company->additional_text_color }};
+    .btn-shadow-company {
+        box-shadow:
+            inset 0 -200px 50px -130px {{ $company->accent_color }},
+            0px 0px 10px 0px {{ $company->primary_color }}4d;
+        color: {{ $company->secondary_color }};
     }
 
     .btn-shadow-company:focus {
         box-shadow:
-            inset 0 -200px 50px -130px {{ $company->button_background_color }},
-            0px 0px 10px 0px rgba(0,0,0,0.3),
-            inset 0px 0px 10px 5px rgba(0,0,0,0.75);
+            inset 0 -200px 50px -130px {{ $company->accent_color }},
+            0px 0px 10px 0px {{ $company->primary_color }}4d,
+            inset 0px 0px 10px 5px {{ $company->primary_color }}bf;
         transition: .08s;
     }
 
     input:checked + .btn-shadow-company {
         box-shadow:
-            inset 0 -200px 50px -130px {{ $company->button_background_color }},
-            0px 0px 10px 0px rgba(0,0,0,0.3),
-            inset 0px 0px 10px 5px rgba(0,0,0,0.75);
+            inset 0 -200px 50px -130px {{ $company->accent_color }},
+            0px 0px 10px 0px {{ $company->primary_color }}4d,
+            inset 0px 0px 10px 5px {{ $company->primary_color }}bf;
         transition: .08s;
-    }
-
-    /* TODO: система цветов будет переработа - это костыль */
-    .additional-block-company.active {
-        box-shadow: inset 0 0 5px 2px rgba(0,0,0,0.4);;
-    }
-
-    .box-shadow-basic {
-        box-shadow: 0 0 30px 0 rgba(0,0,0,0.3);
-    }
-
-    .box-shadow-inner-basic {
-        box-shadow: inset 0 0 4px 0 rgb(0,0,0,0.3);
     }
 
     .heartbeat {

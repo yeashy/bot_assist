@@ -1,10 +1,10 @@
 <div
-    class="rounded-2xl col-span-2 row-span-2 aspect-square p-4 block-company box-shadow-basic"
+        class="rounded-2xl aspect-square p-4 block-company shadow-company mb-4"
 >
     <div class="text-2xl">
         Ближайшая запись:
     </div>
-    @include('company.components.main_block.assignment_info')
+    @include('company.index.main-block.assignment_info')
     <div class="flex justify-end">
         @include('components.button', ['text' => 'Подробнее о записи'])
     </div>

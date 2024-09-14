@@ -13,5 +13,4 @@
             <i class="fa-solid fa-arrow-right fa-xl"></i>
         </div>
     </div>
-
 </a>

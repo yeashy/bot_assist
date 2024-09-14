@@ -1,5 +1,5 @@
 <header
-    class="flex items-center justify-between main-block-company px-6 py-2 z-[100] box-shadow-basic relative"
+    class="flex items-center justify-between bg-company-secondary text-company-primary px-6 py-2 z-[100] shadow-company relative"
 >
     <div
         class="items-center flex justify-center w-full text-center text-3xl font-bold"
