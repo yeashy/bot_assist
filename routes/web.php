@@ -8,6 +8,7 @@ use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Controller\ErrorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,6 +90,13 @@ Route::prefix('companies')
                 ->controller(AuthController::class)
                 ->group(function () {
                     Route::post('/', 'auth')->name('index');
+                });
+
+            Route::prefix('errors')
+                ->as('errors.')
+                ->controller(ErrorController::class)
+                ->group(function () {
+                    Route::get('unauthorized', 'unauthorized')->name('unauthorized');
                 });
         });
     });

@@ -20,8 +20,8 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('primary_color')->default('#ffffff')->comment('Основной цвет');
-            $table->string('secondary_color')->default('#000000')->comment('Вторичный цвет');
+            $table->string('primary_color')->default('#000000')->comment('Основной цвет');
+            $table->string('secondary_color')->default('#ffffff')->comment('Вторичный цвет');
             $table->string('accent_color')->default('#000000')->comment('Цвет акцента');
             $table->string('background_color')->default('#ffffff')->comment('Цвет фона');
             $table->timestamps();

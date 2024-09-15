@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
                 }
             }
 
+            // window.location.replace('');
             return Promise.reject(error);
         }
     )
