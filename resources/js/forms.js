@@ -6,6 +6,16 @@ document.addEventListener('submit', function (e) {
     const formData = new FormData(form);
     let json = {};
     formData.forEach((value, key) => {
+        try {
+            let parsedValue = JSON.parse(value);
+            if (Array.isArray(parsedValue)) {
+                json[key] = parsedValue;
+                return;
+            }
+        } catch (e) {
+            // Игнорируем ошибку, если это не JSON
+        }
+
         if (!Reflect.has(json, key)) {
             json[key] = value;
             return;

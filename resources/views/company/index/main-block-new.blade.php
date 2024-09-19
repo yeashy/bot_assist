@@ -3,7 +3,7 @@
     class="rounded-2xl p-2 block-company shadow-company w-full h-24 flex"
 >
     <div
-        class="h-20 w-20 rounded-2xl bg-cover mr-2"
+        class="h-full aspect-square rounded-2xl bg-cover mr-2"
         style="background-image: url({{ Storage::disk('images')->url('default/test.jpg') }});"
     >
     </div>

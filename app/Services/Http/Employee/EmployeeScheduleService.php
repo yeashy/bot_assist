@@ -8,6 +8,7 @@ use App\Models\EmployeeWorkingPeriod;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -23,13 +24,13 @@ class EmployeeScheduleService
     public function __construct(Request $request, int $companyId)
     {
         $this->date = $request->get('date', now()->toDateString());
-        $this->employeeIds = explode(',', $request->get('employee_ids', []));
+        $this->employeeIds = $request->get('employee_ids', []);
         $this->companyId = $companyId;
 
         $this->setActiveDate();
     }
 
-    public function execute()
+    public function execute(): View
     {
         $periods = $this->getPeriods();
 
