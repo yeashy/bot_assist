@@ -1,6 +1,6 @@
 {{--@include('components.page-title', ['text' => 'Данные клиента тут'])--}}
 
-<div class="flex p-2 block-company shadow-company rounded-2xl w-full">
+<div class="flex p-2 block-company shadow-company-sm rounded-2xl w-full">
     <div class="h-16 w-16 rounded-full overflow-hidden">
         <img
             id="user-avatar"
