@@ -1,6 +1,6 @@
 @include('components.block-title', ['text' => 'Ближайшая запись', 'href' => ' '])
 <div
-    class="rounded-2xl p-2 block-company shadow-company w-full h-24 flex"
+    class="rounded-2xl p-2 block-company shadow-company-sm w-full h-24 flex"
 >
     <div
         class="h-full aspect-square rounded-2xl bg-cover mr-2"

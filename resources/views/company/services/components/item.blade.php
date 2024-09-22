@@ -1,19 +1,16 @@
 <a
-    class="rounded-2xl p-2 flex h-24 mb-4 block-company"
+    class="rounded-2xl py-2 px-4 flex flex-col justify-between mb-4 block-company shadow-company-sm"
     href="services/{{ $service->id }}"
 >
-    <div class="h-full w-1/4 overflow-hidden rounded-2xl mr-2">
-        <img class="w-full h-full object-cover" src="{{ Storage::disk('images')->url('default/test.jpg') }}" alt="">
+    <div class="mb-2 text-lg">
+        {{ $service->name }}
     </div>
-    <div class="mr-auto flex flex-col justify-center w-1/2 px-2">
-        <div class="font-bold text-ellipsis overflow-hidden w-full h-1/2 leading-snug">
-            {{ $service->name }}
+    <div class="flex justify-between">
+        <div class="font-bold text-xl">
+            {{ $service->price }}&nbsp;₽
         </div>
-        <div>
-            {{ $service->allocated_time }}
+        <div class="flex items-center">
+            <i class="fa fa-arrow-right fa-xl"></i>
         </div>
-    </div>
-    <div class="flex items-center justify-center border-l border-company w-1/4">
-        <span class="font-bold">{{ $service->price }}</span>&nbsp;₽
     </div>
 </a>

@@ -1,10 +1,10 @@
 @include('components.page-title', ['text' => 'Мы на карте'])
 
 <div>
-    <div id="map" class="w-full h-60 rounded-2xl overflow-hidden z-10 relative shadow-company border-t border-l border-r border-company bg-company">
+    <div id="map" class="w-full h-60 rounded-2xl overflow-hidden z-10 relative shadow-company bg-company">
 
     </div>
-    <div class="h-64 pt-9 pb-3 overflow-y-auto rounded-2xl border-l border-r border-b mt-[-30px] border-company">
+    <div class="h-64 pt-9 pb-3 overflow-y-auto rounded-2xl shadow-company-sm mt-[-30px] border-company">
         <ul>
             @foreach($affiliates as $affiliate)
                 <li class="flex flex-col p-3 pb-0 affiliate-element" id="affiliate-{{ $affiliate->id }}">

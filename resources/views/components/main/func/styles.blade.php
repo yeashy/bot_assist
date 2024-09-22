@@ -45,7 +45,7 @@
         box-shadow: 0 0 30px 0 {{ $company->primary_color }}4d;
     }
 
-    .shadow-company-small {
+    .shadow-company-sm {
         box-shadow: 0 0 3px 0 {{ $company->primary_color }}4d;
     }
 
@@ -56,6 +56,10 @@
     .block-company {
         background-color: {{ $company->secondary_color }};
         color: {{ $company->primary_color }};
+    }
+
+    .block-company.active {
+        box-shadow: inset 0 0 4px 0 {{ $company->primary_color }}4d;
     }
 
     .block-company-secondary {
@@ -94,14 +98,14 @@
 
     .btn-shadow-company {
         box-shadow:
-            inset 0 -200px 50px -130px {{ $company->accent_color }},
+            inset 0 -200px 50px -130px {{ $company->accent_color }}bf,
             0px 0px 10px 0px {{ $company->primary_color }}4d;
         color: {{ $company->secondary_color }};
     }
 
     .btn-shadow-company:focus {
         box-shadow:
-            inset 0 -200px 50px -130px {{ $company->accent_color }},
+            inset 0 -200px 50px -130px {{ $company->accent_color }}bf,
             0px 0px 10px 0px {{ $company->primary_color }}4d,
             inset 0px 0px 10px 5px {{ $company->primary_color }}bf;
         transition: .08s;
@@ -109,7 +113,7 @@
 
     input:checked + .btn-shadow-company {
         box-shadow:
-            inset 0 -200px 50px -130px {{ $company->accent_color }},
+            inset 0 -200px 50px -130px {{ $company->accent_color }}bf,
             0px 0px 10px 0px {{ $company->primary_color }}4d,
             inset 0px 0px 10px 5px {{ $company->primary_color }}bf;
         transition: .08s;

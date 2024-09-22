@@ -43,7 +43,7 @@
                             <input type="hidden" name="employee_ids" value="{{ '[' . implode(',', $employeeIds) . ']' }}">
                             <button
                                 type="submit" {{-- TODO: система цветов будет переработа - это костыль (active, shadow) --}}
-                                class="flex flex-col items-center block-company shadow-company-small px-4 pt-1 rounded min-w-max day @if($day->is_current) active @endif"
+                                class="flex flex-col items-center block-company shadow-company-sm px-4 pt-1 rounded min-w-max day @if($day->is_current) active @endif"
                             >
                                 <span class="text-sm capitalize">{{ $day->name }}</span>
                                 <span class="text-lg font-bold">{{ $day->number }}</span>
@@ -72,7 +72,7 @@
                             data-person-name="{{ $employee->person->full_name }}"
                             data-address="{{ $employee->affiliate->address }}"
                         @endif
-                        class="assign_to_service py-2 mt-2 block-company mx-1 @if($period->is_available) modal-toggle shadow-company-small @else opacity-50 @endif rounded"
+                        class="assign_to_service py-2 mt-2 block-company mx-1 @if($period->is_available) modal-toggle shadow-company-sm @else opacity-50 @endif rounded"
                         data-modal="assignment-to-service-modal"
                         onclick="assignToService(this)"
                     >
