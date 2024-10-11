@@ -41,6 +41,11 @@ Route::prefix('companies')
                     Route::prefix('{employeeId}')->group(function () {
                         Route::get('/', 'index')->name('index');
                         Route::get('/info', 'info')->name('info');
+                        Route::get('/working-period', 'workingPeriod')->name('working-period');
+                    });
+
+                    Route::prefix('working-periods')->group(function () {
+                        Route::post('/{workingPeriodId}/assign')->name('assign');
                     });
                 });
 

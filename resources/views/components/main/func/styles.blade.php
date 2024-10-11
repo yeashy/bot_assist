@@ -37,6 +37,10 @@
         background-color: {{ $company->secondary_color }};
     }
 
+    .btn-company:disabled, .btn-company-secondary:disabled {
+        opacity: 0.5;
+    }
+
     .border-company {
         border-color: {{ $company->primary_color }};
     }
@@ -76,6 +80,22 @@
     .input-company:disabled {
         box-shadow: none;
         opacity: 0.5;
+    }
+
+    .select-company {
+        background-color: {{ $company->secondary_color }};
+        color: {{ $company->primary_color }};
+        box-shadow: inset 0 0 4px 0 {{ $company->primary_color }}4d;
+    }
+
+    .select-company:disabled {
+        box-shadow: none;
+        opacity: 0.5;
+    }
+
+    .option-company {
+        background-color: {{ $company->secondary_color }};
+        color: {{ $company->primary_color }};
     }
 
     .form-group:has(> .input-company[type=hidden]) {

@@ -140,31 +140,86 @@
         }
 
         function setPeriodInfoToModal(data) {
-            const name = document.getElementById('assignment-name');
-            const service = document.getElementById('assignment-service');
-            const address = document.getElementById('assignment-address');
-            const date = document.getElementById('assignment-date');
-            const time = document.getElementById('assignment-time');
+            const service = document.getElementById('service-name');
+            const date = document.getElementById('working-period-date');
+            const time = document.getElementById('working-period-time');
 
-            if (data.employeeIds.length > 1) {
-                name.innerHTML = `@include('components.select', [
-                    'name' => 'person_name',
-                    'class' => 'w-full',
-                    'options' => [
-                        'Специалист 1' => '1',
-                        'Специалист 2' => '2',
-                        'Я обязательно это доделаю' => '5'
-                    ]
-                ])`;
-                address.innerText = 'Адрес не отображаем до выбора специалиста';
-            } else {
-                name.innerText = data.personName;
-                address.innerText = data.address;
-            }
+            createSelectElement(data);
 
             service.innerText = '{{ $service->name }}'
             date.innerText = data.date;
             time.innerText = data.time;
+        }
+
+        function createSelectElement(data) {
+            const employeeIds = data.employeeIds.split(',');
+            const employeeNames = data.employeeNames.split(',');
+            const name = document.getElementById('staff-member-name');
+
+            const selectElement = document.createElement('select');
+            selectElement.name = 'employee_working_period_id';
+            selectElement.classList.add(
+                'w-full',
+                'p-2',
+                'rounded-md',
+                'text-lg',
+                'input-company',
+                'select-company'
+            );
+
+            name.innerHTML = '';
+            name.appendChild(selectElement);
+
+            const form = document.getElementById('assign-to-service-form');
+            const workingPeriodIdInput = form.querySelector('[name=employee_working_period_id]');
+            const submitButton = form.querySelector('button[type=submit]');
+
+            employeeIds.forEach(function (id, index) {
+                const optionElement = document.createElement('option');
+                optionElement.value = id;
+                optionElement.innerText = employeeNames[index];
+                optionElement.classList.add(
+                    'option-company',
+                );
+
+                selectElement.appendChild(optionElement);
+
+                if (!index) {
+                    getPeriodInfo(data, selectElement, workingPeriodIdInput, submitButton);
+                }
+            });
+
+            if (employeeIds.length < 2) {
+                selectElement.disabled = true;
+            }
+
+            selectElement.addEventListener('change', function () {
+
+                console.log(selectElement.value);
+
+                getPeriodInfo(data, selectElement, workingPeriodIdInput, submitButton);
+            });
+        }
+
+        function getPeriodInfo(data, selectElement, workingPeriodIdInput, submitButton) {
+            const employeeId = selectElement.value;
+            const addressElement = document.getElementById('company-affiliate-address');
+
+            workingPeriodIdInput.value = '';
+            submitButton.disabled = true;
+            addressElement.innerText = '...';
+
+            window.axios.get('/companies/{{ $company->id }}/employees/' + employeeId + '/working-period' , {
+                params: {
+                    'date': data.date,
+                    'time': data.time
+                }
+            })
+                .then((response) => {
+                    addressElement.innerText = response.data.company_affiliate_address;
+                    workingPeriodIdInput.value = response.data.employee_working_period_id;
+                    submitButton.disabled = false;
+                });
         }
     </script>
 @endsection

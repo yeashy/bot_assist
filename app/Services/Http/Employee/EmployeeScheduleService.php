@@ -27,6 +27,8 @@ class EmployeeScheduleService
         $this->employeeIds = $request->get('employee_ids', []);
         $this->companyId = $companyId;
 
+        sort($this->employeeIds);
+
         $this->setActiveDate();
     }
 
@@ -43,6 +45,8 @@ class EmployeeScheduleService
 
         $employee = $this->getEmployee();
 
+        $employeeNames = $this->getEmployeeNames();
+
         return view('company.services.components.employee-schedule')->with([
             'company' => Company::query()->findOrFail($this->companyId),
             'year' => $year,
@@ -51,8 +55,19 @@ class EmployeeScheduleService
             'days' => $days,
             'periods' => $periods,
             'employeeIds' => $this->employeeIds,
+            'employeeNames' => $employeeNames,
             'employee' => $employee
         ]);
+    }
+
+    private function getEmployeeNames(): array
+    {
+        return Employee::query()
+            ->whereIn('id', $this->employeeIds)
+            ->orderBy('id')
+            ->get()
+            ->pluck('full_name')
+            ->toArray();
     }
 
     private function getPeriods(Carbon|CarbonImmutable|null $date = null): Collection

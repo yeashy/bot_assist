@@ -33,7 +33,8 @@
         @include('components.button', [
             'type' => 'submit',
             'text' => $submitBtn['text'],
-            'class' => !empty($submitBtn['class']) ? $submitBtn['class'] : ''
+            'class' => !empty($submitBtn['class']) ? $submitBtn['class'] : '',
+            'disabled' => $submitBtn['disabled'] ?? null
         ])
     @endif
 </form>

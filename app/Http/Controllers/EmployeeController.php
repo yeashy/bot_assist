@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Employee\AssignRequest;
 use App\Http\Requests\Employee\ScheduleRequest;
+use App\Http\Requests\Employee\WorkingPeriodRequest;
 use App\Models\Employee;
+use App\Models\EmployeeWorkingPeriod;
+use App\Services\Http\Employee\AssignService;
 use App\Services\Http\Employee\EmployeeScheduleService;
+use App\Services\Http\Employee\WorkingPeriodService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -24,8 +30,15 @@ class EmployeeController extends Controller
         return $service->execute();
     }
 
-    public function assign(int $employeeId): View
+    public function workingPeriod(WorkingPeriodRequest $request, int $companyId, int $employeeId): JsonResponse
     {
+        $service = new WorkingPeriodService($request, $employeeId);
+        return $service->execute();
+    }
 
+    public function assign(AssignRequest $request, int $companyId): View
+    {
+        $service = new AssignService($request, $companyId);
+        return $service->execute();
     }
 }
