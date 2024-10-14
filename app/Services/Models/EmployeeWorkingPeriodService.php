@@ -15,10 +15,17 @@ readonly class EmployeeWorkingPeriodService
 
     public function createAssignment(Service $service, Client $client): void
     {
-        $this->employeeWorkingPeriod->assignment()->create([
-            'service_id' => $service->id,
-            'client_id' => $client->id
-        ]);
+        $periodsCount = $this->calculatePeriodsCount($service->allocated_time);
+        $period = $this->employeeWorkingPeriod;
+
+        for ($i = 1; $i < $periodsCount; $i++) {
+            $period->assignment()->create([
+                'service_id' => $service->id,
+                'client_id' => $client->id
+            ]);
+
+            $period = $this->getNextPeriod($period);
+        }
     }
 
     public function isAvailableToAssign(Service $service): bool
