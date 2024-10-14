@@ -44,8 +44,10 @@ Route::prefix('companies')
                         Route::get('/working-period', 'workingPeriod')->name('working-period');
                     });
 
-                    Route::prefix('working-periods')->group(function () {
-                        Route::post('/{workingPeriodId}/assign')->name('assign');
+                    Route::prefix('working-periods')
+                        ->middleware('auth.client')
+                        ->group(function () {
+                        Route::post('/{workingPeriodId}/assign', 'assign')->name('assign');
                     });
                 });
 

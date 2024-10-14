@@ -1,10 +1,10 @@
 @include('components.form', [
     'id' => 'assign-to-service-form',
     'action' => '',
-    'method' => ' POST',
+    'method' => 'POST',
     'inputs' => [
-        'employee_working_period_id' => [
-            'type' => 'hidden',
+        'service_id' => [
+            'type' => 'hidden'
         ]
     ],
     'submitBtn' => [

@@ -67,7 +67,8 @@
         function showSchedule(ids, withInfo = false) {
             window.axios.get('/companies/{{ $company->id }}/employees/schedule', {
                 params: {
-                    'employee_ids': ids.split(',')
+                    'employee_ids': ids.split(','),
+                    'service_id': {{ $service->id }}
                 }
             })
                 .then((response) => {
@@ -171,7 +172,7 @@
             name.appendChild(selectElement);
 
             const form = document.getElementById('assign-to-service-form');
-            const workingPeriodIdInput = form.querySelector('[name=employee_working_period_id]');
+            const serviceInput = form.querySelector('[name=service_id]');
             const submitButton = form.querySelector('button[type=submit]');
 
             employeeIds.forEach(function (id, index) {
@@ -185,7 +186,7 @@
                 selectElement.appendChild(optionElement);
 
                 if (!index) {
-                    getPeriodInfo(data, selectElement, workingPeriodIdInput, submitButton);
+                    getPeriodInfo(data, form, selectElement, serviceInput, submitButton);
                 }
             });
 
@@ -194,18 +195,14 @@
             }
 
             selectElement.addEventListener('change', function () {
-
-                console.log(selectElement.value);
-
-                getPeriodInfo(data, selectElement, workingPeriodIdInput, submitButton);
+                getPeriodInfo(data, form, selectElement, serviceInput, submitButton);
             });
         }
 
-        function getPeriodInfo(data, selectElement, workingPeriodIdInput, submitButton) {
+        function getPeriodInfo(data, form, selectElement, serviceInput, submitButton) {
             const employeeId = selectElement.value;
             const addressElement = document.getElementById('company-affiliate-address');
 
-            workingPeriodIdInput.value = '';
             submitButton.disabled = true;
             addressElement.innerText = '...';
 
@@ -217,8 +214,11 @@
             })
                 .then((response) => {
                     addressElement.innerText = response.data.company_affiliate_address;
-                    workingPeriodIdInput.value = response.data.employee_working_period_id;
+                    serviceInput.value = {{ $service->id }}
                     submitButton.disabled = false;
+                    form.action = '/companies/{{ $company->id }}/employees/working-periods/'
+                        + response.data.employee_working_period_id
+                        + '/assign'
                 });
         }
     </script>

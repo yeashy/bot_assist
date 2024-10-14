@@ -5,6 +5,8 @@ namespace App\Services\Http\Employee;
 use App\Models\Company;
 use App\Models\Employee;
 use App\Models\EmployeeWorkingPeriod;
+use App\Models\Service;
+use App\Services\Models\EmployeeWorkingPeriodService;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
@@ -18,6 +20,7 @@ class EmployeeScheduleService
     private array $employeeIds;
     private string $date;
     private int $companyId;
+    private ?Service $service;
 
     private CarbonImmutable $activeDate;
 
@@ -26,6 +29,8 @@ class EmployeeScheduleService
         $this->date = $request->get('date', now()->toDateString());
         $this->employeeIds = $request->get('employee_ids', []);
         $this->companyId = $companyId;
+
+        $this->service = Service::query()->findOrFail($request->get('service_id'));
 
         sort($this->employeeIds);
 
@@ -56,7 +61,8 @@ class EmployeeScheduleService
             'periods' => $periods,
             'employeeIds' => $this->employeeIds,
             'employeeNames' => $employeeNames,
-            'employee' => $employee
+            'employee' => $employee,
+            'service' => $this->service,
         ]);
     }
 
@@ -70,7 +76,7 @@ class EmployeeScheduleService
             ->toArray();
     }
 
-    private function getPeriods(Carbon|CarbonImmutable|null $date = null): Collection
+    private function getPeriods(Carbon|CarbonImmutable|null $date = null, bool $isSimple = false): Collection
     {
         if (!$date) $date = $this->activeDate;
         $date = $date->toDateString();
@@ -79,6 +85,7 @@ class EmployeeScheduleService
             ->select([
                 'id',
                 'start_time',
+                'end_time',
                 'employee_id',
                 'date'
             ])
@@ -90,8 +97,8 @@ class EmployeeScheduleService
         $result = collect();
 
         foreach ($groupedPeriods as $startTime => $periods) {
-            $employeeIds = $periods->filter(function ($period) {
-                return $period->is_free;
+            $employeeIds = $periods->filter(function (EmployeeWorkingPeriod $period) use ($isSimple) {
+                return $isSimple ? $period->is_free : $this->isPeriodAvailable($period);
             })->pluck('employee_id')->toArray();
 
             $isAvailable = (bool)count($employeeIds);
@@ -105,6 +112,12 @@ class EmployeeScheduleService
         }
 
         return $result;
+    }
+
+    private function isPeriodAvailable(EmployeeWorkingPeriod $employeeWorkingPeriod): bool
+    {
+        $service = new EmployeeWorkingPeriodService($employeeWorkingPeriod);
+        return $service->isAvailableToAssign($this->service);
     }
 
     private function setActiveDate(): void
@@ -183,7 +196,7 @@ class EmployeeScheduleService
     {
         if (now()->greaterThan($day->toImmutable()->endOfDay())) return false;
 
-        return $this->getPeriods($day)
+        return $this->getPeriods($day, true)
             ->filter(function ($period) {
                 return $period->is_available;
             })->isNotEmpty();

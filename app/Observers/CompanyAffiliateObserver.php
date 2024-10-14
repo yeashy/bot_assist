@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use app\Events\CompanyAffiliateEventService;
 use App\Models\CompanyAffiliate;
-use App\Services\Models\Events\CompanyAffiliateEventService;
 
 class CompanyAffiliateObserver
 {

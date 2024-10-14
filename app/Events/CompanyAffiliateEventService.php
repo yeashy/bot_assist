@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Models\Events;
+namespace app\Events;
 
 use App\Models\CompanyAffiliate;
 

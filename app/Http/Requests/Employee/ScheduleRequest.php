@@ -34,6 +34,10 @@ class ScheduleRequest extends FormRequest
             'employee_ids.*' => [
                 'nullable',
                 'exists:employees,id'
+            ],
+            'service_id' => [
+                'required',
+                'exists:services,id'
             ]
         ];
     }

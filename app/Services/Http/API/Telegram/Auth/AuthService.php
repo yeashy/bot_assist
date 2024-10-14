@@ -30,6 +30,7 @@ readonly class AuthService
             $telegramUser = json_decode($this->request->get('user'), true);
             $user = new \App\Services\API\Telegram\Models\User($telegramUser);
 
+            /** @var User $userModel */
             $userModel = User::query()->firstOrCreate([
                 'external_id' => $user->id
             ], [

@@ -8,6 +8,7 @@
                 <form action="/companies/{{ $company->id }}/employees/schedule" id="employee_schedule_form" data-full="1">
                     <input type="hidden" name="date" value="{{ $months->previous->date }}">
                     <input type="hidden" name="employee_ids" value="{{ '[' . implode(',', $employeeIds) . ']'}}">
+                    <input type="hidden" name="service_id" value="{{ $service->id }}">
                     <button class="block-company px-3 py-2 rounded">
                         <i class="fa fa-arrow-left"></i>
                     </button>
@@ -23,6 +24,7 @@
                 <form action="/companies/{{ $company->id }}/employees/schedule" id="employee_schedule_form" data-full="1">
                     <input type="hidden" name="date" value="{{ $months->next->date }}">
                     <input type="hidden" name="employee_ids" value="{{ '[' . implode(',', $employeeIds) . ']' }}">
+                    <input type="hidden" name="service_id" value="{{ $service->id }}">
                     <button class="block-company px-3 py-2 rounded">
                        <i class="fa fa-arrow-right"></i>
                     </button>
@@ -41,8 +43,9 @@
                         <form id="employee_schedule_form" action="/companies/{{ $company->id }}/employees/schedule" method="GET">
                             <input type="hidden" name="date" value="{{ $day->date }}">
                             <input type="hidden" name="employee_ids" value="{{ '[' . implode(',', $employeeIds) . ']' }}">
+                            <input type="hidden" name="service_id" value="{{ $service->id }}">
                             <button
-                                type="submit" {{-- TODO: система цветов будет переработа - это костыль (active, shadow) --}}
+                                type="submit"
                                 class="flex flex-col items-center block-company shadow-company-sm px-4 pt-1 rounded min-w-max day @if($day->is_current) active @endif"
                             >
                                 <span class="text-sm capitalize">{{ $day->name }}</span>

@@ -23,7 +23,7 @@ class VerifySession
         if (!Auth::user()) {
             return response()->json([
                 'message' => 'User is not logged in.',
-            ], Response::HTTP_FORBIDDEN);
+            ])->setStatusCode(Response::HTTP_FORBIDDEN);
         }
 
         return $next($request);

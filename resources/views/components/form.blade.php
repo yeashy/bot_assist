@@ -13,21 +13,29 @@
     @endif
 
     @foreach($inputs as $name => $input)
-        <div class="form-group mb-2">
-            <label
-                class="block font-bold mb-1"
-            >{{ !empty($input['label']) ? $input['label'] : '' }}</label>
-            <input
-                name="{{ $name }}"
-                type="{{ !empty($input['type']) ? $input['type'] : 'text' }}"
-                class="rounded border input-company w-full p-2 bg-company mb-1 {{ !empty($input['class']) ? $input['class'] : '' }}"
-                value="{{ !empty($input['value']) ? $input['value'] : '' }}"
-                placeholder="{{ !empty($input['placeholder']) ? $input['placeholder'] : '' }}"
-                @if(!empty($input['disabled'])) disabled @endif
-                autocomplete="off"
-                oninput="clearErrors(this)"
-            >
-        </div>
+        @if(!empty($input['type']) && $input['type'] === 'hidden')
+                <input
+                    name="{{ $name }}"
+                    type="hidden"
+                    value="{{ !empty($input['value']) ? $input['value'] : '' }}"
+                >
+        @else
+                <div class="form-group mb-2">
+                    <label
+                        class="block font-bold mb-1"
+                    >{{ !empty($input['label']) ? $input['label'] : '' }}</label>
+                    <input
+                        name="{{ $name }}"
+                        type="{{ !empty($input['type']) ? $input['type'] : 'text' }}"
+                        class="rounded border input-company w-full p-2 bg-company mb-1 {{ !empty($input['class']) ? $input['class'] : '' }}"
+                        value="{{ !empty($input['value']) ? $input['value'] : '' }}"
+                        placeholder="{{ !empty($input['placeholder']) ? $input['placeholder'] : '' }}"
+                        @if(!empty($input['disabled'])) disabled @endif
+                        autocomplete="off"
+                        oninput="clearErrors(this)"
+                    >
+                </div>
+        @endif
     @endforeach
     @if(!empty($submitBtn))
         @include('components.button', [

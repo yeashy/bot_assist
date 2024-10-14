@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use app\Events\ClientEventService;
 use App\Models\Client;
-use App\Services\Models\Events\ClientEventService;
 
 class ClientObserver
 {

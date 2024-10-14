@@ -23,10 +23,6 @@ class AssignRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_working_period_id' => [
-                'required',
-                'exists:employee_working_periods,id'
-            ],
             'service_id' => [
                 'required',
                 'exists:services,id'

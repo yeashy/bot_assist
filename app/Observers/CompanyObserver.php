@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use app\Events\CompanyEventService;
 use App\Models\Company;
-use App\Services\Models\Events\CompanyEventService;
 use Str;
 
 class CompanyObserver

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -30,11 +29,17 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
+
+
             $table->string('password')->nullable(false)->change();
-            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->dropColumn('phone_number');
+            $table->string('email');
+
+            if (!$this->hasUniqueEmailIndex()) {
+                $table->string('email')->unique()->change();
+            }
         });
 
         Schema::table('clients', function (Blueprint $table) {
@@ -42,5 +47,14 @@ return new class extends Migration
             $table->string('name')->nullable()->change();
             $table->string('patronymic')->nullable(false)->change();
         });
+    }
+
+    private function hasUniqueEmailIndex(): bool
+    {
+        $emailUniqueKeyExists = Schema::getConnection()
+            ->getDoctrineSchemaManager()
+            ->listTableIndexes('users');
+
+        return array_key_exists('users_email_unique', $emailUniqueKeyExists);
     }
 };

@@ -36,9 +36,9 @@ class EmployeeController extends Controller
         return $service->execute();
     }
 
-    public function assign(AssignRequest $request, int $companyId): View
+    public function assign(AssignRequest $request, int $companyId, int $employeeWorkingPeriodId): JsonResponse
     {
-        $service = new AssignService($request, $companyId);
+        $service = new AssignService($request, $companyId, $employeeWorkingPeriodId);
         return $service->execute();
     }
 }

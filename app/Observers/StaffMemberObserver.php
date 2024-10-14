@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use app\Events\StaffMemberEventService;
 use App\Models\StaffMember;
-use App\Services\Models\Events\StaffMemberEventService;
 
 class StaffMemberObserver
 {

@@ -2,47 +2,51 @@
 
 namespace App\Services\Http\Employee;
 
+use App\Models\Client;
 use App\Models\EmployeeWorkingPeriod;
 use App\Models\Service;
 use App\Models\ServiceAssignment;
 use App\Models\User;
+use App\Services\Models\EmployeeWorkingPeriodService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class AssignService
 {
     private int $serviceId;
-    private int $employeeWorkingPeriodId;
-    private int $clientId;
+    private Client $client;
+    private ?EmployeeWorkingPeriod $employeeWorkingPeriod;
 
-    public function __construct(Request $request, int $companyId)
+    public function __construct(Request $request, int $companyId, int $employeeWorkingPeriodId)
     {
         $this->serviceId = $request->get('service_id');
-        $this->employeeWorkingPeriodId = $request->get('employee_working_period_id');
-        $this->clientId = Auth::user()->client($companyId)->id;
+
+        /** @var User $user */
+        $user = Auth::user();
+        $this->client = $user->client($companyId);
+
+        $this->employeeWorkingPeriod = EmployeeWorkingPeriod::query()->find($employeeWorkingPeriodId);
     }
 
     public function execute()
     {
+        $modelService = new EmployeeWorkingPeriodService($this->employeeWorkingPeriod);
+        /** @var Service $service */
         $service = Service::query()->find($this->serviceId);
-        $num = $this->calculatePeriodsCount($service->allocated_time);
 
-        $assignment = new ServiceAssignment();
-
-        $assignment->service_id = $this->serviceId;
-        $assignment->employee_working_period_id = $this->employeeWorkingPeriodId;
-        $assignment->client_id = $this->clientId;
-
-        $assignment->save();
-    }
-
-    private function calculatePeriodsCount(string $allocatedTime)
-    {
-        $end = Carbon::parse($allocatedTime);
-
-        $diff = $end->diffInMinutes(now());
-
-        dd(now()->toDateTimeString(), $end->toDateString(), $diff);
+        if (
+            $modelService->isAvailableToAssign($service)
+        ) {
+            $modelService->createAssignment($service, $this->client);
+            return response()->json([
+                'message' => 'success'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Не получилось оформить запись! Время уже занято.'
+            ])->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }

@@ -3,7 +3,7 @@
 use App\Http\Controllers\API\AddressController;
 use App\Http\Controllers\API\Telegram\AuthController;
 use App\Http\Controllers\API\Telegram\WebhookController;
-use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

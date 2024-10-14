@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use app\Events\UserEventService;
 use App\Models\User;
-use App\Services\Models\Events\UserEventService;
 
 class UserObserver
 {
