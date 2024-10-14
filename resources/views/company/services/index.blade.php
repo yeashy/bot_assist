@@ -140,6 +140,12 @@
             setPeriodInfoToModal(button.dataset);
         }
 
+        const assignToServiceForm = document.getElementById('assign-to-service-form');
+
+        assignToServiceForm.addEventListener('submitted', function () {
+            window.location.reload();
+        });
+
         function setPeriodInfoToModal(data) {
             const service = document.getElementById('service-name');
             const date = document.getElementById('working-period-date');
@@ -171,9 +177,8 @@
             name.innerHTML = '';
             name.appendChild(selectElement);
 
-            const form = document.getElementById('assign-to-service-form');
-            const serviceInput = form.querySelector('[name=service_id]');
-            const submitButton = form.querySelector('button[type=submit]');
+            const serviceInput = assignToServiceForm.querySelector('[name=service_id]');
+            const submitButton = assignToServiceForm.querySelector('button[type=submit]');
 
             employeeIds.forEach(function (id, index) {
                 const optionElement = document.createElement('option');
@@ -186,7 +191,7 @@
                 selectElement.appendChild(optionElement);
 
                 if (!index) {
-                    getPeriodInfo(data, form, selectElement, serviceInput, submitButton);
+                    getPeriodInfo(data, selectElement, serviceInput, submitButton);
                 }
             });
 
@@ -195,11 +200,11 @@
             }
 
             selectElement.addEventListener('change', function () {
-                getPeriodInfo(data, form, selectElement, serviceInput, submitButton);
+                getPeriodInfo(data, selectElement, serviceInput, submitButton);
             });
         }
 
-        function getPeriodInfo(data, form, selectElement, serviceInput, submitButton) {
+        function getPeriodInfo(data, selectElement, serviceInput, submitButton) {
             const employeeId = selectElement.value;
             const addressElement = document.getElementById('company-affiliate-address');
 
@@ -216,7 +221,7 @@
                     addressElement.innerText = response.data.company_affiliate_address;
                     serviceInput.value = {{ $service->id }}
                     submitButton.disabled = false;
-                    form.action = '/companies/{{ $company->id }}/employees/working-periods/'
+                    assignToServiceForm.action = '/companies/{{ $company->id }}/employees/working-periods/'
                         + response.data.employee_working_period_id
                         + '/assign'
                 });
