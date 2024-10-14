@@ -91,21 +91,31 @@ class EmployeeScheduleService
             ])
             ->whereIn('employee_id', $this->employeeIds)
             ->where('date', $date)
+            ->with('employee', function ($query) {
+                $query->with('person');
+            })
             ->get()
             ->groupBy('start_time');
 
         $result = collect();
 
         foreach ($groupedPeriods as $startTime => $periods) {
-            $employeeIds = $periods->filter(function (EmployeeWorkingPeriod $period) use ($isSimple) {
+            $availableEmployees = $periods->filter(function (EmployeeWorkingPeriod $period) use ($isSimple) {
                 return $isSimple ? $period->is_free : $this->isPeriodAvailable($period);
-            })->pluck('employee_id')->toArray();
+            })
+                ->map(function ($period) {
+                return [
+                    'id' => $period->employee_id,
+                    'name' => $period->employee->person->full_name
+                ];
+            })->toArray();
 
-            $isAvailable = (bool)count($employeeIds);
+            $isAvailable = (bool)count($availableEmployees);
 
             $result->push((object)[
                 'start_time' => Carbon::parse($startTime)->format('H:i'),
-                'employee_ids' => implode(',', $employeeIds),
+                'employee_ids' => array_column($availableEmployees, 'id'),
+                'employee_names' => array_column($availableEmployees, 'name'),
                 'is_available' => $isAvailable,
                 'date' => $date,
             ]);

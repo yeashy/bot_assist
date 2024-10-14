@@ -70,8 +70,8 @@
                     <button
                         data-date="{{ Carbon::parse($period->date)->format('d.m.Y') }}"
                         data-time="{{ $period->start_time }}"
-                        data-employee-ids="{{ implode(',', $employeeIds) }}"
-                        data-employee-names="{{ implode(',', $employeeNames) }}"
+                        data-employee-ids="{{ implode(',', $period->employee_ids) }}"
+                        data-employee-names="{{ implode(',', $period->employee_names) }}"
                         @if(!empty($employee))
                             data-person-name="{{ $employee->person->full_name }}"
                             data-address="{{ $employee->affiliate->address }}"
