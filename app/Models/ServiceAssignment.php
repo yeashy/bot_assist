@@ -26,6 +26,6 @@ class ServiceAssignment extends Model
 
     public function period(): BelongsTo
     {
-        return $this->belongsTo(EmployeeWorkingPeriod::class);
+        return $this->belongsTo(EmployeeWorkingPeriod::class, 'employee_working_period_id');
     }
 }

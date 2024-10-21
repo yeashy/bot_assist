@@ -45,6 +45,14 @@ class StaffMember extends Model
         return $this->surname . ($this->name ? ' ' . $this->name : '') . ($this->patronymic ? ' ' . $this->patronymic : '');
     }
 
+    public function getShortNameAttribute(): string
+    {
+        return
+            $this->surname
+            . ($this->name ? ' ' . mb_substr($this->name, 0, 1) . '. ' : '')
+            . ($this->patronymic ? ' ' . mb_substr($this->patronymic, 0, 1) . '. ' : '');
+    }
+
     public function getPhoneNumberAttribute()
     {
         return $this->info->phone_number;

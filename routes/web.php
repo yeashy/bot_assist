@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\Telegram\AuthController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
@@ -45,7 +46,7 @@ Route::prefix('companies')
                     });
 
                     Route::prefix('working-periods')
-                        ->middleware('auth.client')
+                        ->middleware(['auth.logged', 'auth.client'])
                         ->group(function () {
                         Route::post('/{workingPeriodId}/assign', 'assign')->name('assign');
                     });
@@ -70,6 +71,14 @@ Route::prefix('companies')
                                 });
                             });
                     });
+                });
+
+            Route::prefix('assignments')
+                ->controller(AssignmentController::class)
+                ->middleware(['auth.logged', 'auth.client'])
+                ->as('assignments.')
+                ->group(function () {
+                    Route::get('/next', 'next')->name('next');
                 });
 
             Route::prefix('user')

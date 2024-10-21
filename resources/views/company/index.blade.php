@@ -5,8 +5,21 @@
 @endsection
 
 @section('content')
+    <script>
+        function getNextAssignment() {
+            window.axios.get('/companies/{{ $company->id }}/assignments/next')
+                .then((response) => {
+                    document.querySelector('.next-assignment').innerHTML = response.data;
+                });
+        }
+
+        document.addEventListener('AxiosLoaded', () => {
+            getNextAssignment();
+        });
+    </script>
+
     <div>
-{{--        @include('company.index.main-block.main-block')--}}
-        @include('company.index.main-block-new')
+        <div class="next-assignment">
+        </div>
     </div>
 @endsection

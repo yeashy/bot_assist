@@ -10,6 +10,7 @@
         "backpack/theme-tabler": "^1.2",
         "guzzlehttp/guzzle": "^7.2",
         "irazasyed/telegram-bot-sdk": "^3.14",
+        "jenssegers/date": "^4.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",

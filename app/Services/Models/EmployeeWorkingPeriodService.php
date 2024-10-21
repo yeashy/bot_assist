@@ -11,14 +11,16 @@ readonly class EmployeeWorkingPeriodService
 {
     public function __construct(
         private EmployeeWorkingPeriod $employeeWorkingPeriod
-    ) {}
+    )
+    {
+    }
 
     public function createAssignment(Service $service, Client $client): void
     {
         $periodsCount = $this->calculatePeriodsCount($service->allocated_time);
         $period = $this->employeeWorkingPeriod;
 
-        for ($i = 1; $i < $periodsCount; $i++) {
+        for ($i = 1; $i <= $periodsCount; $i++) {
             $period->assignment()->create([
                 'service_id' => $service->id,
                 'client_id' => $client->id
@@ -34,6 +36,8 @@ readonly class EmployeeWorkingPeriodService
 
         return
             $this->employeeWorkingPeriod->is_free
+            && Carbon::parse($this->employeeWorkingPeriod->date . ' ' . $this->employeeWorkingPeriod->start_time)
+                ->greaterThan(Carbon::now())
             && $this->isPeriodsCountEnough($periodsCount);
     }
 
