@@ -33,9 +33,9 @@ class FontCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(Font::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/font');
-        CRUD::setEntityNameStrings('Шрифт', 'Шрифты');
+        $this->crud->setModel(Font::class);
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/font');
+        $this->crud->setEntityNameStrings('Шрифт', 'Шрифты');
     }
 
     /**
@@ -46,16 +46,22 @@ class FontCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true,
         ]);
 
         /**
@@ -72,9 +78,9 @@ class FontCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(FontRequest::class);
+        $this->crud->setValidation(FontRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',

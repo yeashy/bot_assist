@@ -13,8 +13,9 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Backpack\CRUD\app\Library\Widget;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
-use Widget;
 
 /**
  * Class EmployeeCrudController
@@ -24,7 +25,9 @@ use Widget;
 class EmployeeCrudController extends CrudController
 {
     use ListOperation;
-    use CreateOperation { store as traitStore; }
+    use CreateOperation {
+        store as traitStore;
+    }
     use UpdateOperation;
     use DeleteOperation;
     use ShowOperation;
@@ -36,7 +39,7 @@ class EmployeeCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(Employee::class);
+        $this->crud->setModel(Employee::class);
 
         $personId = Route::current()->parameter('person_id');
         $companyAffiliateId = Route::current()->parameter('company_affiliate_id');
@@ -44,15 +47,15 @@ class EmployeeCrudController extends CrudController
         $parentRelation = 'staff-member';
 
         if ($personId) {
-            CRUD::addClause('where', 'staff_member_id', $personId);
+            $this->crud->addClause('where', 'staff_member_id', $personId);
         } elseif ($companyAffiliateId) {
-            CRUD::addClause('where', 'company_affiliate_id', $companyAffiliateId);
+            $this->crud->addClause('where', 'company_affiliate_id', $companyAffiliateId);
             $parentRelation = 'company-affiliate';
         }
 
         $companyId = Route::current()->parameter('company_id');
 
-        CRUD::setRoute(
+        $this->crud->setRoute(
             config('backpack.base.route_prefix')
             . '/company/' . $companyId
             . '/' . $parentRelation . '/'
@@ -60,7 +63,7 @@ class EmployeeCrudController extends CrudController
             . '/employee'
         );
 
-        CRUD::setEntityNameStrings('Работник', 'Работники');
+        $this->crud->setEntityNameStrings('Работник', 'Работники');
     }
 
     public function setupShowOperation()
@@ -70,7 +73,7 @@ class EmployeeCrudController extends CrudController
         $personId = Route::current()->parameter('person_id');
         $companyId = Route::current()->parameter('company_id');
 
-        CRUD::button('staff-member')
+        $this->crud->button('staff-member')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -95,28 +98,79 @@ class EmployeeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
+        // Добавляем JOIN заранее, чтобы поля из таблицы 'staff_members' были доступны
+        $this->crud->query->join(
+            'staff_members',
+            'staff_members.id',
+            '=',
+            'employees.staff_member_id'
+        );
+
+        $this->crud->query->join(
+            'job_positions',
+            'job_positions.id',
+            '=',
+            'employees.job_position_id'
+        );
+
+        // Добавляем SELECT, чтобы эти поля были доступны для поиска и отображения
+        $this->crud->query->select(
+            'employees.*',
+            'staff_members.name',
+            'staff_members.surname',
+            'staff_members.patronymic',
+            'job_positions.name'
+        );
+
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'full_name',
             'label' => 'Полное имя',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true,
+            'searchLogic' => function (Builder $query, $column, $searchTerm) {
+                $query
+                    ->orWhereRaw(
+                        'concat(staff_members.surname, " ", staff_members.name, " ", staff_members.patronymic) like "%' . $searchTerm . '%"'
+                    )->orWhereRaw(
+                        'concat(staff_members.name, " ", staff_members.surname, " ", staff_members.patronymic) like "%' . $searchTerm . '%"'
+                    );
+            }
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'position.name',
             'label' => 'Должность',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 3,
+            'orderable' => true,
+            'searchable' => true,
+            'searchLogic' => function (Builder $query, $column, $searchTerm) {
+                $query
+                    ->orWhere(
+                        'job_positions.name',
+                        'like',
+                        '%' . $searchTerm . '%'
+                    );
+            }
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'affiliate.name',
             'label' => 'Филиал',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 4,
+            'orderable' => true,
         ]);
 
         /**
@@ -133,9 +187,9 @@ class EmployeeCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(EmployeeRequest::class);
+        $this->crud->setValidation(EmployeeRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'job_position_id',
             'label' => 'Должность',
             'type' => 'select',
@@ -144,7 +198,7 @@ class EmployeeCrudController extends CrudController
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'company_affiliate_id',
             'label' => 'Филиал',
             'type' => 'select',

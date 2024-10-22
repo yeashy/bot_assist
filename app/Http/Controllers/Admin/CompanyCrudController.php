@@ -34,35 +34,21 @@ class CompanyCrudController extends CrudController
      */
     public function setup(): void
     {
-        CRUD::setModel(Company::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/company');
-        CRUD::setEntityNameStrings('Компания', 'Компании');
+        $this->crud->setModel(Company::class);
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/company');
+        $this->crud->setEntityNameStrings('Компания', 'Компании');
     }
 
     public function setupShowOperation(): void
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
             'tab' => 'Основная информация'
         ]);
 
-        CRUD::addColumn([
-            'name' => 'code_name',
-            'label' => 'Кодовое имя',
-            'type' => 'text',
-            'tab' => 'Основная информация'
-        ]);
-
-        CRUD::addColumn([
-            'name' => 'bot_token',
-            'label' => 'Токен бота',
-            'type' => 'text',
-            'tab' => 'Основная информация'
-        ]);
-
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'company_type_id',
             'label' => 'Тип компании',
             'type' => 'select',
@@ -71,35 +57,35 @@ class CompanyCrudController extends CrudController
             'tab' => 'Основная информация'
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'email',
             'label' => 'Почта',
             'type' => 'email',
             'tab' => 'Доп. информация'
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
             'tab' => 'Доп. информация'
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'address',
             'label' => 'Главный адрес',
             'type' => 'text',
             'tab' => 'Доп. информация'
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'main_link',
             'label' => 'Ссылка на сайт',
             'type' => 'url',
             'tab' => 'Доп. информация'
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'logo_path',
             'label' => 'Логотип',
             'type' => 'upload',
@@ -107,7 +93,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Доп. информация'
         ]);
 
-        CRUD::button('company-affiliate')
+        $this->crud->button('company-affiliate')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -117,7 +103,7 @@ class CompanyCrudController extends CrudController
                 'class' => 'text-info'
             ]);
 
-        CRUD::button('client')
+        $this->crud->button('client')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -127,7 +113,7 @@ class CompanyCrudController extends CrudController
                 'class' => 'text-info'
             ]);
 
-        CRUD::button('staff-member')
+        $this->crud->button('staff-member')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -137,7 +123,7 @@ class CompanyCrudController extends CrudController
                 'class' => 'text-info'
             ]);
 
-        CRUD::button('service')
+        $this->crud->button('service')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -147,7 +133,7 @@ class CompanyCrudController extends CrudController
                 'class' => 'text-info'
             ]);
 
-        CRUD::button('job_position')
+        $this->crud->button('job_position')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -166,28 +152,38 @@ class CompanyCrudController extends CrudController
      */
     protected function setupListOperation(): void
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'type.name',
             'label' => 'Тип',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 3,
+            'orderable' => true
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'created_at',
             'label' => 'Дата создания',
             'type' => 'text',
+            'priority' => 4,
+            'orderable' => true
         ]);
 
         /**
@@ -204,9 +200,9 @@ class CompanyCrudController extends CrudController
      */
     protected function setupCreateOperation(): void
     {
-        CRUD::setValidation(CompanyCreateRequest::class);
+        $this->crud->setValidation(CompanyCreateRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
@@ -214,7 +210,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Основная информация'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'code_name',
             'label' => 'Кодовое имя',
             'type' => 'text',
@@ -222,7 +218,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Основная информация'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'bot_token',
             'label' => 'Токен бота',
             'type' => 'text',
@@ -230,7 +226,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Основная информация'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'company_type_id',
             'label' => 'Тип компании',
             'type' => 'select',
@@ -254,9 +250,9 @@ class CompanyCrudController extends CrudController
      */
     protected function setupUpdateOperation(): void
     {
-        CRUD::setValidation(CompanyUpdateRequest::class);
+        $this->crud->setValidation(CompanyUpdateRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'email',
             'label' => 'Почта',
             'type' => 'email',
@@ -264,7 +260,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Информация'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
@@ -272,7 +268,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Информация'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'address',
             'label' => 'Главный адрес',
             'type' => 'text',
@@ -280,7 +276,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Информация'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'main_link',
             'label' => 'Ссылка на сайт',
             'type' => 'url',
@@ -288,7 +284,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Информация'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'logo_path',
             'label' => 'Логотип',
             'type' => 'upload',
@@ -297,7 +293,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Информация'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'primary_color',
             'label' => 'Основной цвет',
             'type' => 'color',
@@ -305,7 +301,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Дизайн'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'secondary_color',
             'label' => 'Вторичный цвет',
             'type' => 'color',
@@ -313,7 +309,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Дизайн'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'accent_color',
             'label' => 'Цвет акцента',
             'type' => 'color',
@@ -321,7 +317,7 @@ class CompanyCrudController extends CrudController
             'tab' => 'Дизайн'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'background_color',
             'label' => 'Цвет фона',
             'type' => 'color',

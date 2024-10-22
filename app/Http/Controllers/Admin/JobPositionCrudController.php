@@ -35,20 +35,20 @@ class JobPositionCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(JobPosition::class);
+        $this->crud->setModel(JobPosition::class);
 
         $companyId = Route::current()->parameter('company_id');
         $serviceId = Route::current()->parameter('service_id');
 
-        CRUD::addClause('where', 'company_id', $companyId);
+        $this->crud->addClause('where', 'company_id', $companyId);
 
         if (!empty($serviceId)) {
-            CRUD::addClause('whereHas', 'services', function ($query) use ($serviceId) {
+            $this->crud->addClause('whereHas', 'services', function ($query) use ($serviceId) {
                 $query->where('id', (int)$serviceId);
             });
         }
 
-        CRUD::setRoute(
+        $this->crud->setRoute(
             '/' .
             config('backpack.base.route_prefix')
             . '/company/' . $companyId
@@ -56,14 +56,14 @@ class JobPositionCrudController extends CrudController
             . '/job_position'
         );
 
-        CRUD::setEntityNameStrings('Должность', 'Должности');
+        $this->crud->setEntityNameStrings('Должность', 'Должности');
     }
 
     protected function setupShowOperation()
     {
         $this->setupListOperation();
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'services',
             'label' => 'Услуги',
             'type' => 'select_multiple',
@@ -74,7 +74,7 @@ class JobPositionCrudController extends CrudController
 
         $companyId = Route::current()->parameter('company_id');
 
-        CRUD::button('company')
+        $this->crud->button('company')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -85,7 +85,7 @@ class JobPositionCrudController extends CrudController
                 'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
             ]);
 
-        CRUD::button('service')
+        $this->crud->button('service')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -111,16 +111,22 @@ class JobPositionCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
         /**
@@ -137,15 +143,15 @@ class JobPositionCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(JobPositionRequest::class);
+        $this->crud->setValidation(JobPositionRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'services',
             'label' => 'Услуги',
             'type' => 'select_multiple',

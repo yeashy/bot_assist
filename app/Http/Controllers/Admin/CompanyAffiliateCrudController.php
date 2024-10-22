@@ -35,32 +35,32 @@ class CompanyAffiliateCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(CompanyAffiliate::class);
+        $this->crud->setModel(CompanyAffiliate::class);
 
         $companyId = Route::current()->parameter('company_id');
-        CRUD::addClause('where', 'company_id', $companyId);
+        $this->crud->addClause('where', 'company_id', $companyId);
 
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/company-affiliate');
-        CRUD::setEntityNameStrings('Филиал', 'Филиалы');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/company-affiliate');
+        $this->crud->setEntityNameStrings('Филиал', 'Филиалы');
     }
 
     protected function setupShowOperation()
     {
         $this->setupListOperation();
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'address',
             'label' => 'Адрес',
             'type' => 'text'
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'coordinates',
             'label' => 'Координаты',
             'type' => 'text'
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'is_main',
             'label' => 'Главное здание',
             'type' => 'boolean'
@@ -68,7 +68,7 @@ class CompanyAffiliateCrudController extends CrudController
 
         $companyId = Route::current()->parameter('company_id');
 
-        CRUD::button('company')
+        $this->crud->button('company')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -79,7 +79,7 @@ class CompanyAffiliateCrudController extends CrudController
                 'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
             ]);
 
-        CRUD::button('employee')
+        $this->crud->button('employee')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -98,22 +98,30 @@ class CompanyAffiliateCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true,
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true,
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'phone_number',
             'label' => 'Телефон',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 3,
+            'orderable' => true
         ]);
 
         /**
@@ -130,42 +138,42 @@ class CompanyAffiliateCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(CompanyAffiliateCreateRequest::class);
+        $this->crud->setValidation(CompanyAffiliateCreateRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
             'wrapper' => ['class' => 'from-group col-md-6'],
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'phone_number',
             'label' => 'Телефон',
             'type' => 'text',
             'wrapper' => ['class' => 'from-group col-md-6'],
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'address',
             'label' => 'Адрес',
             'type' => 'address-input',
             'wrapper' => ['class' => 'from-group col-md-6'],
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'latitude',
             'label' => 'Широта',
             'type' => 'hidden',
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'longitude',
             'label' => 'Долгота',
             'type' => 'hidden',
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'is_main',
             'label' => 'Главное здание',
             'type' => 'boolean'
@@ -185,42 +193,42 @@ class CompanyAffiliateCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        CRUD::setValidation(CompanyAffiliateUpdateRequest::class);
+        $this->crud->setValidation(CompanyAffiliateUpdateRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
             'wrapper' => ['class' => 'from-group col-md-6'],
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'phone_number',
             'label' => 'Телефон',
             'type' => 'text',
             'wrapper' => ['class' => 'from-group col-md-6'],
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'address',
             'label' => 'Адрес',
             'type' => 'address-input',
             'wrapper' => ['class' => 'from-group col-md-6'],
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'latitude',
             'label' => 'Широта',
             'type' => 'hidden',
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'longitude',
             'label' => 'Долгота',
             'type' => 'hidden',
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'is_main',
             'label' => 'Главное здание',
             'type' => 'boolean'

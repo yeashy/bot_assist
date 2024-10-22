@@ -14,6 +14,7 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -36,56 +37,56 @@ class StaffMemberCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(StaffMember::class);
+        $this->crud->setModel(StaffMember::class);
 
         $companyId = Route::current()->parameter('company_id');
-        CRUD::addClause('where', 'company_id', $companyId);
+        $this->crud->addClause('where', 'company_id', $companyId);
 
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/staff-member');
-        CRUD::setEntityNameStrings('Персонал', 'Персонал');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/staff-member');
+        $this->crud->setEntityNameStrings('Персонал', 'Персонал');
     }
 
     protected function setupShowOperation()
     {
         $this->setupListOperation();
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Имя',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'surname',
             'label' => 'Фамилия',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'patronymic',
             'label' => 'Отчество',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'date_of_birth',
             'label' => 'Дата рождения',
             'type' => 'date',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'gender.name',
             'label' => 'Пол',
             'type' => 'string',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'description',
             'label' => 'Доп. информация',
             'type' => 'textarea'
@@ -93,7 +94,7 @@ class StaffMemberCrudController extends CrudController
 
         $companyId = Route::current()->parameter('company_id');
 
-        CRUD::button('company')
+        $this->crud->button('company')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -104,7 +105,7 @@ class StaffMemberCrudController extends CrudController
                 'url' => '/' . config('backpack.base.route_prefix') . '/company/' . $companyId . '/show'
             ]);
 
-        CRUD::button('employee')
+        $this->crud->button('employee')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -123,16 +124,30 @@ class StaffMemberCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true,
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'full_name',
             'label' => 'Полное имя',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true,
+            'searchLogic' => function (Builder $query, $column, $searchTerm) {
+                $query
+                    ->orWhereRaw(
+                        'concat(surname, " ", name, " ", patronymic) like "%' . $searchTerm . '%"',
+                    )->orWhereRaw(
+                        'concat(name, " ", surname, " ", patronymic) like "%' . $searchTerm . '%"'
+                    );
+            }
         ]);
 
         /**
@@ -149,29 +164,29 @@ class StaffMemberCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(StaffMemberCreateRequest::class);
+        $this->crud->setValidation(StaffMemberCreateRequest::class);
 
-        CRUD::removeSaveActions([
+        $this->crud->removeSaveActions([
             'save_and_back',
             'save_and_new',
             'save_and_preview'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Имя',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'surname',
             'label' => 'Фамилия',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'patronymic',
             'label' => 'Отчество',
             'type' => 'text',
@@ -192,44 +207,44 @@ class StaffMemberCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        CRUD::setValidation(StaffMemberUpdateRequest::class);
+        $this->crud->setValidation(StaffMemberUpdateRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Имя',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'surname',
             'label' => 'Фамилия',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'patronymic',
             'label' => 'Отчество',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'date_of_birth',
             'label' => 'Дата рождения',
             'type' => 'date',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'gender',
             'label' => 'Пол',
             'type' => 'select',
@@ -239,7 +254,7 @@ class StaffMemberCrudController extends CrudController
             'allows_null' => false,
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'photo_path',
             'label' => 'Фото',
             'type' => 'upload',
@@ -247,7 +262,7 @@ class StaffMemberCrudController extends CrudController
             'wrapper' => ['class' => 'form-group col-md-6']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'description',
             'label' => 'Доп. информация',
             'type' => 'textarea'

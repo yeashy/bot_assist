@@ -14,6 +14,7 @@ use Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 use Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanel;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -24,7 +25,9 @@ use Illuminate\Support\Facades\Route;
 class ClientCrudController extends CrudController
 {
     use ListOperation;
-    use CreateOperation { store as traitStore; }
+    use CreateOperation {
+        store as traitStore;
+    }
     use UpdateOperation;
     use DeleteOperation;
     use ShowOperation;
@@ -36,54 +39,54 @@ class ClientCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(Client::class);
+        $this->crud->setModel(Client::class);
 
         $companyId = Route::current()->parameter('company_id');
-        CRUD::addClause('where', 'company_id', $companyId);
+        $this->crud->addClause('where', 'company_id', $companyId);
 
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/client');
-        CRUD::setEntityNameStrings('Клиент', 'Клиенты');
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/company/' . $companyId . '/client');
+        $this->crud->setEntityNameStrings('Клиент', 'Клиенты');
     }
 
     protected function setupShowOperation()
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Имя',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'surname',
             'label' => 'Фамилия',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'patronymic',
             'label' => 'Отчество',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'address',
             'label' => 'Адрес проживания',
             'type' => 'text',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'date_of_birth',
             'label' => 'Дата рождения',
             'type' => 'date',
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'description',
             'label' => 'Доп. информация',
             'type' => 'textarea'
@@ -91,7 +94,7 @@ class ClientCrudController extends CrudController
 
         $companyId = Route::current()->parameter('company_id');
 
-        CRUD::button('company')
+        $this->crud->button('company')
             ->stack('line')
             ->view('crud::buttons.see_related_button')
             ->meta([
@@ -111,22 +114,39 @@ class ClientCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true,
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'full_name',
             'label' => 'Полное имя',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true,
+            'searchLogic' => function (Builder $query, $column, $searchTerm) {
+                $query
+                    ->orWhereRaw(
+                        'concat(surname, " ", name, " ", patronymic) like "%' . $searchTerm . '%"',
+                    )->orWhereRaw(
+                        'concat(name, " ", surname, " ", patronymic) like "%' . $searchTerm . '%"'
+                    );
+            }
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
-            'type' => 'string'
+            'type' => 'string',
+            'priority' => 3,
+            'orderable' => true,
+            'searchable' => true,
         ]);
 
         /**
@@ -143,36 +163,36 @@ class ClientCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(ClientCreateRequest::class);
+        $this->crud->setValidation(ClientCreateRequest::class);
 
-        CRUD::removeSaveActions([
+        $this->crud->removeSaveActions([
             'save_and_back',
             'save_and_new',
             'save_and_preview'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'surname',
             'label' => 'Фамилия',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Имя',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'patronymic',
             'label' => 'Отчество',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'user_phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
@@ -193,51 +213,51 @@ class ClientCrudController extends CrudController
      */
     protected function setupUpdateOperation()
     {
-        CRUD::setValidation(ClientUpdateRequest::class);
+        $this->crud->setValidation(ClientUpdateRequest::class);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'surname',
             'label' => 'Фамилия',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Имя',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'patronymic',
             'label' => 'Отчество',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-4']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'phone_number',
             'label' => 'Номер телефона',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'address',
             'label' => 'Адрес проживания',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'date_of_birth',
             'label' => 'Дата рождения',
             'type' => 'date',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'gender',
             'label' => 'Пол',
             'type' => 'select',
@@ -247,7 +267,7 @@ class ClientCrudController extends CrudController
             'allows_null' => false,
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'description',
             'label' => 'Доп. информация',
             'type' => 'textarea'

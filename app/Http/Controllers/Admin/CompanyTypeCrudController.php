@@ -34,9 +34,9 @@ class CompanyTypeCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(CompanyType::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/company-type');
-        CRUD::setEntityNameStrings('Тип компании', 'Типы компании');
+        $this->crud->setModel(CompanyType::class);
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/company-type');
+        $this->crud->setEntityNameStrings('Тип компании', 'Типы компании');
     }
 
     /**
@@ -47,16 +47,22 @@ class CompanyTypeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
         /**
@@ -73,22 +79,23 @@ class CompanyTypeCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(CompanyTypeRequest::class);
-        CRUD::addField([
+        $this->crud->setValidation(CompanyTypeRequest::class);
+
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'code_name',
             'label' => 'Кодовое имя',
             'type' => 'text',
             'wrapper' => ['class' => 'form-group col-md-3']
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'companies',
             'label' => 'Компании',
             'type' => 'select_multiple',

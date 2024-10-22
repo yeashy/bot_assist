@@ -33,9 +33,9 @@ class GenderCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(Gender::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/gender');
-        CRUD::setEntityNameStrings('Пол', 'Полы');
+        $this->crud->setModel(Gender::class);
+        $this->crud->setRoute(config('backpack.base.route_prefix') . '/gender');
+        $this->crud->setEntityNameStrings('Пол', 'Полы');
     }
 
     protected function setupShowOperation()
@@ -51,16 +51,22 @@ class GenderCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'id',
             'label' => 'ID',
-            'type' => 'number'
+            'type' => 'number',
+            'priority' => 2,
+            'orderable' => true,
+            'searchable' => true
         ]);
 
-        CRUD::addColumn([
+        $this->crud->addColumn([
             'name' => 'name',
             'label' => 'Название',
-            'type' => 'text'
+            'type' => 'text',
+            'priority' => 1,
+            'orderable' => true,
+            'searchable' => true,
         ]);
 
         /**
@@ -77,14 +83,15 @@ class GenderCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(GenderRequest::class);
-        CRUD::addField([
+        $this->crud->setValidation(GenderRequest::class);
+
+        $this->crud->addField([
             'name' => 'id',
             'label' => 'ID',
             'type' => 'number'
         ]);
 
-        CRUD::addField([
+        $this->crud->addField([
             'name' => 'name',
             'label' => 'Название',
             'type' => 'text'
