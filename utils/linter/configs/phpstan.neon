@@ -1,5 +1,9 @@
 parameters:
     paths:
         - ./app/
+        - ./config/
+        - ./database/
+        - ./lang/
+        - ./routes/
 
     level: 5
