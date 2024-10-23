@@ -13,9 +13,10 @@ readonly class ClientEventService
 
     public function attachUserViaPhoneNumber(): void
     {
-        if (!empty($this->client->user_phone_number)) {
+        if (! empty($this->client->user_phone_number)) {
+            /** @var User $user */
             $user = User::query()->firstOrCreate([
-                'phone_number' => $this->client->user_phone_number
+                'phone_number' => $this->client->user_phone_number,
             ], [
                 'name' => $this->client->full_name,
             ]);

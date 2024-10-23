@@ -3,12 +3,44 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+/**
+ * Table: clients
+ *
+ * === Columns: ===
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $company_id
+ * @property string $name
+ * @property string $surname
+ * @property string $patronymic
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
+ *
+ * === Accessors: ===
+ * @property string $full_name
+ * @property string|null $photo_path
+ * @property CarbonInterface|null $date_of_birth
+ * @property string|null $description
+ * @property string|null $address
+ * @property string|null $phone_number
+ * @property Gender $gender
+ *
+ * === Relationships: ===
+ * @property-read Company $company
+ * @property-read ClientDescribingInfo $info
+ * @property-read ServiceAssignment[]|Collection $assignments
+ * @property-read User $user
+ */
 class Client extends Model
 {
     use CrudTrait;
@@ -23,7 +55,7 @@ class Client extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function info(): HasOne
+    public function info(): HasOne|Builder
     {
         return $this->hasOne(ClientDescribingInfo::class);
     }
@@ -33,7 +65,7 @@ class Client extends Model
         return $this->hasMany(ServiceAssignment::class);
     }
 
-    public function user(): BelongsTo
+    public function user(): BelongsTo|Builder
     {
         return $this->belongsTo(User::class);
     }

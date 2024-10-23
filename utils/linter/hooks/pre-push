@@ -1,0 +1,18 @@
+#!/bin/sh
+
+MODIFIED_FILES=$(git ls-files -m)
+MODIFIED_COUNT=$(echo "$MODIFIED_FILES" | grep -c  "[a-zA-Z1-9]")
+
+if [ $MODIFIED_COUNT -ne 0 ]; then
+    echo "************************************************"
+    echo "You have uncommited modified files"
+    echo "Please commit or stash them"
+    echo "************************************************"
+    echo $MODIFIED_FILES
+    echo "************************************************"
+    exit 1
+fi
+
+exit 0
+
+
