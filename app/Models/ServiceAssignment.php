@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Table: service_assignments
@@ -24,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Client $client
  * @property-read EmployeeWorkingPeriod $period
  */
-final class ServiceAssignment extends Model
+final class ServiceAssignment extends BaseModel
 {
     use HasFactory;
 

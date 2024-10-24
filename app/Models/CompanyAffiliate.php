@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
+use App\Relations\HasMany;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Table: company_affiliates
@@ -33,7 +32,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read Company $company
  * @property-read array<Employee>|Collection $employees
  */
-final class CompanyAffiliate extends Model
+final class CompanyAffiliate extends BaseModel
 {
     use CrudTrait;
     use HasFactory;

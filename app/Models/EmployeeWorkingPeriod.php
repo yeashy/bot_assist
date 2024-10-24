@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
+use App\Relations\HasOne;
 use Carbon\CarbonInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -40,12 +41,12 @@ final class EmployeeWorkingPeriod extends BaseModel
 
     /* RELATIONS */
 
-    public function employee(): Builder
+    public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
     }
 
-    public function assignment(): Builder
+    public function assignment(): HasOne
     {
         return $this->hasOne(ServiceAssignment::class);
     }

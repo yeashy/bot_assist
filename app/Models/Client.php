@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
+use App\Relations\HasMany;
+use App\Relations\HasOne;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Carbon\CarbonInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -46,22 +48,22 @@ final class Client extends BaseModel
 
     /* === RELATIONS === */
 
-    public function company(): Builder
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function info(): Builder
+    public function info(): HasOne
     {
         return $this->hasOne(ClientDescribingInfo::class);
     }
 
-    public function assignments(): Builder
+    public function assignments(): HasMany
     {
         return $this->hasMany(ServiceAssignment::class);
     }
 
-    public function user(): Builder
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

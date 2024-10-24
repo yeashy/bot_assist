@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\PhoneNumberHelper;
+use App\Relations\HasMany;
 use Carbon\CarbonInterface;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -88,7 +89,7 @@ final class User extends BaseModel implements AuthenticatableContract, Authoriza
 
     /* === RELATIONS === */
 
-    public function clients(): Builder
+    public function clients(): HasMany
     {
         return $this->hasMany(Client::class, 'user_id', 'id');
     }

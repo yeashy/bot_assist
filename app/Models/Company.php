@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
+use App\Relations\HasMany;
+use App\Relations\HasOne;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Carbon\CarbonInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -52,42 +54,42 @@ final class Company extends BaseModel
 
     /* === RELATIONS === */
 
-    public function type(): Builder
+    public function type(): BelongsTo
     {
         return $this->belongsTo(CompanyType::class, 'company_type_id', 'id');
     }
 
-    public function design(): Builder
+    public function design(): HasOne
     {
         return $this->hasOne(CompanyDesignInfo::class);
     }
 
-    public function info(): Builder
+    public function info(): HasOne
     {
         return $this->hasOne(CompanyDescribingInfo::class);
     }
 
-    public function clients(): Builder
+    public function clients(): HasMany
     {
         return $this->hasMany(Client::class);
     }
 
-    public function staff(): Builder
+    public function staff(): HasMany
     {
         return $this->hasMany(StaffMember::class);
     }
 
-    public function affiliates(): Builder
+    public function affiliates(): HasMany
     {
         return $this->hasMany(CompanyAffiliate::class);
     }
 
-    public function services(): Builder
+    public function services(): HasMany
     {
         return $this->hasMany(Service::class);
     }
 
-    public function positions(): Builder
+    public function positions(): HasMany
     {
         return $this->hasMany(JobPosition::class);
     }

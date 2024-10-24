@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Table: company_design_infos
@@ -24,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * === Relationships: ===
  * @property-read Company $company
  */
-final class CompanyDesignInfo extends Model
+final class CompanyDesignInfo extends BaseModel
 {
     use HasFactory;
 

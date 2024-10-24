@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Relations\HasMany;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -28,7 +28,7 @@ final class CompanyType extends BaseModel
 
     /* === RELATIONS === */
 
-    public function companies(): Builder
+    public function companies(): HasMany
     {
         return $this->hasMany(Company::class, 'company_type_id', 'id');
     }

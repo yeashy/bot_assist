@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
 use Carbon\CarbonInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -33,12 +33,12 @@ final class ClientDescribingInfo extends BaseModel
 
     /* === RELATIONS === */
 
-    public function client(): Builder
+    public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
     }
 
-    public function gender(): Builder
+    public function gender(): BelongsTo
     {
         return $this->belongsTo(Gender::class);
     }

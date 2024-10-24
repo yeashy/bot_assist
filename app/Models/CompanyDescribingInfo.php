@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
 use Carbon\CarbonInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -30,7 +30,7 @@ final class CompanyDescribingInfo extends BaseModel
 
     /* === RELATIONS === */
 
-    public function company(): Builder
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }

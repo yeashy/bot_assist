@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Relations\BelongsTo;
+use App\Relations\BelongsToMany;
+use App\Relations\HasMany;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Carbon\CarbonInterface;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -33,12 +35,12 @@ final class JobPosition extends BaseModel
 
     /* === RELATIONS === */
 
-    public function company(): Builder
+    public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function services(): Builder
+    public function services(): BelongsToMany
     {
         return $this->belongsToMany(
             Service::class,
@@ -48,7 +50,7 @@ final class JobPosition extends BaseModel
         );
     }
 
-    public function employees(): Builder
+    public function employees(): HasMany
     {
         return $this->hasMany(Employee::class);
     }
