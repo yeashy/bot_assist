@@ -2,12 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Company;
-use App\Services\API\Telegram\TelegramService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
-class TestCommand extends Command
+final class TestCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -26,8 +23,5 @@ class TestCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
-    {
-
-    }
+    public function handle(): void {}
 }

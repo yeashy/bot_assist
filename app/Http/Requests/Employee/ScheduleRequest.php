@@ -5,7 +5,7 @@ namespace App\Http\Requests\Employee;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ScheduleRequest extends FormRequest
+final class ScheduleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,27 +18,27 @@ class ScheduleRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, ValidationRule|array<string>|string>
      */
     public function rules(): array
     {
         return [
             'date' => [
                 'nullable',
-                'date'
+                'date',
             ],
             'employee_ids' => [
                 'nullable',
-                'array'
+                'array',
             ],
             'employee_ids.*' => [
                 'nullable',
-                'exists:employees,id'
+                'exists:employees,id',
             ],
             'service_id' => [
                 'required',
-                'exists:services,id'
-            ]
+                'exists:services,id',
+            ],
         ];
     }
 }

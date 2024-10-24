@@ -12,12 +12,10 @@ use App\Models\StaffMember;
 use App\Models\StaffMemberDescribingInfo;
 use Illuminate\Database\Seeder;
 
-class CompanySeeder extends Seeder
+final class CompanySeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -29,13 +27,11 @@ class CompanySeeder extends Seeder
             ->has(
                 Client::factory()
                     ->count(3)
-                    ->has(ClientDescribingInfo::factory()->count(1), 'info')
-                , 'clients')
+                    ->has(ClientDescribingInfo::factory()->count(1), 'info'), 'clients')
             ->has(
                 StaffMember::factory()
                     ->count(10)
-                    ->has(StaffMemberDescribingInfo::factory()->count(1), 'info')
-                , 'staff')
+                    ->has(StaffMemberDescribingInfo::factory()->count(1), 'info'), 'staff')
             ->createQuietly();
     }
 }

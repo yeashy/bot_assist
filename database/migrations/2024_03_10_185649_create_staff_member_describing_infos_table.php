@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('staff_member_describing_infos', function (Blueprint $table) {
+        Schema::create('staff_member_describing_infos', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(StaffMember::class)->unique()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('photo_path')->nullable()->comment('Фотография сотрудника');

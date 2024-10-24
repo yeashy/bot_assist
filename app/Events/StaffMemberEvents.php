@@ -4,7 +4,7 @@ namespace app\Events;
 
 use App\Models\StaffMember;
 
-readonly class StaffMemberEventService
+readonly class StaffMemberEvents
 {
     public function __construct(
         private StaffMember $staffMember

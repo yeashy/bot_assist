@@ -6,12 +6,20 @@ use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gender extends Model
+/**
+ * Table: genders
+ *
+ * === Columns: ===
+ *
+ * @property int $id
+ * @property string $name
+ */
+final class Gender extends Model
 {
     use CrudTrait;
     use HasFactory;
 
-    protected $guarded = [];
-
     public $timestamps = false;
+
+    protected $guarded = [];
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests\User;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class MeRequest extends FormRequest
+final class MeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +18,7 @@ class MeRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, ValidationRule|array<string>|string>
      */
     public function rules(): array
     {
@@ -27,7 +27,7 @@ class MeRequest extends FormRequest
                 'required',
                 'int',
                 'exists:companies,id',
-            ]
+            ],
         ];
     }
 }

@@ -2,22 +2,22 @@
 
 namespace App\Observers;
 
-use app\Events\ClientEventService;
+use app\Events\ClientEvents;
 use App\Models\Client;
 
-class ClientObserver
+final class ClientObserver
 {
     public function creating(Client $client): void
     {
-        $service = new ClientEventService($client);
+        $events = new ClientEvents($client);
 
-        $service->attachUserViaPhoneNumber();
+        $events->attachUserViaPhoneNumber();
     }
 
     public function created(Client $client): void
     {
-        $service = new ClientEventService($client);
+        $events = new ClientEvents($client);
 
-        $service->createInfo();
+        $events->createInfo();
     }
 }

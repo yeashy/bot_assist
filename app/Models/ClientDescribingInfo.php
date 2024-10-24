@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Table: client_describing_infos
@@ -16,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $client_id
  * @property int $gender_id
  * @property string $photo_path
- * @property CarbonInterface $date_of_birth
+ * @property CarbonInterface|null $date_of_birth
  * @property string $address
  * @property string $description
  * @property CarbonInterface $created_at
@@ -26,20 +25,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read Client $client
  * @property-read Gender $gender
  */
-class ClientDescribingInfo extends Model
+final class ClientDescribingInfo extends BaseModel
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    // RELATIONS
+    /* === RELATIONS === */
 
-    public function client(): BelongsTo
+    public function client(): Builder
     {
         return $this->belongsTo(Client::class);
     }
 
-    public function gender(): BelongsTo
+    public function gender(): Builder
     {
         return $this->belongsTo(Gender::class);
     }

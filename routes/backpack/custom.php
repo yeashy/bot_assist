@@ -1,5 +1,6 @@
 <?php
 
+use App\Facades\Route;
 use App\Http\Controllers\Admin\ClientCrudController;
 use App\Http\Controllers\Admin\CompanyAffiliateCrudController;
 use App\Http\Controllers\Admin\CompanyCrudController;
@@ -10,7 +11,6 @@ use App\Http\Controllers\Admin\GenderCrudController;
 use App\Http\Controllers\Admin\JobPositionCrudController;
 use App\Http\Controllers\Admin\ServiceCrudController;
 use App\Http\Controllers\Admin\StaffMemberCrudController;
-use Illuminate\Support\Facades\Route;
 
 // --------------------------
 // Custom Backpack Routes
@@ -22,10 +22,10 @@ Route::group([
     'prefix' => config('backpack.base.route_prefix', 'admin'),
     'middleware' => array_merge(
         (array) config('backpack.base.web_middleware', 'web'),
-        (array) config('backpack.base.middleware_key', 'admin')
+        (array) config('backpack.base.middleware_key', 'admin'),
     ),
     'namespace' => 'App\Http\Controllers\Admin',
-], function () { // custom admin routes
+], function (): void { // custom admin routes
 
     Route::crud('company-type', CompanyTypeCrudController::class);
     Route::crud('font', FontCrudController::class);
@@ -35,30 +35,30 @@ Route::group([
     Route::crud('job-position', JobPositionCrudController::class);
     Route::crud('gender', GenderCrudController::class);
 
-    Route::prefix('company')->group(function () {
-        Route::crud('/', COmpanyCrudController::class);
-        Route::crud('/{company_id}/client', ClientCrudController::class);
-        Route::crud('/{company_id}/service', ServiceCrudController::class);
-        Route::crud('/{company_id}/job_position', JobPositionCrudController::class);
+    Route::prefix('company')->group(function (): void {
+        Route::crud('/', CompanyCrudController::class);
+        Route::crud('{company_id}/client', ClientCrudController::class);
+        Route::crud('{company_id}/service', ServiceCrudController::class);
+        Route::crud('{company_id}/job_position', JobPositionCrudController::class);
 
-        Route::prefix('{company_id}/service')->group(function () {
+        Route::prefix('{company_id}/service')->group(function (): void {
             Route::crud('/', ServiceCrudController::class);
-            Route::crud('/{service_id}/job_position', JobPositionCrudController::class);
+            Route::crud('{service_id}/job_position', JobPositionCrudController::class);
         });
 
-        Route::prefix('{company_id}/job_position')->group(function () {
+        Route::prefix('{company_id}/job_position')->group(function (): void {
             Route::crud('/', JobPositionCrudController::class);
-            Route::crud('/{job_position_id}/service', ServiceCrudController::class);
+            Route::crud('{job_position_id}/service', ServiceCrudController::class);
         });
 
-        Route::prefix('{company_id}/staff-member')->group(function () {
+        Route::prefix('{company_id}/staff-member')->group(function (): void {
             Route::crud('/', StaffMemberCrudController::class);
-            Route::crud('/{person_id}/employee', EmployeeCrudController::class);
+            Route::crud('{person_id}/employee', EmployeeCrudController::class);
         });
 
-        Route::prefix('{company_id}/company-affiliate')->group(function () {
+        Route::prefix('{company_id}/company-affiliate')->group(function (): void {
             Route::crud('/', CompanyAffiliateCrudController::class);
-            Route::crud('/{company_affiliate_id}/employee', EmployeeCrudController::class);
+            Route::crud('{company_affiliate_id}/employee', EmployeeCrudController::class);
         });
     });
 }); // this should be the absolute last line of this file

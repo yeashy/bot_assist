@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_assignments', function (Blueprint $table) {
+        Schema::create('service_assignments', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Client::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(EmployeeWorkingPeriod::class)->unique()->constrained()->cascadeOnDelete()->cascadeOnUpdate();

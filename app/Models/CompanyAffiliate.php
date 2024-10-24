@@ -3,12 +3,37 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CompanyAffiliate extends Model
+/**
+ * Table: company_affiliates
+ *
+ * === Columns: ===
+ *
+ * @property int $id
+ * @property int $company_id
+ * @property string $name
+ * @property string|null $address
+ * @property string|float|null $latitude
+ * @property string|float|null $longitude
+ * @property string|null $phone_number
+ * @property bool $is_main
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
+ *
+ * === Accessors: ===
+ * @property-read string $coordinates
+ *
+ * === Relationships: ===
+ * @property-read Company $company
+ * @property-read array<Employee>|Collection $employees
+ */
+final class CompanyAffiliate extends Model
 {
     use CrudTrait;
     use HasFactory;
@@ -27,12 +52,14 @@ class CompanyAffiliate extends Model
         return $this->hasMany(Employee::class);
     }
 
-    /* === ATTRIBUTES === */
+    /* === ACCESSORS === */
 
     public function getCoordinatesAttribute(): string
     {
         return $this->latitude . ',' . $this->longitude;
     }
+
+    /* === MUTATORS === */
 
     public function setCoordinatesAttribute(string $coordinates): void
     {

@@ -2,25 +2,24 @@
 
 namespace App\Observers;
 
-use app\Events\CompanyEventService;
+use app\Events\CompanyEvents;
 use App\Models\Company;
-use Str;
 
-class CompanyObserver
+final class CompanyObserver
 {
     public function creating(Company $company): void
     {
-        $service = new CompanyEventService($company);
+        $events = new CompanyEvents($company);
 
-        $service->setEncodedId();
-        $service->setCodeName();
+        $events->setEncodedId();
+        $events->setCodeName();
     }
 
     public function created(Company $company): void
     {
-        $service = new CompanyEventService($company);
+        $events = new CompanyEvents($company);
 
-        $service->createInfo();
-        $service->createDesign();
+        $events->createInfo();
+        $events->createDesign();
     }
 }

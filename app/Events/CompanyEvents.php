@@ -5,7 +5,7 @@ namespace app\Events;
 use App\Models\Company;
 use Illuminate\Support\Str;
 
-readonly class CompanyEventService
+readonly class CompanyEvents
 {
     public function __construct(
         private Company $company

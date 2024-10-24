@@ -5,16 +5,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyDescribingInfosTable extends Migration
+final class CreateCompanyDescribingInfosTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('company_describing_infos', function (Blueprint $table) {
+        Schema::create('company_describing_infos', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Company::class)->unique()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('main_link')->nullable()->comment('Основная ссылка на сайт компании');
@@ -28,10 +26,8 @@ class CreateCompanyDescribingInfosTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('company_describing_infos');
     }

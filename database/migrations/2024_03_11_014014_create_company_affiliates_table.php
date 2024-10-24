@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('company_affiliates', function (Blueprint $table) {
+        Schema::create('company_affiliates', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name')->nullable();

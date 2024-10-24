@@ -28,7 +28,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class Kernel extends HttpKernel
+final class Kernel extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.
@@ -38,7 +38,6 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
-        // \App\Http\Middleware\TrustHosts::class,
         TrustProxies::class,
         HandleCors::class,
         PreventRequestsDuringMaintenance::class,
@@ -58,15 +57,13 @@ class Kernel extends HttpKernel
             AddQueuedCookiesToResponse::class,
             StartSession::class,
             ShareErrorsFromSession::class,
-//            \App\Http\Middleware\VerifyCsrfToken::class,
             SubstituteBindings::class,
         ],
 
         'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            ThrottleRequests::class.':api',
+            ThrottleRequests::class . ':api',
             SubstituteBindings::class,
-            HandleCors::class
+            HandleCors::class,
         ],
     ];
 

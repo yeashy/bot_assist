@@ -5,7 +5,7 @@ namespace App\Http\Requests\Employee;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class WorkingPeriodRequest extends FormRequest
+final class WorkingPeriodRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,19 +18,19 @@ class WorkingPeriodRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, ValidationRule|array<string>|string>
      */
     public function rules(): array
     {
         return [
             'date' => [
                 'required',
-                'date'
+                'date',
             ],
             'time' => [
                 'required',
-                'date_format:H:i'
-            ]
+                'date_format:H:i',
+            ],
         ];
     }
 }

@@ -2,17 +2,35 @@
 
 namespace App\Models;
 
+use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class CompanyDescribingInfo extends Model
+/**
+ * Table: company_describing_infos
+ *
+ * === Columns: ===
+ *
+ * @property int $id
+ * @property int $company_id
+ * @property string $main_link
+ * @property string $phone_number
+ * @property string $logo_path
+ * @property string $address
+ * @property string $email
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
+ *
+ * === Relationships: ===
+ * @property Company $company
+ */
+final class CompanyDescribingInfo extends BaseModel
 {
     use HasFactory;
 
-    // RELATIONS
+    /* === RELATIONS === */
 
-    public function company(): BelongsTo
+    public function company(): Builder
     {
         return $this->belongsTo(Company::class);
     }

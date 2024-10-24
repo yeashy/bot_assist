@@ -5,7 +5,7 @@ namespace app\Events;
 use App\Models\Client;
 use App\Models\User;
 
-readonly class ClientEventService
+readonly class ClientEvents
 {
     public function __construct(
         private Client $client

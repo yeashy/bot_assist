@@ -12,12 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('services', function (Blueprint $table) {
+        Schema::table('services', function (Blueprint $table): void {
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->float('price')->comment('Цена, руб');
         });
 
-        Schema::table('job_positions', function (Blueprint $table) {
+        Schema::table('job_positions', function (Blueprint $table): void {
             $table->foreignIdFor(Company::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
@@ -27,11 +27,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('services', function (Blueprint $table) {
+        Schema::table('services', function (Blueprint $table): void {
             $table->dropForeignIdFor(Company::class);
         });
 
-        Schema::table('job_positions', function (Blueprint $table) {
+        Schema::table('job_positions', function (Blueprint $table): void {
             $table->dropForeignIdFor(Company::class);
         });
     }

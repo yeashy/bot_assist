@@ -3,32 +3,47 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Service extends Model
+/**
+ * Table: services
+ *
+ * === Columns: ===
+ *
+ * @property int $id
+ * @property string $name
+ * @property int $company_id
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
+ *
+ * === Relationships: ===
+ * @property-read array<ServiceAssignment>|Collection $assignments
+ * @property-read Company $company
+ * @property-read array<JobPosition>|Collection $positions
+ */
+final class Service extends BaseModel
 {
     use CrudTrait;
     use HasFactory;
 
     protected $guarded = [];
 
-    // RELATIONS
+    /* === RELATIONS === */
 
-    public function assignments(): HasMany
+    public function assignments(): Builder
     {
         return $this->hasMany(ServiceAssignment::class);
     }
 
-    public function company(): BelongsTo
+    public function company(): Builder
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function positions(): BelongsToMany
+    public function positions(): Builder
     {
         return $this->belongsToMany(JobPosition::class, 'job_position_service');
     }

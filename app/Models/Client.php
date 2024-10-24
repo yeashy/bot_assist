@@ -7,10 +7,6 @@ use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Table: clients
@@ -22,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property int $company_id
  * @property string $name
  * @property string $surname
- * @property string $patronymic
+ * @property string|null $patronymic
  * @property CarbonInterface $created_at
  * @property CarbonInterface $updated_at
  *
@@ -38,86 +34,86 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * === Relationships: ===
  * @property-read Company $company
  * @property-read ClientDescribingInfo $info
- * @property-read ServiceAssignment[]|Collection $assignments
+ * @property-read array<ServiceAssignment>|Collection $assignments
  * @property-read User $user
  */
-class Client extends Model
+final class Client extends BaseModel
 {
     use CrudTrait;
     use HasFactory;
 
     protected $guarded = [];
 
-    // RELATIONS
+    /* === RELATIONS === */
 
-    public function company(): BelongsTo
+    public function company(): Builder
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function info(): HasOne|Builder
+    public function info(): Builder
     {
         return $this->hasOne(ClientDescribingInfo::class);
     }
 
-    public function assignments(): HasMany
+    public function assignments(): Builder
     {
         return $this->hasMany(ServiceAssignment::class);
     }
 
-    public function user(): BelongsTo|Builder
+    public function user(): Builder
     {
         return $this->belongsTo(User::class);
     }
 
-    // ACCESSORS
+    /* === ACCESSORS === */
 
     public function getFullNameAttribute(): string
     {
         return $this->surname . ($this->name ? ' ' . $this->name : '') . ($this->patronymic ? ' ' . $this->patronymic : '');
     }
 
-    public function getPhotoPathAttribute()
+    public function getPhotoPathAttribute(): string
     {
         return $this->info->photo_path;
     }
 
-    public function getDateOfBirthAttribute(): string
+    public function getDateOfBirthAttribute(): ?CarbonInterface
     {
         return $this->info->date_of_birth;
     }
 
-    public function getDescriptionAttribute()
+    public function getDescriptionAttribute(): string
     {
         return $this->info->description;
     }
 
-    public function getAddressAttribute()
+    public function getAddressAttribute(): string
     {
         return $this->info->address;
     }
 
-    public function getGenderAttribute()
+    public function getGenderAttribute(): Gender
     {
         return $this->info->gender;
     }
 
-    public function getPhoneNumberAttribute()
+    public function getPhoneNumberAttribute(): ?string
     {
         return $this->user->phone_number;
     }
 
-    // MUTATORS
+    /* === MUTATORS === */
 
     public function setFullNameAttribute(?string $value): void
     {
-        $fullnameSeparated = explode(' ', $value);
+        $fullNameSeparated = explode(' ', $value ?? '');
 
-        $this->surname = $fullnameSeparated[0];
+        $this->surname = $fullNameSeparated[0];
 
-        $this->name = $fullnameSeparated[1] ?? null;
+        $this->name = $fullNameSeparated[1] ?? '';
 
-        $this->patronymic = $fullnameSeparated[2] ?? null;
+        $this->patronymic = $fullNameSeparated[2] ?? '';
     }
 
     public function setPhotoPathAttribute(?string $value): void

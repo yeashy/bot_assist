@@ -3,16 +3,18 @@
 namespace Database\Seeders;
 
 use App\Models\Company;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CompanyDescribingInfoSeeder extends Seeder
+final class CompanyDescribingInfoSeeder extends Seeder
 {
+    /**
+     * @var array<string>
+     */
     private array $testCompanyDescribingInfo = [
         'main_link' => 'www.test_company.com',
         'phone_number' => '79059905894',
         'logo_path' => 'https://via.placeholder.com/640x480.png/00eebb?text=test_company',
-        'email' => 'test_company@gmail.com'
+        'email' => 'test_company@gmail.com',
     ];
 
     /**

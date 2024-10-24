@@ -69,9 +69,9 @@ return (new Config)
         ],
         'class_attributes_separation' => [
             'elements' => [
-                'const' => 'none',
+                'const' => 'one',
                 'method' => 'one',
-                'property' => 'none',
+                'property' => 'one',
                 'trait_import' => 'none',
                 'case' => 'none',
             ],
@@ -301,5 +301,5 @@ return (new Config)
         'whitespace_after_comma_in_array' => [
             'ensure_single_space' => true,
         ],
-
+        'phpdoc_array_type' => true,
     ]);

@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employee_working_periods', function (Blueprint $table) {
+        Schema::create('employee_working_periods', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->date('date')->comment('Дата периода работы');

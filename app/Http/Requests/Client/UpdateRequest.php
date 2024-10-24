@@ -5,7 +5,7 @@ namespace App\Http\Requests\Client;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+final class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +18,7 @@ class UpdateRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, ValidationRule|array<string>|string>
      */
     public function rules(): array
     {
@@ -41,8 +41,8 @@ class UpdateRequest extends FormRequest
             'phone_number' => [
                 'nullable',
                 'string',
-                'regex:/^\+?7[\s\-()]*\d{3}[\s\-()]*\d{3}[\s\-()]*\d{2}[\s\-()]*\d{2}$/u'
-            ]
+                'regex:/^\+?7[\s\-()]*\d{3}[\s\-()]*\d{3}[\s\-()]*\d{2}[\s\-()]*\d{2}$/u',
+            ],
         ];
     }
 }

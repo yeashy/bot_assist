@@ -5,7 +5,7 @@ namespace app\Events;
 use App\Helpers\PhoneNumberHelper;
 use App\Models\User;
 
-readonly class UserEventService
+readonly class UserEvents
 {
     public function __construct(
         private User $user

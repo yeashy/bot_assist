@@ -3,16 +3,18 @@
 namespace Database\Seeders;
 
 use App\Models\Company;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CompanyDesignInfoSeeder extends Seeder
+final class CompanyDesignInfoSeeder extends Seeder
 {
+    /**
+     * @var array<string>
+     */
     private array $testCompanyDesignInfo = [
         'primary_color' => '#000000',
         'secondary_color' => '#ffffff',
         'accent_color' => '#000000',
-        'background_color' => '#ffffff'
+        'background_color' => '#ffffff',
     ];
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('company_design_infos');
 
-        Schema::create('company_design_infos', function (Blueprint $table) {
+        Schema::create('company_design_infos', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Company::class)
                 ->constrained()
@@ -35,7 +35,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('company_design_infos');
 
-        Schema::create('company_design_infos', function (Blueprint $table) {
+        Schema::create('company_design_infos', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Company::class)
                 ->constrained()

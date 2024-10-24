@@ -4,12 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+final class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -24,7 +22,7 @@ class DatabaseSeeder extends Seeder
             EmployeeSeeder::class,
             EmployeeWorkingPeriodSeeder::class,
             ServiceAssignmentSeeder::class,
-            InitialEntitiesSeeder::class
+            InitialEntitiesSeeder::class,
         ]);
     }
 }

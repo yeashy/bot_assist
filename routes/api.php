@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\AddressController;
-use App\Http\Controllers\API\Telegram\AuthController;
 use App\Http\Controllers\API\Telegram\WebhookController;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,21 +19,21 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('telegram')
     ->as('telegram.')
     ->namespace('App\Http\Controllers\API\Telegram')
-    ->group(function () {
-        Route::post('/{token}/webhook', [WebhookController::class, 'handle'])->name('webhook');
+    ->group(function (): void {
+        Route::post('{token}/webhook', [WebhookController::class, 'handle'])->name('webhook');
     });
 
 Route::prefix('address')
     ->as('address.')
     ->controller(AddressController::class)
-    ->group(function () {
-        Route::get('/suggest/{address}', 'suggest')->name('suggest');
+    ->group(function (): void {
+        Route::get('suggest/{address}', 'suggest')->name('suggest');
     });
 
 Route::prefix('user')
     ->as('user.')
     ->controller(UserController::class)
     ->middleware('auth.logged')
-    ->group(function () {
+    ->group(function (): void {
         Route::get('me', 'me')->name('me');
     });

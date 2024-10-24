@@ -3,42 +3,63 @@
 namespace App\Models;
 
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Carbon\CarbonInterface;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class StaffMember extends Model
+/**
+ * Table: staff_members
+ *
+ * === Columns: ===
+ *
+ * @property int $id
+ * @property int $company_id
+ * @property string $name
+ * @property string $surname
+ * @property string|null $patronymic
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
+ *
+ * === Accessors: ===
+ * @property-read string $full_name
+ * @property-read string $short_name
+ * @property-read string|null $phone_number
+ * @property-read string|null $photo_path
+ * @property-read CarbonInterface|null $date_of_birth
+ * @property-read string|null $description
+ *
+ * === Relationships: ===
+ * @property-read Company $company
+ * @property-read StaffMemberDescribingInfo $info
+ * @property-read array<JobPosition>|Collection $positions
+ * @property-read Gender $gender
+ */
+final class StaffMember extends BaseModel
 {
     use CrudTrait;
     use HasFactory;
 
     protected $guarded = [];
 
-    // RELATIONS
+    /* === RELATIONS === */
 
-    public function company(): BelongsTo
+    public function company(): Builder
     {
         return $this->belongsTo(Company::class);
     }
 
-    public function info(): HasOne
+    public function info(): Builder
     {
         return $this->hasOne(StaffMemberDescribingInfo::class);
     }
 
-    public function positions(): HasMany
+    public function positions(): Builder
     {
         return $this->hasMany(Employee::class);
     }
 
-//    public function gender()
-//    {
-//        return $this->hasOneThrough(Gender::class, StaffMemberDescribingInfo::class);
-//    }
-
-    // ACCESSORS
+    /* === ACCESSORS === */
 
     public function getFullNameAttribute(): string
     {
@@ -53,42 +74,42 @@ class StaffMember extends Model
             . ($this->patronymic ? ' ' . mb_substr($this->patronymic, 0, 1) . '. ' : '');
     }
 
-    public function getPhoneNumberAttribute()
+    public function getPhoneNumberAttribute(): ?string
     {
         return $this->info->phone_number;
     }
 
-    public function getPhotoPathAttribute()
+    public function getPhotoPathAttribute(): ?string
     {
         return $this->info->photo_path;
     }
 
-    public function getDateOfBirthAttribute()
+    public function getDateOfBirthAttribute(): CarbonInterface|string|null
     {
         return $this->info->date_of_birth;
     }
 
-    public function getDescriptionAttribute()
+    public function getDescriptionAttribute(): ?string
     {
         return $this->info->description;
     }
 
-    public function getGenderAttribute()
+    public function getGenderAttribute(): ?Gender
     {
         return $this->info->gender;
     }
 
-    // MUTATORS
+    /* === MUTATORS === */
 
     public function setFullNameAttribute(string $value): void
     {
-        $fullnameSeparated = explode(' ', $value);
+        $fullNameSeparated = explode(' ', $value);
 
-        $this->surname = $fullnameSeparated[0];
+        $this->surname = $fullNameSeparated[0];
 
-        $this->name = $fullnameSeparated[1] ?? null;
+        $this->name = $fullNameSeparated[1] ?? '';
 
-        $this->patronymic = $fullnameSeparated[2] ?? null;
+        $this->patronymic = $fullNameSeparated[2] ?? '';
     }
 
     public function setPhoneNumberAttribute(?string $value): void

@@ -22,51 +22,50 @@ use Symfony\Component\HttpKernel\Controller\ErrorController;
 |
 */
 
-
 Route::prefix('companies')
     ->as('companies.')
     ->controller(CompanyController::class)
-    ->group(function () {
+    ->group(function (): void {
 
-        Route::prefix('{companyId}')->group(function () {
+        Route::prefix('{companyId}')->group(function (): void {
             Route::get('/', 'index')->name('main');
-            Route::get('/info', 'info')->name('info');
+            Route::get('info', 'info')->name('info');
 
             Route::prefix('employees')
                 ->controller(EmployeeController::class)
                 ->as('employees.')
-                ->group(function () {
+                ->group(function (): void {
                     Route::get('/', 'list')->name('list');
-                    Route::get('/schedule', 'schedule')->name('schedule');
+                    Route::get('schedule', 'schedule')->name('schedule');
 
-                    Route::prefix('{employeeId}')->group(function () {
+                    Route::prefix('{employeeId}')->group(function (): void {
                         Route::get('/', 'index')->name('index');
-                        Route::get('/info', 'info')->name('info');
-                        Route::get('/working-period', 'workingPeriod')->name('working-period');
+                        Route::get('info', 'info')->name('info');
+                        Route::get('working-period', 'workingPeriod')->name('working-period');
                     });
 
                     Route::prefix('working-periods')
                         ->middleware(['auth.logged', 'auth.client'])
-                        ->group(function () {
-                        Route::post('/{workingPeriodId}/assign', 'assign')->name('assign');
-                    });
+                        ->group(function (): void {
+                            Route::post('{workingPeriodId}/assign', 'assign')->name('assign');
+                        });
                 });
 
             Route::prefix('positions')
                 ->controller(JobPositionController::class)
                 ->as('positions.')
-                ->group(function () {
+                ->group(function (): void {
                     Route::get('/', 'list')->name('list');
 
-                    Route::prefix('{positionId}')->group(function () {
+                    Route::prefix('{positionId}')->group(function (): void {
                         Route::get('/', 'index')->name('index');
 
                         Route::prefix('services')
                             ->controller(ServiceController::class)
-                            ->group(function () {
+                            ->group(function (): void {
                                 Route::get('/', 'list')->name('list');
 
-                                Route::prefix('{serviceId}')->group(function () {
+                                Route::prefix('{serviceId}')->group(function (): void {
                                     Route::get('/', 'index')->name('index');
                                 });
                             });
@@ -77,16 +76,16 @@ Route::prefix('companies')
                 ->controller(AssignmentController::class)
                 ->middleware(['auth.logged', 'auth.client'])
                 ->as('assignments.')
-                ->group(function () {
-                    Route::get('/next', 'next')->name('next');
+                ->group(function (): void {
+                    Route::get('next', 'next')->name('next');
                 });
 
             Route::prefix('user')
                 ->as('user.')
-                ->group(function () {
-                    Route::controller(UserController::class)->group(function () {
+                ->group(function (): void {
+                    Route::controller(UserController::class)->group(function (): void {
                         Route::get('/', 'index')->name('index');
-                        Route::get('/edit', 'edit')->name('edit');
+                        Route::get('edit', 'edit')->name('edit');
 
                         Route::get('me', 'me')->name('me')->middleware('auth.logged');
                     });
@@ -95,7 +94,7 @@ Route::prefix('companies')
             Route::prefix('clients')
                 ->as('clients.')
                 ->controller(ClientController::class)
-                ->group(function () {
+                ->group(function (): void {
                     Route::post('register', 'register')->name('register');
 
                     Route::put('update', 'update')->name('update');
@@ -104,14 +103,14 @@ Route::prefix('companies')
             Route::prefix('auth')
                 ->as('auth.')
                 ->controller(AuthController::class)
-                ->group(function () {
+                ->group(function (): void {
                     Route::post('/', 'auth')->name('index');
                 });
 
             Route::prefix('errors')
                 ->as('errors.')
                 ->controller(ErrorController::class)
-                ->group(function () {
+                ->group(function (): void {
                     Route::get('unauthorized', 'unauthorized')->name('unauthorized');
                 });
         });

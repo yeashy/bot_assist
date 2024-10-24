@@ -2,15 +2,15 @@
 
 namespace App\Observers;
 
-use app\Events\CompanyAffiliateEventService;
+use app\Events\CompanyAffiliateEvents;
 use App\Models\CompanyAffiliate;
 
-class CompanyAffiliateObserver
+final class CompanyAffiliateObserver
 {
     public function saving(CompanyAffiliate $companyAffiliate): void
     {
-        $service = new CompanyAffiliateEventService($companyAffiliate);
+        $events = new CompanyAffiliateEvents($companyAffiliate);
 
-        $service->setIsMainForOnlyThatAffiliate();
+        $events->setIsMainForOnlyThatAffiliate();
     }
 }

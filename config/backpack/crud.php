@@ -1,6 +1,11 @@
 <?php
 
-/**
+use Backpack\CRUD\app\Library\Uploaders\MultipleFiles;
+use Backpack\CRUD\app\Library\Uploaders\SingleBase64Image;
+use Backpack\CRUD\app\Library\Uploaders\SingleFile;
+use Backpack\CRUD\app\Library\Uploaders\Support\FileNameGenerator;
+
+/*
  * Backpack\CRUD preferences.
  */
 
@@ -333,7 +338,7 @@ return [
         // "rof_TZ" => "Rombo (Tanzania)",
         // "rof" => "Rombo",
         // "ru_MD" => "Russian (Moldova)",
-         "ru_RU" => "Russian (Russia)",
+        'ru_RU' => 'Russian (Russia)',
         // "ru_UA" => "Russian (Ukraine)",
         // "ru" => "Russian",
         // "rwk_TZ" => "Rwa (Tanzania)",
@@ -469,12 +474,12 @@ return [
     // the uploaders for the `withFiles` macro
     'uploaders' => [
         'withFiles' => [
-            'image' => \Backpack\CRUD\app\Library\Uploaders\SingleBase64Image::class,
-            'upload' => \Backpack\CRUD\app\Library\Uploaders\SingleFile::class,
-            'upload_multiple' => \Backpack\CRUD\app\Library\Uploaders\MultipleFiles::class,
+            'image' => SingleBase64Image::class,
+            'upload' => SingleFile::class,
+            'upload_multiple' => MultipleFiles::class,
         ],
     ],
 
-    'file_name_generator' => \Backpack\CRUD\app\Library\Uploaders\Support\FileNameGenerator::class,
+    'file_name_generator' => FileNameGenerator::class,
 
 ];

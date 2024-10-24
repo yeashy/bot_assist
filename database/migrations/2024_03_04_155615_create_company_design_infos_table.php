@@ -5,16 +5,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyDesignInfosTable extends Migration
+final class CreateCompanyDesignInfosTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('company_design_infos', function (Blueprint $table) {
+        Schema::create('company_design_infos', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Company::class)->unique()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('primary_color')->default('#FFFFFF')->comment('Основной цвет компании');
@@ -27,10 +25,8 @@ class CreateCompanyDesignInfosTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('company_design_infos');
     }

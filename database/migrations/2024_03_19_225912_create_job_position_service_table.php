@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('job_position_service', function (Blueprint $table) {
+        Schema::create('job_position_service', function (Blueprint $table): void {
             $table->foreignIdFor(JobPosition::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(Service::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });

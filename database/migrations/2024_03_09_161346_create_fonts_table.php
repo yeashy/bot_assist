@@ -12,12 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fonts', function (Blueprint $table) {
+        Schema::create('fonts', function (Blueprint $table): void {
             $table->id();
             $table->string('name')->comment('Название шрифта');
         });
 
-        Schema::table('company_design_infos', function (Blueprint $table) {
+        Schema::table('company_design_infos', function (Blueprint $table): void {
             $table->dropColumn(['font']);
             $table->foreignIdFor(Font::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
@@ -28,7 +28,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('company_design_infos', function (Blueprint $table) {
+        Schema::table('company_design_infos', function (Blueprint $table): void {
             $table->string('font')->default('Arial');
             $table->dropConstrainedForeignIdFor(Font::class);
         });

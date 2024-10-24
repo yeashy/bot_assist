@@ -5,7 +5,7 @@ namespace App\Http\Requests\Client;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+final class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -18,7 +18,7 @@ class RegisterRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, ValidationRule|array|string>
+     * @return array<string, ValidationRule|array<string>|string>
      */
     public function rules(): array
     {
@@ -41,17 +41,20 @@ class RegisterRequest extends FormRequest
             'phone_number' => [
                 'required',
                 'string',
-                'regex:/^\+?7[\s\-()]*\d{3}[\s\-()]*\d{3}[\s\-()]*\d{2}[\s\-()]*\d{2}$/u'
-            ]
+                'regex:/^\+?7[\s\-()]*\d{3}[\s\-()]*\d{3}[\s\-()]*\d{2}[\s\-()]*\d{2}$/u',
+            ],
         ];
     }
 
+    /**
+     * @return array<string>
+     */
     public function attributes(): array
     {
         return [
             'name' => 'Имя',
             'surname' => 'Фамилия',
-            'phone_number' => 'Номер телефона'
+            'phone_number' => 'Номер телефона',
         ];
     }
 }

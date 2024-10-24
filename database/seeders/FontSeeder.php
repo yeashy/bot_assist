@@ -5,12 +5,15 @@ namespace Database\Seeders;
 use App\Models\Font;
 use Illuminate\Database\Seeder;
 
-class FontSeeder extends Seeder
+final class FontSeeder extends Seeder
 {
+    /**
+     * @var array<string>
+     */
     private array $names = [
         'Arial',
         'Verdana',
-        'Times New Roman'
+        'Times New Roman',
     ];
 
     /**
@@ -20,7 +23,7 @@ class FontSeeder extends Seeder
     {
         foreach ($this->names as $name) {
             Font::query()->create([
-                'name' => $name
+                'name' => $name,
             ]);
         }
     }

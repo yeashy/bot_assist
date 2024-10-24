@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('company_design_infos', function (Blueprint $table) {
+        Schema::table('company_design_infos', function (Blueprint $table): void {
             $table->dropColumn(['primary_color', 'secondary_color', 'font_color']);
 
             $table->string('background_color')->default('#FFFFFF')->comment('Цвет основного фона');
@@ -34,7 +34,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('company_design_infos', function (Blueprint $table) {
+        Schema::table('company_design_infos', function (Blueprint $table): void {
             $table->dropColumn([
                 'background_color',
                 'text_color',

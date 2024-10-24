@@ -38,14 +38,14 @@ if  [ -n "${CHANGED_FILES}" ]; then
     if [ $? -ne 0 ]; then
         let IS_CHECK_FAIL=1;
     fi
-fi
 
-unlink ${CUR_DIR}/phpstan.neon
-unlink ${CUR_DIR}/duster.json
-unlink ${CUR_DIR}/pint.json
-unlink ${CUR_DIR}/tlint.json
-unlink ${CUR_DIR}/.phpcs.xml.dist
-unlink ${CUR_DIR}/.php-cs-fixer.dist.php
+    unlink ${CUR_DIR}/phpstan.neon
+    unlink ${CUR_DIR}/duster.json
+    unlink ${CUR_DIR}/pint.json
+    unlink ${CUR_DIR}/tlint.json
+    unlink ${CUR_DIR}/.phpcs.xml.dist
+    unlink ${CUR_DIR}/.php-cs-fixer.dist.php
+fi
 
 if [ $IS_CHECK_FAIL -eq 1 ]; then
     echo "ERROR - Linters made changes"

@@ -4,12 +4,17 @@ namespace App\Models;
 
 use App\Helpers\PhoneNumberHelper;
 use Carbon\CarbonInterface;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -31,11 +36,17 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $phone_number_pretty
  *
  * === Relationships: ===
- * @property-read Client[]|Collection $clients
+ * @property-read array<Client>|Collection $clients
  */
-class User extends Authenticatable
+final class User extends BaseModel implements AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Authenticatable;
+    use Authorizable;
+    use CanResetPassword;
+    use HasApiTokens;
+    use HasFactory;
+    use MustVerifyEmail;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,6 +60,9 @@ class User extends Authenticatable
         'external_id',
     ];
 
+    /**
+     * @var array<string>
+     */
     protected $appends = [
         'phone_number_pretty',
     ];
@@ -74,12 +88,12 @@ class User extends Authenticatable
 
     /* === RELATIONS === */
 
-    public function clients(): HasMany|Builder
+    public function clients(): Builder
     {
         return $this->hasMany(Client::class, 'user_id', 'id');
     }
 
-    public function client(int $companyId): Model|HasMany|Client|null
+    public function client(int $companyId): Model|Builder|null
     {
         return $this->clients()->firstWhere('company_id', $companyId);
     }

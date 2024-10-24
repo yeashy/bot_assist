@@ -5,34 +5,30 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCompanyTypesTable extends Migration
+final class CreateCompanyTypesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('company_types', function (Blueprint $table) {
+        Schema::create('company_types', function (Blueprint $table): void {
             $table->id();
             $table->string('code_name')->comment('Кодовое имя (англ, без пробелов и спец. символов)');
             $table->string('name')->comment('Название типа компании');
         });
 
-        Schema::table('companies', function (Blueprint $table) {
+        Schema::table('companies', function (Blueprint $table): void {
             $table->foreignIdFor(CompanyType::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
-        Schema::table('companies', function (Blueprint $table) {
+        Schema::table('companies', function (Blueprint $table): void {
             $table->dropForeign(['company_type_id']);
             $table->dropColumn(['company_type_id']);
         });

@@ -3,14 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\Gender;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class GenderSeeder extends Seeder
+final class GenderSeeder extends Seeder
 {
+    /**
+     * @var array<string>
+     */
     private array $names = [
         'Мужчина',
-        'Женщина'
+        'Женщина',
     ];
 
     /**
@@ -20,7 +22,7 @@ class GenderSeeder extends Seeder
     {
         foreach ($this->names as $name) {
             Gender::query()->create([
-                'name' => $name
+                'name' => $name,
             ]);
         }
     }

@@ -4,7 +4,7 @@ namespace app\Events;
 
 use App\Models\CompanyAffiliate;
 
-readonly class CompanyAffiliateEventService
+readonly class CompanyAffiliateEvents
 {
     public function __construct(
         private CompanyAffiliate $companyAffiliate

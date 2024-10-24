@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_describing_infos', function (Blueprint $table) {
+        Schema::create('client_describing_infos', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Client::class)->unique()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('photo_path')->nullable()->comment('Фотография клиента');

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('company_affiliates', function (Blueprint $table) {
+        Schema::table('company_affiliates', function (Blueprint $table): void {
             $table->float('latitude', 16, 8)->after('address')->nullable();
             $table->float('longitude', 16, 8)->after('latitude')->nullable();
             $table->string('phone_number')->after('longitude')->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('company_affiliates', function (Blueprint $table) {
+        Schema::table('company_affiliates', function (Blueprint $table): void {
             $table->dropColumn(['latitude', 'longitude', 'is_main', 'phone_number']);
         });
     }

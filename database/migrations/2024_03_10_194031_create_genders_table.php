@@ -12,16 +12,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genders', function (Blueprint $table) {
+        Schema::create('genders', function (Blueprint $table): void {
             $table->id();
             $table->string('name')->comment('Название пола');
         });
 
-        Schema::table('client_describing_infos', function (Blueprint $table) {
+        Schema::table('client_describing_infos', function (Blueprint $table): void {
             $table->foreignIdFor(Gender::class)->nullable()->after('client_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
 
-        Schema::table('staff_member_describing_infos', function (Blueprint $table) {
+        Schema::table('staff_member_describing_infos', function (Blueprint $table): void {
             $table->foreignIdFor(Gender::class)->nullable()->after('staff_member_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
@@ -31,11 +31,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('client_describing_infos', function (Blueprint $table) {
+        Schema::table('client_describing_infos', function (Blueprint $table): void {
             $table->dropForeignIdFor(Gender::class);
         });
 
-        Schema::table('staff_member_describing_infos', function (Blueprint $table) {
+        Schema::table('staff_member_describing_infos', function (Blueprint $table): void {
             $table->dropForeignIdFor(Gender::class);
         });
 

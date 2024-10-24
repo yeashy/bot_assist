@@ -5,9 +5,8 @@ namespace Database\Seeders;
 use App\Models\Employee;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Seeder;
-use Log;
 
-class EmployeeWorkingPeriodSeeder extends Seeder
+final class EmployeeWorkingPeriodSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -28,7 +27,7 @@ class EmployeeWorkingPeriodSeeder extends Seeder
                     $employee->periods()->create([
                         'date' => $startDate->toDateString(),
                         'start_time' => $startTime->toTimeString(),
-                        'end_time' => $startTime->addMinutes(15)->toTimeString()
+                        'end_time' => $startTime->addMinutes(15)->toTimeString(),
                     ]);
 
                     $startTime = $startTime->addMinutes(15);

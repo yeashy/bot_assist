@@ -2,17 +2,35 @@
 
 namespace App\Models;
 
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ServiceAssignment extends Model
+/**
+ * Table: service_assignments
+ *
+ * === Columns: ===
+ *
+ * @property int $id
+ * @property int $client_id
+ * @property int $employee_working_period_id
+ * @property int $service_id
+ * @property CarbonInterface $created_at
+ * @property CarbonInterface $updated_at
+ *
+ * === Relationships: ===
+ * @property-read Service $service
+ * @property-read Client $client
+ * @property-read EmployeeWorkingPeriod $period
+ */
+final class ServiceAssignment extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    // RELATIONS
+    /* === RELATIONS === */
 
     public function service(): BelongsTo
     {

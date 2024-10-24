@@ -2,15 +2,15 @@
 
 namespace App\Observers;
 
-use app\Events\StaffMemberEventService;
+use app\Events\StaffMemberEvents;
 use App\Models\StaffMember;
 
-class StaffMemberObserver
+final class StaffMemberObserver
 {
     public function created(StaffMember $staffMember): void
     {
-        $service = new StaffMemberEventService($staffMember);
+        $events = new StaffMemberEvents($staffMember);
 
-        $service->createInfo();
+        $events->createInfo();
     }
 }

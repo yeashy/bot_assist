@@ -1,9 +1,10 @@
 parameters:
+    level: 9
+    excludePaths:
+    		- utils/*
     paths:
-        - ./app/
-        - ./config/
-        - ./database/
-        - ./lang/
-        - ./routes/
-
-    level: 5
+        - app
+        - config
+        - database
+        - lang
+        - routes
